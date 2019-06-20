@@ -1,0 +1,2 @@
+User create-reat-app with eject
+Redux tutorial setting up: https://www.valentinog.com/blog/redux/
