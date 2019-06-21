@@ -2,218 +2,18 @@ import React, { PureComponent } from "react";
 
 import './home.scss'
 
-const SkillData = [
-  {
-    id: 1,
-    name: 'Front end',
-    isBorderTop: false,
-    subItems: [
-      {
-        id: 1,
-        name: 'React JS',
-        progress: '90%',
-        isMainSkill: true
-      },
-      {
-        id: 2,
-        name: 'HTML/CSS',
-        progress: '70%',
-        isMainSkill: true
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Back end',
-    isBorderTop: true,
-    subItems: [
-      {
-        id: 1,
-        name: '.Net core',
-        progress: '60%',
-        isMainSkill: true
-      },
-      {
-        id: 2,
-        name: 'Node JS',
-        progress: '40%'
-      },
-      {
-        id: 3,
-        name: 'Scala',
-        progress: '60%'
-      },
-      {
-        id: 4,
-        name: 'Java',
-        progress: '40%'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: 'Tools',
-    isBorderTop: true,
-    subItems: [
-      {
-        id: 1,
-        name: 'Git',
-        progress: '90%',
-        isMainSkill: true
-      },
-      {
-        id: 2,
-        name: 'TortoiseSVN',
-        progress: '60%'
-      },
-      {
-        id: 3,
-        name: 'Bitbucket',
-        progress: '60%'
-      },
-      {
-        id: 4,
-        name: 'Jira',
-        progress: '40%'
-      }
-    ]
-  },
-  {
-    id: 4,
-    name: 'Game',
-    isBorderTop: true,
-    subItems: [
-      {
-        id: 1,
-        name: 'Phaser',
-        progress: '50%',
-        isMainSkill: true
-      },
-      {
-        id: 2,
-        name: 'Unity',
-        progress: '40%'
-      },
-      {
-        id: 3,
-        name: 'MS XNA',
-        progress: '70%'
-      }
-    ]
-  },
-  {
-    id: 5,
-    name: 'Language',
-    isBorderTop: true,
-    subItems: [
-      {
-        id: 1,
-        name: 'Vietnamese',
-        progress: '100%'
-      },
-      {
-        id: 2,
-        name: 'English',
-        progress: '50%'
-      }
-    ]
-  }
-]
-
-const basicInfo = [
-  {
-    id: 1,
-    name: 'Name',
-    value: 'Trần Thanh Tài'
-  },
-  {
-    id: 2,
-    name: 'Age',
-    value: '26 at 2019'
-  },
-  {
-    id: 3,
-    name: 'Date of Birth',
-    value: '05/06'
-  },
-  {
-    id: 4,
-    name: 'Come From',
-    value: 'ĐắkNông'
-  },
-  {
-    id: 5,
-    name: 'Email',
-    value: 'thanhtai.tttgalaxy@gmail.com'
-  },
-  {
-    id: 6,
-    name: 'Phone number',
-    value: 'waiting for security feature...'
-  }
-]
-
-const experiencesData = [
-  {
-    id: 1,
-    title: 'Titan Technology Corporation',
-    duringTime: '1/2019 to present',
-    description: 'Fullstack developer with React JS and .NET Core'
-  },
-  {
-    id: 2,
-    title: 'KOLABS LLC',
-    duringTime: '4/2017 to 11/2018',
-    description: 'Front end developer with React JS'
-  },
-  {
-    id: 3,
-    title: 'Citynow',
-    duringTime: '10/2016 to 4/2017',
-    description: 'Full stack developer with React JS and Scala'
-  },
-  {
-    id: 4,
-    title: 'Gameloft',
-    duringTime: '10/2015 to 10/2016',
-    description: 'Game fresher - game developer with java/c++'
-  },
-  {
-    id: 5,
-    title: 'Fujinet',
-    duringTime: '7/2015 to 9/2015',
-    description: 'Trial working as a web developer with java struts - spring - hibernate'
-  }
-]
-
-const educationData = [
-  {
-    id: 1,
-    title: 'News offline mobile App',
-    duringTime: '1 months',
-    description: 'Team members: 1. -- window phone'
-  },
-  {
-    id: 2,
-    title: 'Online shopping web app',
-    duringTime: '2 months',
-    description: 'Team members: 2. -- ASP.net web application '
-  },
-  {
-    id: 3,
-    title: 'Battle city - classical tank fire',
-    duringTime: '2 months',
-    description: 'team member: 2. -- Create a game with MS XNA game studio code'
-  }
-]
 
 class Content extends PureComponent {
-  // constructor (props) {
-  //   super(props)
-  // }
+  constructor (props) {
+    super(props)
+    this.renderBasicInfo = this.renderBasicInfo.bind(this)
+    this.renderSkill = this.renderSkill.bind(this)
+    this.renderEducation = this.renderEducation.bind(this)
+    this.renderExperiences = this.renderExperiences.bind(this)
+  }
 
   renderSkill () {
-    return SkillData.map((item) => {
+    return this.props.skillData.map((item) => {
       const subItemsElements = item.subItems.map((skill) => {
         return (
           <div className={`row ${skill.isMainSkill ? "main-skill" : ""}`} key={`skill-${skill.id}`}>
@@ -248,13 +48,13 @@ class Content extends PureComponent {
   }
 
   renderBasicInfo () {
-    return basicInfo.map ((info) => {
+    return this.props.basicInfo.map ((info) => {
       return (
         <div className="row padding-top-5 word-break" key={`basic-info-${info.id}`}>
-          <div className="col-sm-6">
-            {info.name}
+          <div className="col-sm-4">
+            {info.name}:
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-8">
             {info.value}
           </div>
         </div>
@@ -263,7 +63,7 @@ class Content extends PureComponent {
   }
 
   renderExperiences () {
-    return experiencesData.map ( (exp) => {
+    return this.props.experiencesData.map ( (exp) => {
       return (
         <div className="card" style={{width: '100%'}} key={`exprience-${exp.id}`}>
           <div className="card-body">
@@ -277,7 +77,7 @@ class Content extends PureComponent {
   }
 
   renderEducation () {
-    return educationData.map ( (edu) => {
+    return this.props.educationData.map ( (edu) => {
       return (
         <div className="card" style={{width: '100%'}} key={`exprience-${edu.id}`}>
           <div className="card-body">

@@ -11,10 +11,21 @@ class Home extends PureComponent {
   // }
 
   render() {
+    const {
+      skillData,
+      basicInfo,
+      experiencesData,
+      educationData
+    } = this.props
     return (
       <div className="container-fluid" id="home">
         <Banner />
-        <Content />
+        <Content 
+          skillData={skillData}
+          basicInfo={basicInfo}
+          experiencesData={experiencesData}
+          educationData={educationData}
+        />
       </div>
     )
   }

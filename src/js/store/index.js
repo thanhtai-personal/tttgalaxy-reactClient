@@ -1,6 +1,6 @@
 // src/js/store/index.js
 import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "../reducers/index";
+import rootReducer from "../reducers";
 import { forbiddenWordsMiddleware } from "../middleware";
 import createSagaMiddleware from "redux-saga";
 import apiSaga from "../sagas/api-saga";

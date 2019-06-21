@@ -2,27 +2,10 @@
  * Using concat(), slice(), and …spread for arrays
  * Using Object.assign() and …spread for objects
  */
-import { 
-  ADD_ARTICLE,
-  TITLE_FORBIDDEN
-} from "../constants/action-types";
+import { combineReducers } from 'redux'
 
-const initialState = {
-  articles: [],
-  remoteArticles: []
-};
+import homeReducer from './home.reducer'
 
-function rootReducer(state = initialState, action) {
-  switch (action.type) 
-  {
-    case ADD_ARTICLE:
-      return Object.assign({}, state, {
-        articles: state.articles.concat(action.payload)
-      });
-    case TITLE_FORBIDDEN:
-    default:
-      return state
-  }
-}
-
-export default rootReducer;
+export default combineReducers({
+  home: homeReducer
+})

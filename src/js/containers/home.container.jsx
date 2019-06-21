@@ -5,17 +5,29 @@ import Home from '../components/home'
 
 class HomeContainer extends Component {
   render() {
+    const {
+      skillData,
+      basicInfo,
+      experiencesData,
+      educationData
+    } = this.props
     return (
       <Home 
-      
+        skillData={skillData}
+        basicInfo={basicInfo}
+        experiencesData={experiencesData}
+        educationData={educationData}
       />
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps ({home: {skillData, basicInfo, experiencesData, educationData}}) {
   return {
-    
+    skillData: skillData,
+    basicInfo: basicInfo,
+    experiencesData: experiencesData,
+    educationData: educationData
   };
 }
 
