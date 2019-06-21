@@ -50,7 +50,6 @@ body {
     }
   }
   .basic-infomation {
-    font-size: 20px;
     border-style: double;
     border-width: 2px;
     border-top: none;
@@ -86,4 +85,8 @@ body {
 
 .padding-top-15 {
   padding-top: 15px;
+}
+
+.word-break {
+  word-break: break-word;
 }

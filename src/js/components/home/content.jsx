@@ -140,6 +140,16 @@ const basicInfo = [
     id: 4,
     name: 'Come From',
     value: 'ĐắkNông'
+  },
+  {
+    id: 5,
+    name: 'Email',
+    value: 'thanhtai.tttgalaxy@gmail.com'
+  },
+  {
+    id: 6,
+    name: 'Phone number',
+    value: 'waiting for security feature...'
   }
 ]
 
@@ -173,6 +183,27 @@ const experiencesData = [
     title: 'Fujinet',
     duringTime: '7/2015 to 9/2015',
     description: 'Trial working as a web developer with java struts - spring - hibernate'
+  }
+]
+
+const educationData = [
+  {
+    id: 1,
+    title: 'News offline mobile App',
+    duringTime: '1 months',
+    description: 'Team members: 1. -- window phone'
+  },
+  {
+    id: 2,
+    title: 'Online shopping web app',
+    duringTime: '2 months',
+    description: 'Team members: 2. -- ASP.net web application '
+  },
+  {
+    id: 3,
+    title: 'Battle city - classical tank fire',
+    duringTime: '2 months',
+    description: 'team member: 2. -- Create a game with MS XNA game studio code'
   }
 ]
 
@@ -219,7 +250,7 @@ class Content extends PureComponent {
   renderBasicInfo () {
     return basicInfo.map ((info) => {
       return (
-        <div className="row" key={`basic-info-${info.id}`}>
+        <div className="row padding-top-5 word-break" key={`basic-info-${info.id}`}>
           <div className="col-sm-6">
             {info.name}
           </div>
@@ -245,9 +276,23 @@ class Content extends PureComponent {
     })
   }
 
+  renderEducation () {
+    return educationData.map ( (edu) => {
+      return (
+        <div className="card" style={{width: '100%'}} key={`exprience-${edu.id}`}>
+          <div className="card-body">
+            <h5 className="card-title">{edu.title}</h5>
+            <p className="card-text">** {edu.duringTime}</p>
+            <p className="card-text">{edu.description}</p>
+          </div>
+        </div>
+      )
+    })
+  }
+
   render () {
     return (
-      <div className="content container">
+      <div className="content container" style={{paddingBottom: '20px'}}>
         <div className="row">
           <div className="col-sm-12">
             <div className="profile-title">
@@ -278,6 +323,14 @@ class Content extends PureComponent {
             </div>
         </div>
         {this.renderExperiences()}
+        <div className="row padding-top-15">
+            <div className="col-sm-12">
+              <div className="title">
+                EDUCATION - Nature Science University
+              </div>
+            </div>
+        </div>
+        {this.renderEducation()}
       </div>
     )
   }
