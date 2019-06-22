@@ -5,7 +5,11 @@
 import { combineReducers } from 'redux'
 
 import homeReducer from './home.reducer'
+import listItem from './item.list.reducer'
+import listGame from './games.reducers'
 
 export default combineReducers({
-  home: homeReducer
+  home: homeReducer,
+  listItem: listItem,
+  listGame: listGame
 })

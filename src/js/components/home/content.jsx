@@ -36,7 +36,7 @@ class Content extends PureComponent {
               <div className="col-sm-1">
               </div>
               <div className="col-sm-3">
-                {item.name}
+                <p><b>{item.name}</b></p>
               </div>
               <div className="col-sm-8">
               </div>

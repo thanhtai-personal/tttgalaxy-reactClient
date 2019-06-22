@@ -6,10 +6,6 @@ import './home.scss'
 
 
 class Home extends PureComponent {
-  // constructor(props) {
-  //   super(props)
-  // }
-
   render() {
     const {
       skillData,
