@@ -21,7 +21,7 @@ class Content extends PureComponent {
             </div>
             <div className="col-sm-3">
               {skill.name}
-              </div>
+            </div>
             <div className="col-sm-8 padding-top-5">
               <div className="progress background-color-red">
                 <div className="progress-bar bg-info" role="progressbar" style={{ width: skill.progress }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -33,13 +33,13 @@ class Content extends PureComponent {
       return (
         <React.Fragment key={`skill-data-${item.id}`}>
           <div className={`row ${item.isBorderTop ? "border-top" : ""}`}>
-              <div className="col-sm-1">
-              </div>
-              <div className="col-sm-3">
-                <p><b>{item.name}</b></p>
-              </div>
-              <div className="col-sm-8">
-              </div>
+            <div className="col-sm-1">
+            </div>
+            <div className="col-sm-3">
+              <p><b>{item.name}</b></p>
+            </div>
+            <div className="col-sm-8">
+            </div>
           </div>
           {subItemsElements}
         </React.Fragment>
@@ -48,7 +48,7 @@ class Content extends PureComponent {
   }
 
   renderBasicInfo () {
-    return this.props.basicInfo.map ((info) => {
+    return this.props.basicInfo.map((info) => {
       return (
         <div className="row padding-top-5 word-break" key={`basic-info-${info.id}`}>
           <div className="col-sm-4">
@@ -63,9 +63,9 @@ class Content extends PureComponent {
   }
 
   renderExperiences () {
-    return this.props.experiencesData.map ( (exp) => {
+    return this.props.experiencesData.map((exp) => {
       return (
-        <div className="card" style={{width: '100%'}} key={`exprience-${exp.id}`}>
+        <div className="card" style={{ width: '100%' }} key={`exprience-${exp.id}`}>
           <div className="card-body">
             <h5 className="card-title">{exp.title}</h5>
             <p className="card-text">** {exp.duringTime}</p>
@@ -77,9 +77,9 @@ class Content extends PureComponent {
   }
 
   renderEducation () {
-    return this.props.educationData.map ( (edu) => {
+    return this.props.educationData.map((edu) => {
       return (
-        <div className="card" style={{width: '100%'}} key={`exprience-${edu.id}`}>
+        <div className="card" style={{ width: '100%' }} key={`exprience-${edu.id}`}>
           <div className="card-body">
             <h5 className="card-title">{edu.title}</h5>
             <p className="card-text">** {edu.duringTime}</p>
@@ -92,7 +92,7 @@ class Content extends PureComponent {
 
   render () {
     return (
-      <div className="content container" style={{paddingBottom: '20px'}}>
+      <div className="content container" style={{ paddingBottom: '20px' }}>
         <div className="row">
           <div className="col-sm-12">
             <div className="profile-title">
@@ -112,23 +112,23 @@ class Content extends PureComponent {
           </div>
           <div className="col-sm-5 skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
-              {this.renderSkill()}
-            </div>
+            {this.renderSkill()}
+          </div>
         </div>
         <div className="row padding-top-15">
-            <div className="col-sm-12">
-              <div className="title">
-                EXPERIENCES
+          <div className="col-sm-12">
+            <div className="title">
+              EXPERIENCES
               </div>
-            </div>
+          </div>
         </div>
         {this.renderExperiences()}
         <div className="row padding-top-15">
-            <div className="col-sm-12">
-              <div className="title">
-                EDUCATION - Nature Science University
+          <div className="col-sm-12">
+            <div className="title">
+              EDUCATION - Nature Science University
               </div>
-            </div>
+          </div>
         </div>
         {this.renderEducation()}
       </div>

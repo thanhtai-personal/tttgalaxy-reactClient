@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Home from '../components/home'
 
 class HomeContainer extends Component {
-  render() {
+  render () {
     const {
       skillData,
       basicInfo,
@@ -12,7 +12,7 @@ class HomeContainer extends Component {
       educationData
     } = this.props
     return (
-      <Home 
+      <Home
         skillData={skillData}
         basicInfo={basicInfo}
         experiencesData={experiencesData}
@@ -22,7 +22,7 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps ({home: {skillData, basicInfo, experiencesData, educationData}}) {
+function mapStateToProps ({ home: { skillData, basicInfo, experiencesData, educationData } }) {
   return {
     skillData: skillData,
     basicInfo: basicInfo,
@@ -33,5 +33,5 @@ function mapStateToProps ({home: {skillData, basicInfo, experiencesData, educati
 
 export default connect(
   mapStateToProps,
-  {  }
+  {}
 )(HomeContainer);

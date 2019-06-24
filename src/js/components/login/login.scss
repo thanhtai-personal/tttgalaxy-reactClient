@@ -1,0 +1,19 @@
+#login-comp {
+  height: 100vh;
+  padding-top: 25vh;
+}
+.login-form {
+  max-width: 450px;
+  min-width: 300px;
+  width: 50%;
+  align-content: center;  
+  margin: auto;
+  height: auto;
+  border-style: groove;
+  background-color: whitesmoke;
+  padding: 20px;
+  .title {
+    text-align: center;
+    padding: 10px;
+  }
+}
