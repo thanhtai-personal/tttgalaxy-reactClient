@@ -45,8 +45,10 @@ class Login extends PureComponent {
             onChange={updateDataPassword}
             type="password" className="form-control" id="password-input" placeholder="Password" defaultValue={password} />
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
-        <small id="register-help" className="form-text text-muted">
+        <div className="button-wrapper center">
+          <button type="submit" className="btn btn-primary">Login</button>
+        </div>
+        <small id="register-help" className="form-text text-muted center">
           <a href={`${this.location.origin}/register`}>If not register here!</a>
         </small>
       </form>

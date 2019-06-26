@@ -9,6 +9,12 @@ class SignUp extends PureComponent {
     this.handleChangeEmail = this.handleChangeEmail.bind(this)
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleChangePasswordConfirm = this.handleChangePasswordConfirm.bind(this)
+    this.onSubmitSignUp = this.onSubmitSignUp.bind(this)
+  }
+
+  onSubmitSignUp (e) {
+    e.preventDefault()
+    this.props.signUp()
   }
 
   handleChangeEmail (e) {
@@ -31,7 +37,8 @@ class SignUp extends PureComponent {
       props: { email, password, passwordConfirm },
       handleChangeEmail,
       handleChangePassword,
-      handleChangePasswordConfirm
+      handleChangePasswordConfirm,
+      onSubmitSignUp
     } = this
     return (
       <form className="login-form">
@@ -57,7 +64,11 @@ class SignUp extends PureComponent {
             onChange={handleChangePasswordConfirm}
             type="password" className="form-control" id="password-input" placeholder="Confirm password" defaultValue={passwordConfirm} />
         </div>
-        <button type="submit" className="btn btn-primary">Signup</button>
+        <div className="button-wrapper center">
+          <button
+            onClick={onSubmitSignUp} 
+            type="submit" className="btn btn-primary">Signup</button>
+        </div>
       </form>
     )
   }
