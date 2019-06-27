@@ -1,5 +1,7 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import store from './../store/index'
+import axios from "axios"
+
 import {
   USER_LOGIN,
   LOGIN_SUCCESS,
@@ -10,11 +12,17 @@ import {
   REGISTER_FAILED
 } from './../constants/action-types'
 
+axios.create({
+  baseURL: 'http://localhost:5000',
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
 function* login() {
   let dataLogin = store.getState().login
   try {
-    const dataResponse = yield fetch('https://newsapi.org/v1/articles?source=cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc', { email: dataLogin.email, password: dataLogin.password })
-    .then(response => response.json() )
+    const dataResponse = yield axios.post('http://localhost:5000/api/login', { email: dataLogin.email, password: dataLogin.password })
+    .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
   } catch(error) {
@@ -29,8 +37,8 @@ function* reLogin() {
   const dataLogin = store.getState().login
   if (!dataLogin.loginLoading) return
   try {
-    const dataResponse = yield fetch('https://newsapi.org/v1/articles?source=cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc', { email: dataLogin.email, password: dataLogin.password })
-    .then(response => response.json() )
+    const dataResponse = yield axios.post('http://localhost:5000/api/login', { email: dataLogin.email, password: dataLogin.password })
+    .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
   } catch(error) {
@@ -44,8 +52,8 @@ function* reLoginActionWatcher() {
 function* signup() {
   const dataRegister = store.getState().signup
   try {
-    const dataResponse = yield fetch('https://newsapi.org/v1/articles?source=cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc', { email: dataRegister.email, password: dataRegister.password })
-    .then(response => response.json() )
+    const dataResponse = yield axios.post('http://localhost:5000/api/register', { email: dataRegister.email, password: dataRegister.password })
+    .then(response => response )
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
   } catch(error) {
