@@ -15,15 +15,16 @@ function* login() {
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
   } catch(error) {
-    yield put({ type: LOGIN_FAILED, payload: { error: error, loginLoading: false } });
+    yield put({ type: LOGIN_FAILED, payload: { error: error } });
   }      
 }
 function* loginActionWatcher() {
      yield takeLatest(USER_LOGIN, login)
 }
 
-function* login2Test() {
-  let dataLogin = store.getState().login
+function* reLogin() {
+  const dataLogin = store.getState().login
+  if (!dataLogin.loginLoading) return
   try {
     const dataResponse = yield fetch('https://newsapi.org/v1/articles?source=cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response.json() )
@@ -33,14 +34,16 @@ function* login2Test() {
     yield put({ type: LOGIN_FAILED, payload: { error: error, loginLoading: false } });
   }      
 }
-function* login2ActionWatcher() {
-     yield takeLatest(USER_LOGIN, login2Test)
+function* reLoginActionWatcher() {
+     yield takeLatest(LOGIN_FAILED, reLogin)
 }
+
 
 function* authActionWatcher() {
   yield all([
     loginActionWatcher(),
-    login2ActionWatcher(),
+    reLoginActionWatcher(),
   ]);
 }
+
 export default authActionWatcher

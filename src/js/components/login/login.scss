@@ -22,4 +22,10 @@
   .button-wrapper {
     padding-top: 20px;
   }
+  .btn-login {
+    cursor: pointer;
+  }
+  .btn-disable {
+    cursor: not-allowed;
+  }
 }

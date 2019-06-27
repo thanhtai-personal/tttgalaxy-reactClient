@@ -56,8 +56,8 @@ class Login extends PureComponent {
         <div className="button-wrapper center">
           <button 
             onClick={handleSubmit}
-            disabled={loginLoading}
-            type="submit" className="btn btn-primary">Login</button>
+            disabled={ loginLoading }
+            type="submit" className={`btn btn-primary btn-login ${loginLoading ? "btn-disable" : ""}`}>Login</button>
         </div>
         <small id="register-help" className="form-text text-muted center">
           <a href={`${this.location.origin}/register`}>If not register here!</a>
