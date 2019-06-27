@@ -13,12 +13,9 @@ const initialState = {
 
 function loginReducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_DATA_INPUT_LOGIN: 
-      return {...state, ...action.payload}
+    case UPDATE_DATA_INPUT_LOGIN:
     case USER_LOGIN:
-      return { ...state, ...action.payload }
     case LOGIN_SUCCESS:
-      return { ...state, ...action.payload }
     case LOGIN_FAILED:
       return { ...state, ...action.payload }
     default:

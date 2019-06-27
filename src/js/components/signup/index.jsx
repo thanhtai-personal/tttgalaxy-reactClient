@@ -14,7 +14,8 @@ class SignUp extends PureComponent {
 
   onSubmitSignUp (e) {
     e.preventDefault()
-    this.props.signUp()
+    this.props.updateDataInput('loadingSubmit', true)
+    this.props.signup()
   }
 
   handleChangeEmail (e) {
@@ -34,7 +35,7 @@ class SignUp extends PureComponent {
 
   render () {
     const {
-      props: { email, password, passwordConfirm },
+      props: { email, password, passwordConfirm, loadingSubmit },
       handleChangeEmail,
       handleChangePassword,
       handleChangePasswordConfirm,
@@ -67,7 +68,8 @@ class SignUp extends PureComponent {
         <div className="button-wrapper center">
           <button
             onClick={onSubmitSignUp} 
-            type="submit" className="btn btn-primary">Signup</button>
+            disabled={loadingSubmit}
+            type="submit" className={`btn btn-primary btn-signup ${loadingSubmit ? 'btn-disable': ''}`}>Register</button>
         </div>
       </form>
     )

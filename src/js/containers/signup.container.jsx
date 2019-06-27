@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import {
   updateDataInput,
-  // signUp
-} from './../actions/signUp.action'
+  signup
+} from './../actions/signup.action'
 
 import SignUp from "../components/signup";
 
@@ -14,7 +14,8 @@ class SignUpContainer extends Component {
       email,
       password,
       updateDataInput,
-      // signUp
+      signup,
+      loadingSubmit
     } = this.props
     return (
       <div className="container" id="login-comp">
@@ -22,30 +23,27 @@ class SignUpContainer extends Component {
           email={email}
           password={password}
           updateDataInput={updateDataInput}
-          // signUp={signUp}
+          signup={signup}
+          loadingSubmit={loadingSubmit}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps ({ signup: { email, password, passwordConfirm } }) {
+function mapStateToProps ({ signup: { email, password, passwordConfirm, loadingSubmit } }) {
   return {
     email: email,
     password: password,
-    passwordConfirm: passwordConfirm
-  };
-}
-
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateDataInput,
-    // signUp
+    passwordConfirm: passwordConfirm,
+    loadingSubmit: loadingSubmit
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    updateDataInput,
+    signup
+  }
 )(SignUpContainer);
