@@ -13,7 +13,8 @@ class LoginContainer extends Component {
       email,
       password,
       updateDataInput,
-      login
+      login,
+      loginLoading
     } = this.props
     return (
       <div className="container" id="login-comp">
@@ -22,16 +23,18 @@ class LoginContainer extends Component {
           password={password}
           updateDataInput={updateDataInput}
           login={login}
+          loginLoading={loginLoading}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps ({ login: { email, password} }) {
+function mapStateToProps ({ login: { email, password, loginLoading } }) {
   return {
     email: email,
-    password: password
+    password: password,
+    loginLoading: loginLoading
   };
 }
 

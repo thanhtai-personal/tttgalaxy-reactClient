@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import {
   updateDataInput,
-  signUp
+  // signUp
 } from './../actions/signUp.action'
 
 import SignUp from "../components/signup";
@@ -14,7 +14,7 @@ class SignUpContainer extends Component {
       email,
       password,
       updateDataInput,
-      signUp
+      // signUp
     } = this.props
     return (
       <div className="container" id="login-comp">
@@ -22,7 +22,7 @@ class SignUpContainer extends Component {
           email={email}
           password={password}
           updateDataInput={updateDataInput}
-          signUp={signUp}
+          // signUp={signUp}
         />
       </div>
     )
@@ -41,7 +41,7 @@ function mapStateToProps ({ signup: { email, password, passwordConfirm } }) {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateDataInput,
-    signUp
+    // signUp
   };
 }
 

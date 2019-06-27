@@ -9,6 +9,7 @@ import listItem from './item.list.reducer'
 import listGame from './games.reducer'
 import login from './login.reducer'
 import signUp from './signup.reducer'
+import auth from './auth.reducer'
 
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   listItem: listItem,
   listGame: listGame,
   login: login,
-  signup: signUp
+  signup: signUp,
+  auth: auth
 })

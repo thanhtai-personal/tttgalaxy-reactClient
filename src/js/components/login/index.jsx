@@ -9,6 +9,7 @@ class Login extends PureComponent {
     this.location = window.location
     this.updateDataEmail = this.updateDataEmail.bind(this)
     this.updateDataPassword = this.updateDataPassword.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   updateDataEmail (e) {
@@ -21,11 +22,18 @@ class Login extends PureComponent {
     this.props.updateDataInput('password', value)
   }
 
+  handleSubmit (e) {
+    e.preventDefault()
+    this.props.updateDataInput('loginLoading', true)
+    this.props.login()
+  }
+
   render () {
     const {
-      props: { email, password },
+      props: { email, password, loginLoading },
       updateDataPassword,
-      updateDataEmail
+      updateDataEmail,
+      handleSubmit
     } = this
     return (
       <form className="login-form">
@@ -46,7 +54,10 @@ class Login extends PureComponent {
             type="password" className="form-control" id="password-input" placeholder="Password" defaultValue={password} />
         </div>
         <div className="button-wrapper center">
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button 
+            onClick={handleSubmit}
+            disabled={loginLoading}
+            type="submit" className="btn btn-primary">Login</button>
         </div>
         <small id="register-help" className="form-text text-muted center">
           <a href={`${this.location.origin}/register`}>If not register here!</a>

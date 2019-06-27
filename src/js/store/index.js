@@ -1,11 +1,8 @@
 // src/js/store/index.js
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../reducers";
-// import { logger } from "../middleware";
 import createSagaMiddleware from "redux-saga";
-import thunk from 'redux-thunk'
-import apiSaga from "../sagas/api-saga";
-
+import sagaService from './../saga'
 
 const initialiseSagaMiddleware = createSagaMiddleware();
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,11 +27,11 @@ function logger({ getState }) {
 const store = createStore(
   rootReducer,
   storeEnhancers(
-    applyMiddleware(logger, thunk, initialiseSagaMiddleware)
+    applyMiddleware(logger, initialiseSagaMiddleware)
   )
 );
 
-initialiseSagaMiddleware.run(apiSaga);
+initialiseSagaMiddleware.run(sagaService);
 
 
 export default store;
