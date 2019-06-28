@@ -1,6 +1,5 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import store from './../store/index'
-import axios from "axios"
+import store from '../../store'
 
 import {
   USER_LOGIN,
@@ -10,18 +9,14 @@ import {
   SUBMIT_SIGNUP,
   REGISTER_SUCCESS,
   REGISTER_FAILED
-} from './../constants/action-types'
+} from '../../constants/action-types'
 
-axios.create({
-  baseURL: 'http://localhost:5000',
-  timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
-});
+import apiService from '../../api'
 
 function* login() {
   let dataLogin = store.getState().login
   try {
-    const dataResponse = yield axios.post('http://localhost:5000/api/login', { email: dataLogin.email, password: dataLogin.password })
+    const dataResponse = yield apiService.login({ email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
@@ -37,7 +32,7 @@ function* reLogin() {
   const dataLogin = store.getState().login
   if (!dataLogin.loginLoading) return
   try {
-    const dataResponse = yield axios.post('http://localhost:5000/api/login', { email: dataLogin.email, password: dataLogin.password })
+    const dataResponse = yield apiService.login({ email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
@@ -52,7 +47,7 @@ function* reLoginActionWatcher() {
 function* signup() {
   const dataRegister = store.getState().signup
   try {
-    const dataResponse = yield axios.post('http://localhost:5000/api/register', { email: dataRegister.email, password: dataRegister.password })
+    const dataResponse = yield apiService.signup({ email: dataRegister.email, password: dataRegister.password })
     .then(response => response )
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });

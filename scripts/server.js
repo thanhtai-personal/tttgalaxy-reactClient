@@ -20,6 +20,7 @@ app.post('/api/register', (req, res) => {
 });
 app.post('/api/login', (req, res) => {
   let dataResponse = { email: req.body.email }
+  console.log('asdfasdfasdfasdf=======', req, res)
   res.send(
     JSON.stringify(dataResponse),
   );

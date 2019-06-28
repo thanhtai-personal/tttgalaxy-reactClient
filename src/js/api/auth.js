@@ -1,8 +1,8 @@
-
-export const signUp = (data) => {
-  return fetch("https://jsonplaceholder.typicode.com/signup", data)
+const createAuthApi = (makeRequestLib) => {
+  return {
+    signup: (data) => { makeRequestLib.post('signup', data) },
+    login: (data) => { makeRequestLib.post('login', data) }
+  }
 }
 
-export const login = (data) => {
-  return fetch("https://jsonplaceholder.typicode.com/login", data)
-}
+export default createAuthApi
