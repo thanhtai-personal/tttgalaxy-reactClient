@@ -28,8 +28,10 @@ const devConfig = {
 
   // `headers` là các header được đặt lại trước khi gửi lên server
   headers: { 
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type':'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true
   },
 
   // `params` là các tham số URL sẽ được gửi lên cùng request

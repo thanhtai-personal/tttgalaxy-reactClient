@@ -5,6 +5,19 @@ import devConfig from './config/dev'
 
 const apiInstant = axios.create(devConfig)
 
+apiInstant.interceptors.request.use((config) => {
+  return config;
+}, (err) => {
+  return Promise.reject(err);
+});
+
+apiInstant.interceptors.response.use((response) => {
+  return response;
+}, (err) => {
+  debugger
+  return Promise.reject(err);
+});
+
 const authApi = createAuthApi(apiInstant)
 
 const ApiService = {
