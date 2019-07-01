@@ -14,7 +14,6 @@ apiInstant.interceptors.request.use((config) => {
 apiInstant.interceptors.response.use((response) => {
   return response;
 }, (err) => {
-  debugger
   return Promise.reject(err);
 });
 

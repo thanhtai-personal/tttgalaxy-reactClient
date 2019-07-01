@@ -1,7 +1,11 @@
 const createAuthApi = (makeRequestLib) => {
   return {
-    signup: (data) => { makeRequestLib.post('signup', data) },
-    login: (data) => { makeRequestLib.post('login', data) }
+    signup: (data) => {
+      makeRequestLib.post('signup', data) 
+    },
+    login: (data) => {
+       makeRequestLib.post('login', data) 
+    }
   }
 }
 

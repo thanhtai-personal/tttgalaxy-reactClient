@@ -15,20 +15,19 @@ const devConfig = {
   // Bạn cũng có thể thay đổi header của request ở đây.
   transformRequest: [function (data, headers) {
     // Thực hiện thay đổi dữ liệu
-    //debugger
-    return data;
+    let jsonData = JSON.stringify(data);
+    return jsonData;
   }],
 
   // `transformResponse` cho phép thay đổi dữ liệu trả về trước khi vào hàm xử lý trong then/catch
   transformResponse: [function (data) {
     // Thực hiện việc thay đổi dữ liệu
-    //debugger
     return data;
   }],
 
   // `headers` là các header được đặt lại trước khi gửi lên server
   headers: { 
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true
