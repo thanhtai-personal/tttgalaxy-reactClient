@@ -21,7 +21,7 @@ class Login extends PureComponent {
     let { redirectData : { isRedirect, from, to }, updateRedirectData } = this.props
     if (isRedirect && from === window.location.pathname) {
       updateRedirectData()
-      window.location.push(to)
+      this.props.history.push(to)
     }
   }
 

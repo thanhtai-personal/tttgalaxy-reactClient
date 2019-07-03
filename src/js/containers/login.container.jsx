@@ -13,11 +13,9 @@ class LoginContainer extends Component {
       login,
       loginLoading,
       redirectData,
-      updateRedirectData
+      updateRedirectData,
+      history
     } = this.props
-
-    
-  console.error('loginLoading', loginLoading)
     return (
       <div className="container" id="login-comp">
         <Login
@@ -28,6 +26,7 @@ class LoginContainer extends Component {
           loginLoading={loginLoading}
           redirectData={redirectData}
           updateRedirectData={updateRedirectData}
+          history={history}
         />
       </div>
     )

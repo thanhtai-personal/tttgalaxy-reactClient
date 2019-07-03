@@ -58,7 +58,6 @@
     "workbox-webpack-plugin": "4.2.0",
     "express": "^4.16.4"
   },
-  
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

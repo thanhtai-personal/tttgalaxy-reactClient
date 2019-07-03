@@ -11,6 +11,10 @@ class Portfolio extends PureComponent {
     $('#header-7319').css({display: 'none'})
   }
 
+  componentWillUnmount() {
+    $('#header-7319') && $('#header-7319').css({display: 'flex'})
+  }
+
   render() {
     const {
       skillData,

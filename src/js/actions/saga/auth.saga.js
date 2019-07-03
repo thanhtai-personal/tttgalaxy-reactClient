@@ -13,12 +13,13 @@ import {
   UPDATE_REDIRECT_DATA
 } from '../../constants/action-types'
 
-import apiService from '../../api'
+import apiInstant from './../../api'
+
 
 function* login() {
   let dataLogin = store.getState().login
   try {
-    const dataResponse = yield apiService.login({ email: dataLogin.email, password: dataLogin.password })
+    const dataResponse = yield apiInstant.post('login', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
@@ -35,7 +36,7 @@ function* reLogin() {
   const dataLogin = store.getState().login
   if (!dataLogin.loginLoading) return
   try {
-    const dataResponse = yield apiService.login({ email: dataLogin.email, password: dataLogin.password })
+    const dataResponse = yield apiInstant.post('login', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
@@ -50,7 +51,7 @@ function* reLoginActionWatcher() {
 function* signup() {
   const dataRegister = store.getState().signup
   try {
-    const dataResponse = yield apiService.signup({ email: dataRegister.email, password: dataRegister.password })
+    const dataResponse = yield apiInstant.post('signup', { email: dataRegister.email, password: dataRegister.password })
     .then(response => response )
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });

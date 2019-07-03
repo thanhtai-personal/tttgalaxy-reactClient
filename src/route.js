@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createBrowserHistory } from 'history';
 
 import GameList from './js/containers/games/gameList.container'
 import GamePlay from './js/containers/games/singleGamePlay.container'
@@ -25,9 +26,9 @@ import Header from './js/components/partials/header'
 //     return ""
 //   }
 // }
-
+const history = createBrowserHistory()
 const Routes = () => (
-  <Router >
+  <Router history={history}>
     {/* {checkHeader()} */}
     <Header />
     <Switch>
@@ -44,6 +45,5 @@ const Routes = () => (
     </Switch>
   </Router>
 );
-
 
 export default Routes
