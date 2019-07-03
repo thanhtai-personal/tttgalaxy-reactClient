@@ -1,16 +1,33 @@
 import React, { PureComponent } from "react";
-import Banner from '../portfolio/banner'
-import Content from '../portfolio/content'
 
 import './home.scss'
 
 
 class Home extends PureComponent {
-  render() {
+  constructor (props) {
+    super(props)
+    this.renderParticle = this.renderParticle.bind(this)
+  }
+
+
+  renderParticle (numberOfPlane) {
+    let rs = []
+    for (let i = 0; i < numberOfPlane; i++) {
+      rs.push(<div className="particle"></div>)
+    }
+    return rs;
+  }
+
+  render () {
     const {
-    } = this.props
+      // renderParticle
+    } = this
     return (
-      <div className="container-fluid" id="home">
+      <div 
+        //id="particle-container"
+        id="snow"
+      >
+        {/*renderParticle(50)*/}
       </div>
     )
   }

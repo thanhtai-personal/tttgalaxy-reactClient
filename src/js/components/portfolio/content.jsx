@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-import './home.scss'
+import './portfolio.scss'
 
 
 class Content extends PureComponent {
@@ -95,9 +95,7 @@ class Content extends PureComponent {
       <div className="content container" style={{ paddingBottom: '20px' }}>
         <div className="row">
           <div className="col-sm-12">
-            <div className="profile-title">
-              About me
-              </div>
+          <div className="banner"></div>
           </div>
         </div>
         <div className="row">

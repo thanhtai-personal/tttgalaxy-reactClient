@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import Banner from './banner'
 import Content from './content'
 
-import './home.scss'
+import './portfolio.scss'
 
 
 class Portfolio extends PureComponent {
@@ -15,7 +15,6 @@ class Portfolio extends PureComponent {
     } = this.props
     return (
       <div className="container-fluid" id="home">
-        <Banner />
         <Content 
           skillData={skillData}
           basicInfo={basicInfo}

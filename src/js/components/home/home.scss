@@ -1,92 +1,66 @@
-body {
-  background-color: antiquewhite;
-  padding-bottom: 20px;
+html,body{
+  min-height: 100%;
 }
-
-.banner {
-  width: 100vw;
-  height: 20vh;
-  background-color: midnightblue;
-  opacity: 0.7;
-  background-image: url("https://res.cloudinary.com/di6vua0hr/image/upload/v1561097968/web_images/template_oua9sl.png");
-  background-size: contain;
-  background-position: center;
+body{
+  background: url(https://res.cloudinary.com/di6vua0hr/image/upload/v1562129381/web_images/background_jath9x.png) center center;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.content {
+.particle {
+  position: absolute;
+  border-radius: 50%;
   width: 100vw;
-  height: auto;
-  background-color: beige;
-  opacity: 0.8;
-  padding-top: 10px;
-  .profile-title {
-    align-items: center;
-    text-align: center;
-    font-size: 60px;
-    font-weight: 700;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    font-style: italic;
+  height: 100vh;
+}
+
+@for $i from 1 through 30 {
+  @keyframes particle-animation-#{$i} {
+      100% {
+          transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
+      }
   }
-  .image-profile-wrapper {
-    border-style: solid;
-    border-width: 15px;
-    border-top-width: 30px;
-    border-radius: 5%;
-    max-width: 240px;
-    color: #4BF9F3;
-    margin-left: auto;
-    margin-right: auto;
-    float: right;
-    background-color: #4BF9F3; 
-    .image-profile {
-      float: right;
-      width: 150px;
-      height: auto;
-      display: block;
-      border-top-left-radius: 20%;
-      border-top-right-radius: 20%;
-    }
-  }
-  .basic-infomation {
-    border-style: double;
-    border-width: 2px;
-    border-top: none;
-    border-left: none;
-    border-bottom: none; 
-  }
-  .title {
-    text-align: center;
-    font-size: 20px;
+  
+  .particle:nth-child(#{$i}){
+      animation: particle-animation-#{$i} 60s infinite;
+      $size: random(10) + 5 + px;
+      opacity: random(100)/100;
+      height: $size;
+      width: $size;
+      animation-delay: -$i * .2s;
+      transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
+      background: hsl(random(360), 70%, 50%);
   }
 }
 
-.background-color-yellow {
-  background-color: yellow !important
-}
-.background-color-red {
-  background-color: red !important
-}
-
-.border-top {
-  border-top-style: dotted;
-  border-top-width: 2px;
-  padding-top: 10px;
-}
-
-.main-skill {
-  background-color: yellow;
-}
-
-.padding-top-5 {
-  padding-top: 5px;
+#snow {
+  background-color: transparent !important;
+  opacity: 1 !important;
+  z-index: 3;
+  background-image: url(https://res.cloudinary.com/di6vua0hr/image/upload/v1562138473/web_images/snow1_p81pdd.png),
+  url(https://res.cloudinary.com/di6vua0hr/image/upload/v1562138473/web_images/snow2_cdqown.png),
+  url(https://res.cloudinary.com/di6vua0hr/image/upload/v1562138473/web_images/snow3_krwnc0.png);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  -webkit-animation: snow 10s linear infinite;
+  animation: snow 10s linear infinite;
 }
 
-.padding-top-15 {
-  padding-top: 15px;
-}
-
-.word-break {
-  word-break: break-word;
-}
+@keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px; } }
+@-webkit-keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px; } }

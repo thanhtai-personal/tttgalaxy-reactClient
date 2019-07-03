@@ -1,0 +1,19 @@
+.ttt-custom-header {
+  opacity: 0.7 !important;
+  color: white;
+  background-color: inherit;
+  z-index: 99;
+  li {
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    .home {
+    }
+    .portfolio {
+    }
+    .games {
+    }
+    .shopping {
+    }
+  }
+}
