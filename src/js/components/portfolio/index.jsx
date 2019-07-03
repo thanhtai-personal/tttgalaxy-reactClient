@@ -1,11 +1,16 @@
 import React, { PureComponent } from "react";
-import Banner from './banner'
 import Content from './content'
+import $ from 'jquery'
 
 import './portfolio.scss'
 
 
 class Portfolio extends PureComponent {
+
+  componentDidMount() {
+    $('#header-7319').css({display: 'none'})
+  }
+
   render() {
     const {
       skillData,

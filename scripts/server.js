@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
@@ -7,19 +9,13 @@ const port = 5000;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-const users = [
-  {
-    id: 'u1', password: 'phanhang2102', email: 'thanhtai.tttgalaxy@gmail.com'
-  }
-  , {
-    id: 'u2', password: 'hang1993', email: 'phanhang2102@gmail.com'
-  }
-];
+const { models, sequelize } = require('./../src/server/models');
 
 const secret = 'tttgalaxy';
 
-const findUserByEmail = (email) => {
-  return user = users.find((u) => u.email === email)
+
+async function findUserByEmail (email) {
+  return await models.User.findByLogin(email)
 }
 
 app.use('/', express.static(__dirname));
@@ -35,9 +31,9 @@ app.route('/api/login')
       message: 'Please login service'
     })
   })
-  .post(function (req, res) {
+  .post(async function (req, res) {
     let data = req.body;
-    let user = findUserByEmail(data.email);
+    let user = await findUserByEmail(data.email);
     if (user) {
       if (user.password === data.password) {
         let token = jwt.sign({

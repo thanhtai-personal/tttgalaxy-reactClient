@@ -11,24 +11,25 @@ import Home from './js/containers/home.container'
 import Portfolio from './js/containers/portfolio.container'
 import Header from './js/components/partials/header'
 
-const header1Path = [
-  'login', 'register', 'games', 'mpthaotrang', 'home'
-]
+// const header1Path = [
+//   'login', 'register', 'games', 'mpthaotrang', 'home'
+// ]
 
-const checkHeader = () =>  {
-  let currentPath = window.location.pathname
-  if (header1Path.includes(currentPath.split('/')[1])) {
-    return (
-      <Header />
-    )
-  } else {
-    return ""
-  }
-}
+// const checkHeader = () =>  {
+//   let currentPath = window.location.pathname
+//   if (header1Path.includes(currentPath.split('/')[1])) {
+//     return (
+//       <Header />
+//     )
+//   } else {
+//     return ""
+//   }
+// }
 
 const Routes = () => (
   <Router >
-    {checkHeader()}
+    {/* {checkHeader()} */}
+    <Header />
     <Switch>
       <Route path="/" exact component={Login} />
       <Route path="/login" exact component={Login} />

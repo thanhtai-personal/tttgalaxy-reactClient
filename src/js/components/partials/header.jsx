@@ -6,7 +6,7 @@ import './header.scss'
 class Header extends React.PureComponent {
   render () {
     return (
-      <nav className="navbar navbar-expand-sm bg-dark navbar-dark ttt-custom-header">
+      <nav className="navbar navbar-expand-sm bg-dark navbar-dark ttt-custom-header" id="header-7319">
         <a className="navbar-brand" href="#">
           TTTGalaxy
         </a>
