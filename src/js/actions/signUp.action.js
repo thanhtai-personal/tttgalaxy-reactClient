@@ -8,7 +8,7 @@ import {
 
 // import store from './../store'
 
-export const updateDataInput = (valuePath, value) => {
+export const updateDataInputSignup = (valuePath, value) => {
   let payload = {}
   _.set(payload, valuePath, value)
   return { type: UPDATE_DATA_INPUT_SIGNUP, payload };

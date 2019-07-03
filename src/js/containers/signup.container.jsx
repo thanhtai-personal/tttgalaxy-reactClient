@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import {
-  updateDataInput,
-  signup
-} from './../actions/signup.action'
+import ActionService from './../actions/'
 
 import SignUp from "../components/signup";
 
@@ -43,7 +40,7 @@ function mapStateToProps ({ signup: { email, password, passwordConfirm, loadingS
 export default connect(
   mapStateToProps,
   {
-    updateDataInput,
-    signup
+    updateDataInput: ActionService.updateDataInputSignup,
+    signup: ActionService.signup
   }
 )(SignUpContainer);

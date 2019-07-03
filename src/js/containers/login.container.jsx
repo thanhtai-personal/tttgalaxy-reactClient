@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Login from '../components/login'
-import {
-  updateDataInput,
-  login
-} from './../actions/login.action'
+import ActionService from './../actions'
 
 class LoginContainer extends Component {
   render () {
@@ -14,8 +11,13 @@ class LoginContainer extends Component {
       password,
       updateDataInput,
       login,
-      loginLoading
+      loginLoading,
+      redirectData,
+      updateRedirectData
     } = this.props
+
+    
+  console.error('loginLoading', loginLoading)
     return (
       <div className="container" id="login-comp">
         <Login
@@ -24,24 +26,28 @@ class LoginContainer extends Component {
           updateDataInput={updateDataInput}
           login={login}
           loginLoading={loginLoading}
+          redirectData={redirectData}
+          updateRedirectData={updateRedirectData}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps ({ login: { email, password, loginLoading } }) {
+function mapStateToProps ({ login: { email, password, loginLoading }, common: { redirectData } }) {
   return {
     email: email,
     password: password,
-    loginLoading: loginLoading
+    loginLoading: loginLoading,
+    redirectData: redirectData
   };
 }
 
 export default connect(
   mapStateToProps,
   {
-    updateDataInput,
-    login
+    updateDataInput: ActionService.updateDataInputLogin,
+    login: ActionService.login,
+    updateRedirectData: ActionService.updateRedirectData
   }
 )(LoginContainer);

@@ -11,6 +11,7 @@ import login from './login.reducer'
 import signup from './signup.reducer'
 import auth from './auth.reducer'
 import portfolio from './portfolio.reducer'
+import common from './common.reducer'
 
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   login: login,
   signup: signup,
   auth: auth,
-  portfolio: portfolio
+  portfolio: portfolio,
+  common: common
 })

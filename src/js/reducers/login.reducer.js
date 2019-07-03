@@ -17,7 +17,8 @@ function loginReducer(state = initialState, action) {
     case USER_LOGIN:
     case LOGIN_SUCCESS:
     case LOGIN_FAILED:
-      return { ...state, ...action.payload }
+        let newState = { ...state, ...action.payload }
+        return newState
     default:
       return state
   }

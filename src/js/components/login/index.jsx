@@ -4,7 +4,7 @@ import './login.scss'
 
 
 class Login extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.location = window.location
     this.updateDataEmail = this.updateDataEmail.bind(this)
@@ -15,6 +15,14 @@ class Login extends PureComponent {
   updateDataEmail (e) {
     let { value } = e.target
     this.props.updateDataInput('email', value)
+  }
+
+  componentDidUpdate () {
+    let { redirectData : { isRedirect, from, to }, updateRedirectData } = this.props
+    if (isRedirect && from === window.location.pathname) {
+      updateRedirectData()
+      window.location.push(to)
+    }
   }
 
   updateDataPassword (e) {
@@ -42,21 +50,21 @@ class Login extends PureComponent {
         </div>
         <div className="form-group">
           <label htmlFor="email-input">Email address</label>
-          <input 
+          <input
             onChange={updateDataEmail}
             type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder="Enter email" defaultValue={email} />
           <small id="email-help" className="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div className="form-group">
           <label htmlFor="password-input">Password</label>
-          <input 
+          <input
             onChange={updateDataPassword}
             type="password" className="form-control" id="password-input" placeholder="Password" defaultValue={password} />
         </div>
         <div className="button-wrapper center">
-          <button 
+          <button
             onClick={handleSubmit}
-            disabled={ loginLoading }
+            disabled={loginLoading}
             type="submit" className={`btn btn-primary btn-login ${loginLoading ? "btn-disable" : ""}`}>Login</button>
         </div>
         <small id="register-help" className="form-text text-muted center">

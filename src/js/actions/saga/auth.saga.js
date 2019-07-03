@@ -1,5 +1,6 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import store from '../../store'
+import _ from 'lodash'
 
 import {
   USER_LOGIN,
@@ -8,7 +9,8 @@ import {
   UPDATE_USER_DATA,
   SUBMIT_SIGNUP,
   REGISTER_SUCCESS,
-  REGISTER_FAILED
+  REGISTER_FAILED,
+  UPDATE_REDIRECT_DATA
 } from '../../constants/action-types'
 
 import apiService from '../../api'
@@ -20,6 +22,7 @@ function* login() {
     .then(response => response )
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
+    yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/home', isRedirect: true }});
   } catch(error) {
     yield put({ type: LOGIN_FAILED, payload: { error: error } });
   }      
