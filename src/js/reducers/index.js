@@ -10,6 +10,7 @@ import listGame from './games.reducer'
 import login from './login.reducer'
 import signup from './signup.reducer'
 import auth from './auth.reducer'
+import portfolio from './portfolio.reducer'
 
 
 export default combineReducers({
