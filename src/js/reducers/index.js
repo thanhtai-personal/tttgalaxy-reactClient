@@ -18,5 +18,6 @@ export default combineReducers({
   listGame: listGame,
   login: login,
   signup: signup,
-  auth: auth
+  auth: auth,
+  portfolio: portfolio
 })
