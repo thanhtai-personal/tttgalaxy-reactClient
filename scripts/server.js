@@ -47,7 +47,7 @@ function checkAuthenticate (req, res, next) {
 
 app.use('/', express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.json()); 
 app.use('/api', router);
 app.use(cors());
 app.use(checkAuthenticate);
