@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
+import { RequireAuth } from './js/middleware'
 
 import GameList from './js/containers/games/gameList.container'
 import GamePlay from './js/containers/games/singleGamePlay.container'
@@ -12,20 +13,65 @@ import Home from './js/containers/home.container'
 import Portfolio from './js/containers/portfolio.container'
 import Header from './js/components/partials/header'
 
-// const header1Path = [
-//   'login', 'register', 'games', 'mpthaotrang', 'home'
-// ]
 
-// const checkHeader = () =>  {
-//   let currentPath = window.location.pathname
-//   if (header1Path.includes(currentPath.split('/')[1])) {
-//     return (
-//       <Header />
-//     )
-//   } else {
-//     return ""
-//   }
-// }
+const publicRoute = [
+  {
+    path: '/login',
+    component: Login,
+    isExact: false
+  },
+  {
+    path: '/register',
+    component: SignUp,
+    isExact: false
+  },
+  {
+    path: '/games',
+    component: GameList,
+    isExact: true
+  },
+  {
+    path: '/game/:id',
+    component: GamePlay,
+    isExact: false
+  },
+  {
+    path: '/mpthaotrang',
+    component: ItemList,
+    isExact: true
+  },
+  {
+    path: '/mpthaotrang/detail/:id',
+    component: ItemDetail,
+    isExact: false
+  },
+  {
+    path: '/portfolio',
+    component: Portfolio,
+    isExact: false
+  }
+]
+
+const privateRoute = [
+  {
+    path: '/home',
+    component: Home,
+    isExact: false
+  }
+]
+
+const renderPublicRoute = () => {
+  return publicRoute.map((route) =>
+    <Route path={route.path} exact={route.isExact} component={route.component} />
+  )
+}
+
+const renderPrivateRoute = () => {
+  return privateRoute.map((route) =>
+    <Route path={route.path} exact={route.isExact} component={RequireAuth(route.component)} />
+  )
+}
+
 const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
@@ -33,14 +79,8 @@ const Routes = () => (
     <Header />
     <Switch>
       <Route path="/" exact component={Login} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={SignUp} />
-      <Route path="/games" component={GameList} />
-      <Route path="/game/:id" component={GamePlay} />
-      <Route path="/mpthaotrang" component={ItemList} />
-      <Route path="/mpthaotrang/detail/:id" component={ItemDetail} />
-      <Route path="/home" exact component={Home} />
-      <Route path="/portfolio" exact component={Portfolio} />
+      {renderPublicRoute()}
+      {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />
     </Switch>
   </Router>

@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { checkToken } from './../../helper'
+
+import ActionService from '../../actions'
 
 import './header.scss'
 
@@ -15,10 +19,11 @@ class Header extends React.PureComponent {
           <li className="nav-item portfolio"><Link to="/portfolio">Portfolio</Link></li>
           <li className="nav-item games"><Link to="/games">Games</Link></li>
           <li className="nav-item shopping"><Link to="/mpthaotrang">PV Thao Trang shopping</Link></li>
+          {checkToken() && <li className="nav-item logout"><Link onClick={this.props.logout}>Logout</Link></li>}
         </ul>
       </nav>
     )
   }
 }
 
-export default Header
+export default connect((state) => {}, { logout: ActionService.logout })(Header)
