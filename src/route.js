@@ -11,6 +11,7 @@ import Login from './js/containers/login.container'
 import SignUp from './js/containers/signup.container'
 import Home from './js/containers/home.container'
 import Portfolio from './js/containers/portfolio.container'
+import Novals from './js/containers/novals/novals.container'
 import Header from './js/components/partials/header'
 import Footer from './js/components/partials/footer'
 
@@ -21,6 +22,12 @@ const publicRoute = [
     component: Login,
     isExact: false,
     layout: { footer: Footer }
+  },
+  {
+    path: '/novals',
+    component: Novals,
+    isExact: false,
+    layout: { header: Header, footer: Footer }
   },
   {
     path: '/register',
@@ -71,13 +78,13 @@ const privateRoute = [
 
 const renderPublicRoute = () => {
   return publicRoute.map((route) =>
-    <Route path={route.path} exact={route.isExact} component={route.layout ? UserLayout(route.layout, route.component) : route.component} />
+    <Route key={route.path} path={route.path} exact={route.isExact} component={route.layout ? UserLayout(route.layout, route.component) : route.component} />
   )
 }
 
 const renderPrivateRoute = () => {
   return privateRoute.map((route) =>
-    <Route path={route.path} exact={route.isExact} component={RequireAuth(route.layout ? UserLayout(route.layout, route.component) : route.component)} />
+    <Route key={route.path} path={route.path} exact={route.isExact} component={RequireAuth(route.layout ? UserLayout(route.layout, route.component) : route.component)} />
   )
 }
 

@@ -5,8 +5,8 @@ import Home from '../components/home'
 
 class HomeContainer extends Component {
   render () {
-    const {
-    } = this.props
+    // const {
+    // } = this.props
     return (
       <Home
       />
@@ -14,7 +14,7 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps ({ home: { } }) {
+function mapStateToProps (state) {
   return {
   };
 }

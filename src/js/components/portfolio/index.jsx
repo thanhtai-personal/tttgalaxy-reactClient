@@ -1,19 +1,10 @@
 import React, { PureComponent } from "react";
 import Content from './content'
-// import $ from 'jquery'
 
 import './portfolio.scss'
 
 
 class Portfolio extends PureComponent {
-
-  // componentDidMount() {
-  //   $('#header-7319').css({display: 'none'})
-  // }
-
-  // componentWillUnmount() {
-  //   $('#header-7319') && $('#header-7319').css({display: 'flex'})
-  // }
 
   render() {
     const {

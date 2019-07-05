@@ -12,6 +12,7 @@ import signup from './signup.reducer'
 import auth from './auth.reducer'
 import portfolio from './portfolio.reducer'
 import common from './common.reducer'
+import novals from './novals.reducer'
 
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   signup: signup,
   auth: auth,
   portfolio: portfolio,
-  common: common
+  common: common,
+  novals: novals
 })

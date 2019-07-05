@@ -19,9 +19,9 @@ class Home extends PureComponent {
   }
 
   render () {
-    const {
-      // renderParticle
-    } = this
+    // const {
+    //   renderParticle
+    // } = this
     return (
       <div 
         //id="particle-container"

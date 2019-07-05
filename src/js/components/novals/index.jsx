@@ -3,36 +3,34 @@ import React, { PureComponent } from "react";
 
 import List from './../common/list'
 
-import './list.scss'
+import './novals.scss'
 
 
-class GameList extends PureComponent {
-  // constructor (props) {
+class Novals extends PureComponent {
+  // constructor(props) {
   //   super(props)
+  //   // this.onClickNoval = this.onClickNoval.bind(this)
   // }
 
-  onClickGame (gameId) {
-    window.open(`${window.location.origin}/game/${gameId}`, `game-${gameId}`)
+  onClickNoval() {
+
   }
-
-
 
   render () {
     const {
-      onClickGame,
+      onClickNoval,
       props: { data }
     } = this
     return (
-      <div className="games-list" id="games">
+      <div className="novals-list" id="novals">
         <List
-          onClickItem={onClickGame}
+          onClickItem={onClickNoval}
           dataList={data}
           maxItemInRow={6}
         />
       </div>
-
     )
   }
 }
 
-export default GameList
+export default Novals

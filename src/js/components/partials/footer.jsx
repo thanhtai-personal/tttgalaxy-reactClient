@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { checkToken } from './../../helper'
+// import { checkToken } from './../../helper'
 
 // import ActionService from '../../actions'
 
@@ -18,4 +18,10 @@ class Footer extends React.PureComponent {
   }
 }
 
-export default connect((state) => { }, { })(Footer)
+
+function mapStateToProps ({ state }) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, { })(Footer)
