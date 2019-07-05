@@ -57,6 +57,7 @@ function* signup() {
     .then(response => response )
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
+    yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/login', isRedirect: true }});
   } catch(error) {
     yield put({ type: REGISTER_FAILED, payload: { error: error, loadingSubmit: false } });
   }      

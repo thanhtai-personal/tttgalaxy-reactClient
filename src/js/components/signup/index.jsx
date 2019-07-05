@@ -12,6 +12,14 @@ class SignUp extends PureComponent {
     this.onSubmitSignUp = this.onSubmitSignUp.bind(this)
   }
 
+  componentDidUpdate () {
+    let { redirectData : { isRedirect, from, to }, updateRedirectData } = this.props
+    if (isRedirect && from === window.location.pathname) {
+      updateRedirectData()
+      this.props.history.push(to)
+    }
+  }
+
   onSubmitSignUp (e) {
     e.preventDefault()
     this.props.updateDataInput('loadingSubmit', true)

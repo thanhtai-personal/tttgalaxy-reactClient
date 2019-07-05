@@ -83,5 +83,23 @@ app.route('/api/login')
   })
 
 
+  app.route('/api/signup')
+  .post(async function (req, res) {
+    let data = req.body;
+    let user = await findUserByEmail(data.email);
+    if (!user) {
+      let user = await models.User.createUser(data)
+      res.json({
+        message: 'created user',
+        data: user
+      })
+    } else {
+      res.json({
+        message: 'user is existed'
+      })
+    }
+  })
+
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
