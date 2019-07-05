@@ -21,7 +21,7 @@ function* login() {
   try {
     const dataResponse = yield apiInstant.post('login', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
-    window.localStorage.setItem('jwtToken', dataResponse.data.token)
+    !_.isNil(dataResponse.data.token) && window.localStorage.setItem('jwtToken', dataResponse.data.token)
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
     yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/home', isRedirect: true }});
