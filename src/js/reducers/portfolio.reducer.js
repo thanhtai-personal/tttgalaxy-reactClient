@@ -1,5 +1,5 @@
 import {
-
+  UPDATE_PORTFOLIO_DATA
 } from "../constants/action-types";
 
 import {
@@ -179,7 +179,7 @@ const initialState = {
     {
       id: 6,
       name: 'Phone number',
-      value: 'waiting for security feature...',
+      value: '0972828264',
       renderType: RENDER_TYPE.TextWithLabel,
     }
   ],
@@ -247,6 +247,8 @@ const initialState = {
 
 function portfolioReducer (state = initialState, action) {
   switch (action.type) {
+    case UPDATE_PORTFOLIO_DATA: 
+      return {...state, ...action.payload}
     default:
       return state
   }

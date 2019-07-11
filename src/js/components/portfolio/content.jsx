@@ -1,5 +1,9 @@
 import React, { PureComponent } from "react";
 
+import {
+  renderSection
+} from './../../helper'
+
 import { RENDER_TYPE } from './../../constants/enums'
 
 import _ from 'lodash'
@@ -11,50 +15,19 @@ class Content extends PureComponent {
   constructor (props) {
     super(props)
     this.buildSection = this.buildSection.bind(this)
-    this.renderSection = this.renderSection.bind(this)
+    this.renderSection = renderSection.bind(this)
+    this.revertData = this.revertData.bind(this)
+    this.onChangeSection = this.onChangeSection.bind(this)
+    this.state = {
+      openEditMode: false
+    }
   }
 
-  renderSection (data) {
-    switch (data.renderType) {
-      case RENDER_TYPE.Title:
-        return <div className="row" key={`${data.name}-${data.id}`}><div className="col-sm-12 title">{data.name}</div></div>
-      case RENDER_TYPE.TextWithLabel:
-        return (
-          <div className="row padding-top-5 word-break" key={`${data.name}-${data.id}`}>
-            <div className="col-sm-4">
-              {data.name}:
-            </div>
-            <div className="col-sm-8">
-              {data.value}
-            </div>
-          </div>
-        )
-      case RENDER_TYPE.ProgessBar:
-        return (
-          <div className="row" key={`${data.name}-${data.id}`}>
-            <div className="col-sm-1">
-            </div>
-            <div className="col-sm-3">
-              {data.name}
-            </div>
-            <div className="col-sm-8 padding-top-5">
-              <div className="progress background-color-red">
-                <div className="progress-bar bg-info" role="progressbar" style={{ width: data.progress }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        )
-      case RENDER_TYPE.CardFullWidth:
-        return (
-          <div className="card" style={{ width: '100%' }} key={`${data.name}-${data.id}`}>
-            <div className="card-body">
-              <h5 className="card-title">{data.title}</h5>
-              <p className="card-text">** {data.duringTime}</p>
-              <p className="card-text">{data.description}</p>
-            </div>
-          </div>
-        )
-    }
+  onChangeSection (data, event) {
+    console.log('data ==========')
+    console.log('data', data)
+    console.log('event', event)
+    console.log('event-target', event.target.value)
   }
 
   buildSection (data) {
@@ -76,37 +49,22 @@ class Content extends PureComponent {
             </React.Fragment>
           )
         }
-        return this.renderSection(section)
+        return this.renderSection(section, this.state.openEditMode, { onChange: this.onChangeSection})
       })
     }
     return renderListSection(data)
   }
 
-  renderModal (key) {
-    return (
-      <div className="modal fade" id={key}>
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h4 className="modal-title">{_.upperCase(key)}</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div className="modal-body">
-              {key}
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+  revertData (dataBackup) {
+    Object.keys(dataBackup).forEach((key) => {
+      this.props.updateData(key, dataBackup[key])
+    })
   }
 
   render () {
     let { props: { skill, basicInfo, experiences, education, profileImageUrl, role = "admin" },
       buildSection,
-      renderModal
+      revertData
     } = this;
     return (
       <div className="content container" style={{ paddingBottom: '100px' }}>
@@ -115,22 +73,52 @@ class Content extends PureComponent {
             <div className="banner"></div>
           </div>
         </div>
+        {role == "admin" && !this.state.openEditMode &&
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="admin-menu">
+                <input type="button" className="btn btn-info btn-edit" value="Edit profile"
+                  onClick={() => {
+                    this.setState({ openEditMode: true}, () => { this.backUpData = { skill, basicInfo, experiences, education }})
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        }
+        {this.state.openEditMode &&
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="admin-menu">
+                <input type="button" className="btn btn-info btn-save" value="Save"
+                  onClick={() => {
+                    this.setState({ openEditMode: false})
+                  }}
+                />
+                <input type="button" className="btn btn-secondary btn-cancel" value="Cancel"
+                  onClick={() => {
+                    this.setState({ openEditMode: false}, () => {
+                      revertData(this.backUpData)
+                    })
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        }
         <div className="row">
           <div className="col-sm-3">
             <div className="image-profile-wrapper">
               <img className="image-profile margin-center" src={profileImageUrl} alt="profile" />
             </div>
-            {role === "admin" && <a className="btn-edit margin-center" href="" data-toggle="modal" data-target="#profileImage"> Edit Image... </a>}
           </div>
           <div className="col-sm-4 basic-infomation">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
             {buildSection(basicInfo)}
-            {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#basicInfo">Edit basic info...</a>}
           </div>
           <div className="col-sm-5 skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
             {buildSection(skill)}
-            {role === "admin" && <a className="btn-edit" href=""  data-toggle="modal" data-target="#skill">Edit skill...</a>}
           </div>
         </div>
         <div className="row padding-top-15">
@@ -141,7 +129,6 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(experiences)}
-        {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#experiences">Edit experience...</a>}
         <div className="row padding-top-15">
           <div className="col-sm-12">
             <div className="title">
@@ -150,12 +137,6 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(education)}
-        {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#education">Edit education...</a>}
-        {renderModal('profileImage')}
-        {renderModal('basicInfo')}
-        {renderModal('skill')}
-        {renderModal('experiences')}
-        {renderModal('education')}
       </div>
     )
   }
