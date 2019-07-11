@@ -82,12 +82,34 @@ class Content extends PureComponent {
     return renderListSection(data)
   }
 
+  renderModal (key) {
+    return (
+      <div className="modal fade" id={key}>
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">{_.upperCase(key)}</h4>
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div className="modal-body">
+              {key}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render () {
-    let { props: { skill, basicInfo, experiences, education, profileImageUrl },
-      buildSection
+    let { props: { skill, basicInfo, experiences, education, profileImageUrl, role = "admin" },
+      buildSection,
+      renderModal
     } = this;
     return (
-      <div className="content container" style={{ paddingBottom: '20px' }}>
+      <div className="content container" style={{ paddingBottom: '100px' }}>
         <div className="row">
           <div className="col-sm-12">
             <div className="banner"></div>
@@ -96,16 +118,19 @@ class Content extends PureComponent {
         <div className="row">
           <div className="col-sm-3">
             <div className="image-profile-wrapper">
-              <img className="image-profile" src={profileImageUrl} alt="profile" />
+              <img className="image-profile margin-center" src={profileImageUrl} alt="profile" />
             </div>
+            {role === "admin" && <a className="btn-edit margin-center" href="" data-toggle="modal" data-target="#profileImage"> Edit Image... </a>}
           </div>
           <div className="col-sm-4 basic-infomation">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
             {buildSection(basicInfo)}
+            {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#basicInfo">Edit basic info...</a>}
           </div>
           <div className="col-sm-5 skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
             {buildSection(skill)}
+            {role === "admin" && <a className="btn-edit" href=""  data-toggle="modal" data-target="#skill">Edit skill...</a>}
           </div>
         </div>
         <div className="row padding-top-15">
@@ -116,6 +141,7 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(experiences)}
+        {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#experiences">Edit experience...</a>}
         <div className="row padding-top-15">
           <div className="col-sm-12">
             <div className="title">
@@ -124,6 +150,12 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(education)}
+        {role === "admin" && <a className="btn-edit" href="" data-toggle="modal" data-target="#education">Edit education...</a>}
+        {renderModal('profileImage')}
+        {renderModal('basicInfo')}
+        {renderModal('skill')}
+        {renderModal('experiences')}
+        {renderModal('education')}
       </div>
     )
   }

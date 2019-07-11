@@ -35,7 +35,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     float: right;
-    background-color: #4BF9F3; 
+    background-color: transparent; 
     .image-profile {
       float: right;
       width: 180px;
@@ -48,11 +48,15 @@ body {
     }
   }
   .basic-infomation {
+    margin-top: 20px;
     border-style: double;
     border-width: 2px;
     border-top: none;
     border-left: none;
     border-bottom: none; 
+  }
+  .skills {
+    margin-top: 20px;
   }
   .title {
     text-align: center;
@@ -87,4 +91,28 @@ body {
 
 .word-break {
   word-break: break-word;
+}
+
+.btn-edit {
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.margin-center {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.modal-backdrop.fade.show {
+  display: none;
+}
+
+.modal-content {
+  border: solid 5px lightblue;
+  height: 70vh;
+  .modal-title {
+    text-align: center;
+    width: 100%;
+  }
 }
