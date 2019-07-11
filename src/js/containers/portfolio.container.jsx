@@ -6,28 +6,23 @@ import Portfolio from '../components/portfolio'
 class PortfolioContainer extends Component {
   render () {
     const {
-      skillData,
-      basicInfo,
-      experiencesData,
-      educationData
+      skill, basicInfo, experiences, education, profileImageUrl
     } = this.props
     return (
       <Portfolio
-        skillData={skillData}
+        profileImageUrl={profileImageUrl}
+        skill={skill}
         basicInfo={basicInfo}
-        experiencesData={experiencesData}
-        educationData={educationData}
+        experiences={experiences}
+        education={education}
       />
     )
   }
 }
 
-function mapStateToProps ({ portfolio: { skillData, basicInfo, experiencesData, educationData } }) {
+function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl } }) {
   return {
-    skillData: skillData,
-    basicInfo: basicInfo,
-    experiencesData: experiencesData,
-    educationData: educationData
+    skill, basicInfo, experiences, education, profileImageUrl
   };
 }
 

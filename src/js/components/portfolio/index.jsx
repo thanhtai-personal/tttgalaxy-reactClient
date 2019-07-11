@@ -6,20 +6,22 @@ import './portfolio.scss'
 
 class Portfolio extends PureComponent {
 
-  render() {
+  render () {
     const {
-      skillData,
+      skill,
       basicInfo,
-      experiencesData,
-      educationData
+      experiences,
+      education,
+      profileImageUrl
     } = this.props
     return (
       <div className="container-fluid" id="home">
-        <Content 
-          skillData={skillData}
+        <Content
+          profileImageUrl={profileImageUrl}
+          skill={skill}
           basicInfo={basicInfo}
-          experiencesData={experiencesData}
-          educationData={educationData}
+          experiences={experiences}
+          education={education}
         />
       </div>
     )
