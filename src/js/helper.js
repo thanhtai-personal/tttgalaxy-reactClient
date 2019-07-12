@@ -77,7 +77,8 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               </div>
               <div className="col-sm-8 padding-top-5">
                 <input style={{ width: '30%', minWidth: '50px', maxWidth: '150px'}} type="number" defaultValue={parseInt(data.progress)} 
-                onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'progress', sectionId: data.id }) : () => {}} />
+                  min={0} max={100}
+                  onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'progress', sectionId: data.id }) : () => {}} />
               </div>
             </div>
           }

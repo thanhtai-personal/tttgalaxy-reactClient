@@ -13,7 +13,8 @@ class Portfolio extends PureComponent {
       experiences,
       education,
       profileImageUrl,
-      updateContentData
+      updateContentData,
+      updatePortfolioDataWithObjectKey
     } = this.props
     return (
       <div className="container-fluid" id="home">
@@ -24,6 +25,7 @@ class Portfolio extends PureComponent {
           experiences={experiences}
           education={education}
           updateData={updateContentData}
+          updateDataWithObjectKey={updatePortfolioDataWithObjectKey}
         />
       </div>
     )

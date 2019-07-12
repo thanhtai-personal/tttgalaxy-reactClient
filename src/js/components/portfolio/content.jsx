@@ -17,23 +17,33 @@ class Content extends PureComponent {
     this.buildSection = this.buildSection.bind(this)
     this.renderSection = renderSection.bind(this)
     this.revertData = this.revertData.bind(this)
-    this.onChangeSection = this.onChangeSection.bind(this)
     this.state = {
       openEditMode: false
     }
   }
 
-  onChangeSection (data, event) {
-    console.log('data ==========')
-    console.log('data', data)
-    console.log('event', event)
-    console.log('event-target', event.target.value)
+  onChangeBasicInfo (listParentSection, data, event) {
+    this.props.updateDataWithObjectKey('basicInfo', { ...data, value: event.target.value, parentsSection: listParentSection })
   }
 
-  buildSection (data) {
-    const renderListSection = (sectionList) => {
+  onChangeEducation (listParentSection, data, event) {
+    this.props.updateDataWithObjectKey('education', { ...data, value: event.target.value, parentsSection: listParentSection })
+  }
+
+  onChangeExperience (listParentSection, data, event) {
+    this.props.updateDataWithObjectKey('experiences', { ...data, value: event.target.value, parentsSection: listParentSection })
+  }
+
+  onChangeSkill (listParentSection, data, event) {
+    this.props.updateDataWithObjectKey('skill', { ...data, value: event.target.value, parentsSection: listParentSection })
+  }
+
+  buildSection (data, onChangeSection) {
+    let listParentSection = []
+    const renderListSection = (sectionList, parentsSection = []) => {
       return sectionList.map((section) => {
         if (!_.isNil(section.subData)) {
+          listParentSection.push(section.id)
           return (
             <React.Fragment key={`${section.name}-data-${section.id}`}>
               <div className={`row ${section.isBorderTop ? "border-top" : ""}`}>
@@ -45,17 +55,19 @@ class Content extends PureComponent {
                 <div className="col-sm-8">
                 </div>
               </div>
-              {renderListSection(section.subData)}
+              {renderListSection(section.subData, listParentSection)}
             </React.Fragment>
           )
         }
-        return this.renderSection(section, this.state.openEditMode, { onChange: this.onChangeSection})
+        listParentSection = []
+        return this.renderSection(section, this.state.openEditMode, { onChange: onChangeSection.bind(null, parentsSection) })
       })
     }
     return renderListSection(data)
   }
 
   revertData (dataBackup) {
+    console.log('dataBackup', dataBackup)
     Object.keys(dataBackup).forEach((key) => {
       this.props.updateData(key, dataBackup[key])
     })
@@ -64,7 +76,11 @@ class Content extends PureComponent {
   render () {
     let { props: { skill, basicInfo, experiences, education, profileImageUrl, role = "admin" },
       buildSection,
-      revertData
+      revertData,
+      onChangeBasicInfo,
+      onChangeEducation,
+      onChangeExperience,
+      onChangeSkill
     } = this;
     return (
       <div className="content container" style={{ paddingBottom: '100px' }}>
@@ -79,7 +95,9 @@ class Content extends PureComponent {
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-edit" value="Edit profile"
                   onClick={() => {
-                    this.setState({ openEditMode: true}, () => { this.backUpData = { skill, basicInfo, experiences, education }})
+                    this.setState({ openEditMode: true }, () => { 
+                      this.backUpData = { skill, basicInfo, experiences, education }
+                    })
                   }}
                 />
               </div>
@@ -92,12 +110,12 @@ class Content extends PureComponent {
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-save" value="Save"
                   onClick={() => {
-                    this.setState({ openEditMode: false})
+                    this.setState({ openEditMode: false })
                   }}
                 />
                 <input type="button" className="btn btn-secondary btn-cancel" value="Cancel"
                   onClick={() => {
-                    this.setState({ openEditMode: false}, () => {
+                    this.setState({ openEditMode: false }, () => {
                       revertData(this.backUpData)
                     })
                   }}
@@ -114,11 +132,11 @@ class Content extends PureComponent {
           </div>
           <div className="col-sm-4 basic-infomation">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
-            {buildSection(basicInfo)}
+            {buildSection(basicInfo, onChangeBasicInfo.bind(this))}
           </div>
           <div className="col-sm-5 skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
-            {buildSection(skill)}
+            {buildSection(skill, onChangeSkill.bind(this))}
           </div>
         </div>
         <div className="row padding-top-15">
@@ -128,7 +146,7 @@ class Content extends PureComponent {
               </div>
           </div>
         </div>
-        {buildSection(experiences)}
+        {buildSection(experiences, onChangeExperience.bind(this))}
         <div className="row padding-top-15">
           <div className="col-sm-12">
             <div className="title">
@@ -136,7 +154,7 @@ class Content extends PureComponent {
               </div>
           </div>
         </div>
-        {buildSection(education)}
+        {buildSection(education, onChangeEducation.bind(this))}
       </div>
     )
   }

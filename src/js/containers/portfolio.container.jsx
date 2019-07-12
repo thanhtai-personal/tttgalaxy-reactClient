@@ -7,7 +7,7 @@ import actionService from '../actions'
 class PortfolioContainer extends Component {
   render () {
     const {
-      skill, basicInfo, experiences, education, profileImageUrl, updatePortfolioData
+      skill, basicInfo, experiences, education, profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey
     } = this.props
     return (
       <Portfolio
@@ -17,6 +17,7 @@ class PortfolioContainer extends Component {
         experiences={experiences}
         education={education}
         updateContentData={updatePortfolioData}
+        updatePortfolioDataWithObjectKey={updatePortfolioDataWithObjectKey}
       />
     )
   }
@@ -31,6 +32,7 @@ function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, educatio
 export default connect(
   mapStateToProps,
   {
-    updatePortfolioData: actionService.updatePortfolioData
+    updatePortfolioData: actionService.updatePortfolioData,
+    updatePortfolioDataWithObjectKey: actionService.updatePortfolioDataWithObjectKey
   }
 )(PortfolioContainer);
