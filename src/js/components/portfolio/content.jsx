@@ -67,7 +67,6 @@ class Content extends PureComponent {
   }
 
   revertData (dataBackup) {
-    console.log('dataBackup', dataBackup)
     Object.keys(dataBackup).forEach((key) => {
       this.props.updateData(key, dataBackup[key])
     })
@@ -95,8 +94,13 @@ class Content extends PureComponent {
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-edit" value="Edit profile"
                   onClick={() => {
-                    this.setState({ openEditMode: true }, () => { 
-                      this.backUpData = { skill, basicInfo, experiences, education }
+                    this.setState({ openEditMode: true }, () => {
+                      this.backUpData = { 
+                        skill: JSON.parse(JSON.stringify(skill)), 
+                        basicInfo: JSON.parse(JSON.stringify(basicInfo)), 
+                        experiences: JSON.parse(JSON.stringify(experiences)), 
+                        education: JSON.parse(JSON.stringify(education)) 
+                      }
                     })
                   }}
                 />
@@ -116,7 +120,7 @@ class Content extends PureComponent {
                 <input type="button" className="btn btn-secondary btn-cancel" value="Cancel"
                   onClick={() => {
                     this.setState({ openEditMode: false }, () => {
-                      revertData(this.backUpData)
+                      revertData(_.clone(this.backUpData))
                     })
                   }}
                 />
