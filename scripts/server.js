@@ -52,7 +52,7 @@ app.use('/api', router);
 app.use(cors());
 app.use(checkAuthenticate);
 
-app.route('/api/login')
+app.route('/api/user/login')
   .get(function (req, res) {
     res.json({
       message: 'Please login service'
@@ -83,7 +83,7 @@ app.route('/api/login')
   })
 
 
-  app.route('/api/signup')
+  app.route('/api/user/new')
   .post(async function (req, res) {
     let data = req.body;
     let user = await findUserByEmail(data.email);
