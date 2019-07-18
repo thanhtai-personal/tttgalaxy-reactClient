@@ -94,10 +94,12 @@ class Content extends PureComponent {
               {openEditMode && 
               <div className="btn-remove float-left">
                 <i className="fas fa-minus-square"
+                  title="remove skill group"
                   onClick={typeof htmlEvent.onRemoveSubData === "function" ?
                   htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(parentsSection))) : () => { }}
                 />
-                <i className="fas fa-plus-square" 
+                <i className="fas fa-plus-square"
+                  title="add new skill"
                   onClick={typeof htmlEvent.onAddSection === "function" ?
                   htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(parentsSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar}) : () => { }}
                 />
@@ -208,6 +210,7 @@ class Content extends PureComponent {
             {buildSection(basicInfo, { onChange: onChangeBasicInfo.bind(this), onRemove: onRemoveBasicInfo.bind(this) })}
             {openEditMode &&
               <i className="fas fa-plus-square"
+                title="add new info"
                 onClick={onAddSection.bind(this, 'basicInfo', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.TextWithLabel })}
               />
             }
@@ -221,6 +224,7 @@ class Content extends PureComponent {
             })}
             {openEditMode &&
               <i className="fas fa-plus-square"
+                title="add new skill group"
                 onClick={onAddSection.bind(this, 'skill', [], { isAddToRoot: true, isAddSection: true, isAddSubData: true, renderType: RENDER_TYPE.Title })}
               />
             }
@@ -236,6 +240,7 @@ class Content extends PureComponent {
         {buildSection(experiences, { onChange: onChangeExperience.bind(this), onRemove: onRemoveExperience.bind(this) })}
         { openEditMode &&
           <i className="fas fa-plus-square"
+            title="add new experience card"
             onClick={onAddSection.bind(this, 'experiences', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
           />
         }
@@ -249,6 +254,7 @@ class Content extends PureComponent {
         {buildSection(education, { onChange: onChangeEducation.bind(this), onRemove: onRemoveEducation.bind(this) })}
         { openEditMode &&
           <i className="fas fa-plus-square"
+            title="add new education card"
             onClick={onAddSection.bind(this, 'education', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
           />
         }
