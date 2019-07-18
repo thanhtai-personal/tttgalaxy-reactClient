@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { 
-  UPDATE_PORTFOLIO_DATA
+  UPDATE_PORTFOLIO_DATA,
+  SUBMIT_PORTFOLIO_DATA
 } from "../constants/action-types";
 
 import uuidv1 from 'uuid/v1'
@@ -82,4 +83,61 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
   let newState = {}
   newState[objectKey] = setDataToObject(objectData, data)
   return { type: UPDATE_PORTFOLIO_DATA, payload: newState }
+}
+
+export const submitDataUpdatePortfolio = () => {
+  return { type: SUBMIT_PORTFOLIO_DATA, payload: {} }
+}
+
+export const validateDataUpdate = () => {
+  return new Promise((resolve, reject) => {
+    let dataValidate = store.getState().portfolio,
+    validateObj = {}
+    try {
+      Object.keys(dataValidate).every((key) => {
+        validateObj[key] = {
+          validated: true,
+          errorMessage: ''
+        }
+        let dataChecking = dataValidate[key]
+        const checkValidateData = (dataCheck) => {
+          let resultValidated = { validated: true, errorMessage: 'validated!!' }
+          dataCheck.every((_dtCheck) => {
+            let validatedSubData = { validated: true }
+            if (_dtCheck.subData) {
+              validatedSubData = checkValidateData(_dtCheck.subData)
+            }
+            if (!validatedSubData.validated) {
+              resultValidated = validatedSubData
+            }
+            if (_.isNil(_dtCheck.name) || _dtCheck.name.trim() === "") {
+              resultValidated = { validated: false, errorMessage: 'name of field cannot be null' }
+            }
+            if (_dtCheck.renderType === RENDER_TYPE.ProgessBar) {
+              if (_.isNil(_dtCheck.progress)
+                || _dtCheck.progress.trim() === ""
+                || parseInt(_dtCheck.progress) > 100
+                || parseInt(_dtCheck.progress) < 0
+              ) {
+                resultValidated = { validated: false, errorMessage: 'invalid progress' }
+              }
+            }
+          })
+          return resultValidated
+        }
+        if (_.isArray(dataChecking)) {
+          return checkValidateData(dataChecking)
+        }
+      })
+      Object.keys(validateObj).forEach((key) => {
+        if (!validateObj[key].validated) {
+          reject(validateObj)
+        }
+      })
+      resolve(validateObj)
+    } catch (error) {
+      reject(error)
+    }
+    
+  })
 }

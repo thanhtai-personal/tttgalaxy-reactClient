@@ -1,5 +1,8 @@
 import {
-  UPDATE_PORTFOLIO_DATA
+  UPDATE_PORTFOLIO_DATA,
+  SUBMIT_PORTFOLIO_FAILED,
+  SUBMIT_PORTFOLIO_SUCCESS,
+  SUBMIT_PORTFOLIO_DATA
 } from "../constants/action-types";
 
 import {
@@ -247,7 +250,10 @@ const initialState = {
 
 function portfolioReducer (state = initialState, action) {
   switch (action.type) {
-    case UPDATE_PORTFOLIO_DATA: 
+    case UPDATE_PORTFOLIO_DATA:
+    case SUBMIT_PORTFOLIO_DATA:
+    case SUBMIT_PORTFOLIO_FAILED:
+    case SUBMIT_PORTFOLIO_SUCCESS:
       return {...state, ...action.payload}
     default:
       return state

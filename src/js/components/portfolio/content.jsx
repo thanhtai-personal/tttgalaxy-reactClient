@@ -128,9 +128,13 @@ class Content extends PureComponent {
   }
 
   onSubmit() {
-    this.props.submitDataUpdate()
-    .then(() => {
+    this.props.validateDataUpdate()
+    .then((dataValidate) => {
+      this.props.submitDataUpdate()
       this.setState({ openEditMode: false })
+    })
+    .catch((errorValidate) => {
+      window.alert(errorValidate.errorMessage || errorValidate.message)
     })
   }
 
