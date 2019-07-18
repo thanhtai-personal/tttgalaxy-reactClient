@@ -46,12 +46,22 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           <div className="col-sm-4">
             {data.name}:
           </div>
-          <div className="col-sm-8">
+          <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
             {!isEditMode ? data.value 
               : <input defaultValue={ data.value } style={{ width: '100%', minWidth: '100px' }}
                 onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
             }
           </div>
+          {isEditMode &&
+            <div className="col-sm-1">
+              <div className="btn-remove">
+                <i className="fas fa-minus-square"
+                  onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
+                />
+              </div>
+            </div>
+          }
+          
         </div>
       )
     case RENDER_TYPE.ProgessBar:
@@ -63,11 +73,20 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             <div className="col-sm-3">
               {data.name}
             </div>
-            <div className="col-sm-8 padding-top-5">
+            <div className={`${isEditMode ? "col-sm-7" : "col-sm-8"} padding-top-5`}>
               <div className="progress background-color-red">
                 <div className="progress-bar bg-info" role="progressbar" style={{ width: data.progress }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
+            {isEditMode && 
+                <div className="col-sm-1">
+                  <div className="btn-remove">
+                    <i className="fas fa-minus-square"
+                      onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
+                    />
+                  </div>
+                </div>
+            }
           </div>
           {isEditMode &&
             <div className="row" key={`${data.name}-edit-${data.id}`}>
@@ -126,6 +145,13 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               </div>
               : <p className="card-text">{data.description}</p>
             }
+            {isEditMode &&
+            <div className="btn-remove">
+              <i className="fas fa-minus-square"
+                onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
+              />
+            </div>
+          }
           </div>
         </div>
       )
