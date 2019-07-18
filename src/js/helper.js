@@ -15,20 +15,21 @@ export const getAuthenHeader = () => {
 
 
 
-export const renderModal = (data) => {
+export const renderModalConfirm = (data) => {
   return (
-    <div className="modal fade" id={data.key}>
-      <div className="modal-dialog modal-lg">
+    <div className="modal fade" id={data.id}>
+      <div className="modal-dialog modal-sm">
         <div className="modal-content">
           <div className="modal-header">
-            <h4 className="modal-title">{_.upperCase(data.key)}</h4>
+            <h4 className="modal-title">{_.upperCase(data.title)}</h4>
             <button type="button" className="close" data-dismiss="modal">&times;</button>
           </div>
           <div className="modal-body">
-            {data.key}
+            {data.content}
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={data.onConfirm}>Confirm</button>
+            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </div>
       </div>

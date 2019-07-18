@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
 
 import {
-  renderSection
+  renderSection,
+  renderModalConfirm
 } from './../../helper'
 
 // import { RENDER_TYPE } from './../../constants/enums'
@@ -114,16 +115,28 @@ class Content extends PureComponent {
     return renderListSection(data)
   }
 
+  cancelEditMode () {
+    this.setState({ openEditMode: false }, () => {
+      this.revertData(_.clone(this.backUpData))
+    })
+  }
+
   revertData(dataBackup) {
     Object.keys(dataBackup).forEach((key) => {
       this.props.updateData(key, dataBackup[key])
     })
   }
 
+  onSubmit() {
+    this.props.submitDataUpdate()
+    .then(() => {
+      this.setState({ openEditMode: false })
+    })
+  }
+
   render() {
     let { props: { skill, basicInfo, experiences, education, profileImageUrl, role = "admin" },
       buildSection,
-      revertData,
       onChangeBasicInfo,
       onChangeEducation,
       onChangeExperience,
@@ -134,6 +147,8 @@ class Content extends PureComponent {
       onRemoveSkill,
       onRemoveSubData,
       onAddSection,
+      onSubmit,
+      cancelEditMode,
       state: {
         openEditMode
       }
@@ -170,16 +185,9 @@ class Content extends PureComponent {
             <div className="col-sm-12">
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-save" value="Save"
-                  onClick={() => {
-                    this.setState({ openEditMode: false })
-                  }}
+                  onClick={onSubmit.bind(this)}
                 />
-                <input type="button" className="btn btn-secondary btn-cancel" value="Cancel"
-                  onClick={() => {
-                    this.setState({ openEditMode: false }, () => {
-                      revertData(_.clone(this.backUpData))
-                    })
-                  }}
+                <input type="button" className="btn btn-secondary btn-cancel" value="Cancel" data-toggle="modal" data-target="#confirm-cancel"
                 />
               </div>
             </div>
@@ -240,6 +248,9 @@ class Content extends PureComponent {
             onClick={onAddSection.bind(this, 'education', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
           />
         }
+        {renderModalConfirm({ id: 'confirm-cancel', title: 'Confirm cancel', content: 'Updated data will be unsaved. Do you want to cancel',
+          onConfirm: cancelEditMode.bind(this)
+        })}
       </div>
     )
   }
