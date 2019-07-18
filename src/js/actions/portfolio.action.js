@@ -3,6 +3,7 @@ import {
   UPDATE_PORTFOLIO_DATA
 } from "../constants/action-types";
 
+import uuidv1 from 'uuid/v1'
 import { RENDER_TYPE } from './../constants/enums'
 
 import store from './../store'
@@ -25,7 +26,11 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
           if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
             obj.removeMe = true
           }
-        } else {
+        }
+        else if (dataDefine.isAddSection && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
+          obj.isAddSectionToSubData = true
+        } 
+        else {
           if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
             getParentSectionIdIndex = getParentSectionIdIndex + 1
             obj.subData = setDataToObject(obj.subData, dataDefine)
@@ -45,6 +50,33 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
     _.remove(resultObj, {
       removeMe: true
     })
+    const addSection = (list) => {
+      return list.map(obj => {
+        if (obj.subData) {
+          if (!obj.isAddSectionToSubData) {
+            return addSection(obj.subData)
+          } else {
+            let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
+            if(dataDefine.isAddSubData) dataDefault.subData = []
+            obj.subData.push(dataDefault)
+            obj.isAddSectionToSubData = null
+          }
+        }
+        return obj
+      })
+    }
+    if (dataDefine.isAddSection) {
+      if(dataDefine.isAddToRoot) {
+        let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
+        if(dataDefine.isAddSubData) {
+          dataDefault.subData = []
+          dataDefault.isBorderTop = true
+        }
+        resultObj.push(dataDefault)
+      } else {
+        resultObj = addSection(resultObj)
+      }
+    }   
     return resultObj
   }
   let newState = {}

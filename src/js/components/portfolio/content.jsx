@@ -9,6 +9,7 @@ import {
 import _ from 'lodash'
 
 import './portfolio.scss'
+import { RENDER_TYPE } from "../../constants/enums";
 
 
 class Content extends PureComponent {
@@ -57,8 +58,11 @@ class Content extends PureComponent {
   onRemoveSubData(listParentSection) {
     this.props.updateDataWithObjectKey('skill', { parentsSection: listParentSection, isRemoveSub: true })
   }
-  
 
+  onAddSection(key, listParentSection, data) {
+    this.props.updateDataWithObjectKey(key, { ...data, parentsSection: listParentSection})
+  }
+  
   buildSection(data, htmlEvent) {
     let { state: { openEditMode } } = this
     const renderListSection = (sectionList, parentsSection = []) => {
@@ -71,7 +75,16 @@ class Content extends PureComponent {
                 <div className="col-sm-1">
                 </div>
                 <div className="col-sm-3">
-                  <p><b>{section.name}</b></p>
+                  <p>
+                    {openEditMode ?
+                      <input
+                        placeholder="title"
+                        defaultValue={section.name}
+                        onChange={typeof htmlEvent.onChange === "function" ?
+                          htmlEvent.onChange.bind(null, [], { path: 'name', sectionId: section.id }) : () => { }}
+                    />
+                    :<b>{section.name}</b>
+                    }</p>
                 </div>
                 <div className="col-sm-8">
                 </div>
@@ -80,7 +93,12 @@ class Content extends PureComponent {
               {openEditMode && 
               <div className="btn-remove float-left">
                 <i className="fas fa-minus-square"
-                  onClick={typeof htmlEvent.onRemoveSubData === "function" ? htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(parentsSection))) : () => { }}
+                  onClick={typeof htmlEvent.onRemoveSubData === "function" ?
+                  htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(parentsSection))) : () => { }}
+                />
+                <i className="fas fa-plus-square" 
+                  onClick={typeof htmlEvent.onAddSection === "function" ?
+                  htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(parentsSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar}) : () => { }}
                 />
               </div>}
             </React.Fragment>
@@ -114,7 +132,11 @@ class Content extends PureComponent {
       onRemoveEducation,
       onRemoveExperience,
       onRemoveSkill,
-      onRemoveSubData
+      onRemoveSubData,
+      onAddSection,
+      state: {
+        openEditMode
+      }
     } = this;
     return (
       <div className="content container" style={{ paddingBottom: '100px' }}>
@@ -172,10 +194,24 @@ class Content extends PureComponent {
           <div className="col-sm-4 basic-infomation">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
             {buildSection(basicInfo, { onChange: onChangeBasicInfo.bind(this), onRemove: onRemoveBasicInfo.bind(this) })}
+            {openEditMode &&
+              <i className="fas fa-plus-square"
+                onClick={onAddSection.bind(this, 'basicInfo', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.TextWithLabel })}
+              />
+            }
           </div>
           <div className="col-sm-5 skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
-            {buildSection(skill, { onChange: onChangeSkill.bind(this), onRemove: onRemoveSkill.bind(this), onRemoveSubData: onRemoveSubData.bind(this)})}
+            {buildSection(skill, { onChange: onChangeSkill.bind(this),
+              onRemove: onRemoveSkill.bind(this),
+              onRemoveSubData: onRemoveSubData.bind(this),
+              onAddSection: onAddSection.bind(this, 'skill')
+            })}
+            {openEditMode &&
+              <i className="fas fa-plus-square"
+                onClick={onAddSection.bind(this, 'skill', [], { isAddToRoot: true, isAddSection: true, isAddSubData: true, renderType: RENDER_TYPE.Title })}
+              />
+            }
           </div>
         </div>
         <div className="row padding-top-15">
@@ -186,6 +222,11 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(experiences, { onChange: onChangeExperience.bind(this), onRemove: onRemoveExperience.bind(this) })}
+        { openEditMode &&
+          <i className="fas fa-plus-square"
+            onClick={onAddSection.bind(this, 'experiences', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
+          />
+        }
         <div className="row padding-top-15">
           <div className="col-sm-12">
             <div className="title">
@@ -194,6 +235,11 @@ class Content extends PureComponent {
           </div>
         </div>
         {buildSection(education, { onChange: onChangeEducation.bind(this), onRemove: onRemoveEducation.bind(this) })}
+        { openEditMode &&
+          <i className="fas fa-plus-square"
+            onClick={onAddSection.bind(this, 'education', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
+          />
+        }
       </div>
     )
   }
