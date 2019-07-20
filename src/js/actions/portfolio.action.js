@@ -67,6 +67,7 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
           } else {
             let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
             if (dataDefine.isAddSubData) dataDefault.subData = []
+            if (dataDefine.isMissName) dataDefault.name = "default name"
             obj.subData.push(dataDefault)
             obj.isAddSectionToSubData = null
           }
