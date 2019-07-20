@@ -96,12 +96,12 @@ class Content extends PureComponent {
               {renderListSection(section.subData, JSON.parse(JSON.stringify(listParentSection)), false)}
               {openEditMode && 
               <div className="btn-remove float-left">
-                <i className="fas fa-minus-square"
+                <i className="fas fa-minus-square cursor-pointer"
                   title="remove skill group"
                   onClick={typeof htmlEvent.onRemoveSubData === "function" ?
                   htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(listParentSection))) : () => { }}
                 />
-                <i className="fas fa-plus-square"
+                <i className="fas fa-plus-square cursor-pointer"
                   title="add new skill"
                   onClick={typeof htmlEvent.onAddSection === "function" ?
                   htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(listParentSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar}) : () => { }}
@@ -163,7 +163,7 @@ class Content extends PureComponent {
       }
     } = this;
     return (
-      <div className="content container" style={{ paddingBottom: '100px' }}>
+      <div className="content container portfolio-content" style={{ paddingBottom: '100px' }}>
         <div className="row">
           <div className="col-sm-12">
             <div className="banner"></div>
@@ -212,7 +212,7 @@ class Content extends PureComponent {
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
             {buildSection(basicInfo, { onChange: onChangeBasicInfo.bind(this), onRemove: onRemoveBasicInfo.bind(this) })}
             {openEditMode &&
-              <i className="fas fa-plus-square"
+              <i className="fas fa-plus-square cursor-pointer float-right"
                 title="add new info"
                 onClick={onAddSection.bind(this, 'basicInfo', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.TextWithLabel })}
               />
@@ -226,8 +226,8 @@ class Content extends PureComponent {
               onAddSection: onAddSection.bind(this, 'skill')
             })}
             {openEditMode &&
-              <i className="fas fa-plus-square"
-                title="add new skill group"
+              <i className="fas fa-plus-square cursor-pointer float-right"
+                title="add new group of skills"
                 onClick={onAddSection.bind(this, 'skill', [], { isAddToRoot: true, isAddSection: true, isAddSubData: true, renderType: RENDER_TYPE.Title })}
               />
             }
@@ -242,7 +242,7 @@ class Content extends PureComponent {
         </div>
         {buildSection(experiences, { onChange: onChangeExperience.bind(this), onRemove: onRemoveExperience.bind(this) })}
         { openEditMode &&
-          <i className="fas fa-plus-square"
+          <i className="fas fa-plus-square cursor-pointer"
             title="add new experience card"
             onClick={onAddSection.bind(this, 'experiences', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
           />
@@ -256,7 +256,7 @@ class Content extends PureComponent {
         </div>
         {buildSection(education, { onChange: onChangeEducation.bind(this), onRemove: onRemoveEducation.bind(this) })}
         { openEditMode &&
-          <i className="fas fa-plus-square"
+          <i className="fas fa-plus-square cursor-pointer"
             title="add new education card"
             onClick={onAddSection.bind(this, 'education', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth })}
           />

@@ -65,7 +65,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           {isEditMode && 
             <div className="col-sm-1">
               <div className="btn-remove">
-                <i className="fas fa-minus-square"
+                <i className="fas fa-minus-square cursor-pointer"
                   title="remove this property"
                   onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
                 />
@@ -99,7 +99,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             {isEditMode && 
               <div className="col-sm-1">
                 <div className="btn-remove">
-                  <i className="fas fa-minus-square"
+                  <i className="fas fa-minus-square cursor-pointer"
                     title="remove this property"
                     onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.ProgessBar, sectionId: data.id }) : () => { }}
                   />
@@ -168,7 +168,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             }
             {isEditMode &&
               <div className="btn-remove">
-                <i className="fas fa-minus-square"
+                <i className="fas fa-minus-square cursor-pointer"
                   title="remove this card"
                   onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
                 />
