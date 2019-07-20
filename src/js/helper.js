@@ -46,7 +46,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
         <div className="row padding-top-10 word-break" key={`${data.name}-${data.id}`}>
           <div className="col-sm-4">
             {data.isEmptyData ?
-              <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}
+              <input defaultValue={data.name} style={{ width: '100%', minWidth: '100px' }}
                 placeholder="Property name"
                 onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'name', sectionId: data.id }) : () => { }} />
               : `${data.name}:`
