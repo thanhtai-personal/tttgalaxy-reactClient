@@ -66,10 +66,13 @@ class Content extends PureComponent {
   
   buildSection(data, htmlEvent) {
     let { state: { openEditMode } } = this
-    const renderListSection = (sectionList, parentsSection = []) => {
+    const renderListSection = (sectionList, listParentSection, isRoot = true) => {
       return sectionList.map((section) => {
+        if (isRoot) {
+          listParentSection = [] 
+       }
         if (!_.isNil(section.subData)) {
-          parentsSection.push(section.id)
+          listParentSection.push(section.id)
           return (
             <React.Fragment key={`${section.name}-data-${section.id}`}>
               <div className={`row ${section.isBorderTop ? `border-top ${openEditMode ? "margin-top-30" : ""}` : ""}`}>
@@ -90,18 +93,18 @@ class Content extends PureComponent {
                 <div className="col-sm-8">
                 </div>
               </div>
-              {renderListSection(section.subData, JSON.parse(JSON.stringify(parentsSection)))}
+              {renderListSection(section.subData, JSON.parse(JSON.stringify(listParentSection)), false)}
               {openEditMode && 
               <div className="btn-remove float-left">
                 <i className="fas fa-minus-square"
                   title="remove skill group"
                   onClick={typeof htmlEvent.onRemoveSubData === "function" ?
-                  htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(parentsSection))) : () => { }}
+                  htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(listParentSection))) : () => { }}
                 />
                 <i className="fas fa-plus-square"
                   title="add new skill"
                   onClick={typeof htmlEvent.onAddSection === "function" ?
-                  htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(parentsSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar}) : () => { }}
+                  htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(listParentSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar}) : () => { }}
                 />
               </div>}
             </React.Fragment>
@@ -109,8 +112,8 @@ class Content extends PureComponent {
         }
         return this.renderSection(section, this.state.openEditMode, 
           { 
-            onChange: htmlEvent.onChange.bind(null, parentsSection),
-            onRemove: htmlEvent.onRemove.bind(null, parentsSection)
+            onChange: htmlEvent.onChange.bind(null, listParentSection),
+            onRemove: htmlEvent.onRemove.bind(null, listParentSection)
           })
       })
     }

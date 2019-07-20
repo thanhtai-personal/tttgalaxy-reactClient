@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { 
+import {
   UPDATE_PORTFOLIO_DATA,
   SUBMIT_PORTFOLIO_DATA
 } from "../constants/action-types";
@@ -21,18 +21,19 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
   let objectData = state[objectKey]
   let getParentSectionIdIndex = 0
   const setDataToObject = (object, dataDefine) => {
-    let resultObj =  object.map((obj) => {
+    let resultObj = object.map((obj) => {
       if (!_.isNil(obj.subData)) {
-        if (dataDefine.isRemoveSub && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
-          if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
-            obj.removeMe = true
+        if ((dataDefine.isRemoveSub || dataDefine.isAddSection) && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
+          if (obj.id === data.parentsSection[getParentSectionIdIndex]) {
+            if (dataDefine.isAddSection) {
+              obj.isAddSectionToSubData = true
+            } else if (dataDefine.isRemoveSub) {
+              obj.removeMe = true
+            }
           }
         }
-        else if (dataDefine.isAddSection && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
-          obj.isAddSectionToSubData = true
-        } 
         else {
-          if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
+          if (obj.id === data.parentsSection[getParentSectionIdIndex]) {
             getParentSectionIdIndex = getParentSectionIdIndex + 1
             obj.subData = setDataToObject(obj.subData, dataDefine)
           }
@@ -55,10 +56,10 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
       return list.map(obj => {
         if (obj.subData) {
           if (!obj.isAddSectionToSubData) {
-            return addSection(obj.subData)
+            obj.subData = addSection(obj.subData)
           } else {
             let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
-            if(dataDefine.isAddSubData) dataDefault.subData = []
+            if (dataDefine.isAddSubData) dataDefault.subData = []
             obj.subData.push(dataDefault)
             obj.isAddSectionToSubData = null
           }
@@ -66,10 +67,11 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
         return obj
       })
     }
+
     if (dataDefine.isAddSection) {
-      if(dataDefine.isAddToRoot) {
+      if (dataDefine.isAddToRoot) {
         let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
-        if(dataDefine.isAddSubData) {
+        if (dataDefine.isAddSubData) {
           dataDefault.subData = []
           dataDefault.isBorderTop = true
         }
@@ -77,7 +79,7 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
       } else {
         resultObj = addSection(resultObj)
       }
-    }   
+    }
     return resultObj
   }
   let newState = {}
@@ -92,7 +94,7 @@ export const submitDataUpdatePortfolio = () => {
 export const validateDataUpdate = () => {
   return new Promise((resolve, reject) => {
     let dataValidate = store.getState().portfolio,
-    validateObj = {}
+      validateObj = {}
     try {
       Object.keys(dataValidate).every((key) => {
         validateObj[key] = {
@@ -138,6 +140,6 @@ export const validateDataUpdate = () => {
     } catch (error) {
       reject(error)
     }
-    
+
   })
 }
