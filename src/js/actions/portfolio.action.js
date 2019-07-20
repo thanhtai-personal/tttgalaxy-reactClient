@@ -78,6 +78,7 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
     if (dataDefine.isAddSection) {
       if (dataDefine.isAddToRoot) {
         let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
+        if( dataDefine.renderType === RENDER_TYPE.CardFullWidth ) dataDefault.name = 'default name'
         if (dataDefine.isAddSubData) {
           dataDefault.subData = []
           dataDefault.isBorderTop = true
@@ -95,7 +96,26 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
 }
 
 export const submitDataUpdatePortfolio = () => {
-  return { type: SUBMIT_PORTFOLIO_DATA, payload: {} }
+  let payload = store.getState().portfolio,
+  keyList = Object.keys(payload)
+  const removeIsEmptyData = (objectData) => {
+    if(_.isArray(objectData)) {
+      objectData.forEach((subData) => {
+        removeIsEmptyData(subData)
+      })
+    } else {
+      if(objectData.subData) {
+        removeIsEmptyData(objectData.subData)
+      }
+      if(_.isObject(objectData) && objectData.isEmptyData) {
+        objectData.isEmptyData = false
+      }
+    }
+  }
+  keyList.forEach((key) => {
+    removeIsEmptyData(payload[key])
+  })
+  return { type: SUBMIT_PORTFOLIO_DATA, payload }
 }
 
 export const validateDataUpdate = () => {
