@@ -21,7 +21,10 @@ export const updatePortfolioData = (path, value) => {
 
 export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
   let state = _.clone(store.getState().portfolio)
-  if (data.renderType === RENDER_TYPE.ProgessBar && data.value && data.path === 'progress') data.value = `${data.value.toString()}%`
+  if (data.renderType === RENDER_TYPE.ProgessBar && data.value && data.path === 'progress') {
+    if(parseInt(data.value > 100)) data.value = '100'
+    data.value = `${data.value.toString()}%`
+  }
   let objectData = state[objectKey]
   let getParentSectionIdIndex = 0
   const setDataToObject = (object, dataDefine) => {

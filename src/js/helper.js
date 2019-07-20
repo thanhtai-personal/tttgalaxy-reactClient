@@ -45,18 +45,20 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
       return (
         <div className="row padding-top-10 word-break" key={`${data.name}-${data.id}`}>
           <div className="col-sm-4">
-            {data.isEmptyData ?
+            {data.isEmptyData &&
               <input defaultValue={data.name} style={{ width: '100%', minWidth: '100px' }}
                 placeholder="Property name"
-                onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'name', sectionId: data.id }) : () => { }} />
-              : `${data.name}:`
+                onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'name', sectionId: data.id }) : () => { }} />
+            }
+            {!data.isEmptyData &&
+              `${data.name}:`
             }
           </div>
           <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
             {isEditMode ? 
               <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}
                 placeholder="property value"
-                onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
+                onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
               : data.value
             }
           </div>
@@ -79,13 +81,14 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             <div className="col-sm-1">
             </div>
             <div className="col-sm-3">
-              {data.isEmptyData ?
+              {data.isEmptyData &&
                 <input 
                   className="width-100-100"
                   defaultValue={data.name || ""}
                   placeholder="skill name"
-                  onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'name', sectionId: data.id }) : () => { }} />
-                : data.name
+                  onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'name', sectionId: data.id }) : () => { }} />
+              }{!data.isEmptyData &&
+                data.name
               }
             </div>
             <div className={`${isEditMode  ? "col-sm-7" : "col-sm-8"} padding-top-5`}>
@@ -113,6 +116,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               <div className="col-sm-8 padding-top-5">
                 <input style={{ width: '30%', minWidth: '50px', maxWidth: '150px' }} type="number" defaultValue={parseInt(data.progress || '0')}
                   min={0} max={100}
+                  maxLength={3}
                   placeholder="progress"
                   onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'progress', sectionId: data.id }) : () => { }} />
               </div>
