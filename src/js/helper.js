@@ -98,7 +98,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
                 <div className="btn-remove">
                   <i className="fas fa-minus-square"
                     title="remove this property"
-                    onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.TextWithLabel, sectionId: data.id }) : () => { }}
+                    onClick={typeof htmlEvent.onRemove === "function" ? htmlEvent.onRemove.bind(null, { renderType: RENDER_TYPE.ProgessBar, sectionId: data.id }) : () => { }}
                   />
                 </div>
               </div>
