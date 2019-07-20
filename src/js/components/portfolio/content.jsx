@@ -180,7 +180,8 @@ class Content extends PureComponent {
                         skill: JSON.parse(JSON.stringify(skill)),
                         basicInfo: JSON.parse(JSON.stringify(basicInfo)),
                         experiences: JSON.parse(JSON.stringify(experiences)),
-                        education: JSON.parse(JSON.stringify(education))
+                        education: JSON.parse(JSON.stringify(education)),
+                        profileImageUrl: profileImageUrl,
                       }
                     })
                   }}
@@ -207,6 +208,15 @@ class Content extends PureComponent {
             <div className="image-profile-wrapper">
               <img className="image-profile margin-center" src={profileImageUrl} alt="profile" />
             </div>
+            {openEditMode &&
+            <div className="edit-image-area">
+              <input 
+                className="edit-image"
+                placeholder="enter your image url here!!!"
+                defaultValue={profileImageUrl}
+                onBlur={(e) => {this.props.updateData('profileImageUrl', e.target.value)}}
+              />
+            </div>}
           </div>
           <div className="col-sm-4 basic-infomation">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
