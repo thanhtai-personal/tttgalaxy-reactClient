@@ -175,3 +175,22 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
       )
   }
 }
+
+export const checkValidateObject = (objectData, tracker, conditionsChecking) => {
+  if(_.isArray(objectData)) {
+    objectData.forEach((subData) => {
+      checkValidateObject(subData, tracker, conditionsChecking)
+    })
+  } else {
+    if(objectData.subData) {
+      checkValidateObject(objectData.subData, tracker, conditionsChecking)
+    }
+    if(_.isObject(objectData)) {
+      conditionsChecking.forEach((functionChecking) => {
+        if(typeof functionChecking === 'function') {
+          tracker.push(functionChecking(objectData))
+        }
+      })
+    }
+  }
+}

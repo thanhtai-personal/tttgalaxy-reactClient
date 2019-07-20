@@ -9,6 +9,10 @@ import { RENDER_TYPE } from './../constants/enums'
 
 import store from './../store'
 
+import {
+  checkValidateObject
+} from './../helper'
+
 export const updatePortfolioData = (path, value) => {
   let data = {}
   data = _.set(data, path, value)
@@ -94,52 +98,42 @@ export const submitDataUpdatePortfolio = () => {
 export const validateDataUpdate = () => {
   return new Promise((resolve, reject) => {
     let dataValidate = store.getState().portfolio,
-      validateObj = {}
-    try {
-      Object.keys(dataValidate).every((key) => {
-        validateObj[key] = {
-          validated: true,
-          errorMessage: ''
+    validateObj = [],
+    listKeys = Object.keys(dataValidate)
+    const conditionsChecking = [
+      (data) => {
+        if (_.isNil(data.name) || data.name.trim() === "") {
+          return { validated: false, errorMessage: 'name of field cannot be null' }
         }
-        let dataChecking = dataValidate[key]
-        const checkValidateData = (dataCheck) => {
-          let resultValidated = { validated: true, errorMessage: 'validated!!' }
-          dataCheck.every((_dtCheck) => {
-            let validatedSubData = { validated: true }
-            if (_dtCheck.subData) {
-              validatedSubData = checkValidateData(_dtCheck.subData)
-            }
-            if (!validatedSubData.validated) {
-              resultValidated = validatedSubData
-            }
-            if (_.isNil(_dtCheck.name) || _dtCheck.name.trim() === "") {
-              resultValidated = { validated: false, errorMessage: 'name of field cannot be null' }
-            }
-            if (_dtCheck.renderType === RENDER_TYPE.ProgessBar) {
-              if (_.isNil(_dtCheck.progress)
-                || _dtCheck.progress.trim() === ""
-                || parseInt(_dtCheck.progress) > 100
-                || parseInt(_dtCheck.progress) < 0
-              ) {
-                resultValidated = { validated: false, errorMessage: 'invalid progress' }
-              }
-            }
-          })
-          return resultValidated
+        return { validated: true, message: '' }
+      },
+      (data) => {
+        if (data.renderType === RENDER_TYPE.ProgessBar) {
+          if (_.isNil(data.progress)
+            || data.progress.trim() === ""
+            || parseInt(data.progress) > 100
+            || parseInt(data.progress) < 0
+          ) {
+           return { validated: false, errorMessage: 'invalid progress' }
+          }
         }
-        if (_.isArray(dataChecking)) {
-          return checkValidateData(dataChecking)
-        }
-      })
-      Object.keys(validateObj).forEach((key) => {
-        if (!validateObj[key].validated) {
-          reject(validateObj)
-        }
-      })
-      resolve(validateObj)
-    } catch (error) {
-      reject(error)
+        return { validated: true, message: '' }
+      }
+    ]
+    listKeys.forEach((key) => {
+      checkValidateObject(dataValidate[key], validateObj, conditionsChecking)
+    })
+    let resultObj = { validated: true, message: 'success' }
+    let isReject = false
+    validateObj.forEach(_validateObj => {
+      if(!_validateObj.validated) {
+        resultObj = _validateObj
+        isReject = true
+      }
+    })
+    if(isReject) {
+      reject(resultObj)
     }
-
+    return resolve(resultObj)
   })
 }

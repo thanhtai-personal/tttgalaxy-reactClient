@@ -190,6 +190,7 @@ const initialState = {
     {
       id: 1,
       title: 'Titan Technology Corporation',
+      name: 'Titan_Technology_Corporation',
       duringTime: '1/2019 to present',
       description: 'Fullstack developer with React JS and .NET Core',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -197,6 +198,7 @@ const initialState = {
     {
       id: 2,
       title: 'KOLABS LLC',
+      name: 'KOLABSLLC',
       duringTime: '4/2017 to 11/2018',
       description: 'Front end developer with React JS',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -204,6 +206,7 @@ const initialState = {
     {
       id: 3,
       title: 'Citynow',
+      name: 'Citynow',
       duringTime: '10/2016 to 4/2017',
       description: 'Full stack developer with React JS and Scala',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -211,6 +214,7 @@ const initialState = {
     {
       id: 4,
       title: 'Gameloft',
+      name: 'Gameloft',
       duringTime: '10/2015 to 10/2016',
       description: 'Game fresher - game developer with java/c++',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -218,6 +222,7 @@ const initialState = {
     {
       id: 5,
       title: 'Fujinet',
+      name: 'Fujinet',
       duringTime: '7/2015 to 9/2015',
       description: 'Trial working as a web developer with java struts - spring - hibernate',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -227,6 +232,7 @@ const initialState = {
     {
       id: 1,
       title: 'News offline mobile App',
+      name: 'News_offline_mobile_App',
       duringTime: '1 months',
       description: 'Team members: 1. -- window phone',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -234,6 +240,7 @@ const initialState = {
     {
       id: 2,
       title: 'Online shopping web app',
+      name: 'Online_shopping_web_app',
       duringTime: '2 months',
       description: 'Team members: 2. -- ASP.net web application ',
       renderType: RENDER_TYPE.CardFullWidth,
@@ -241,6 +248,7 @@ const initialState = {
     {
       id: 3,
       title: 'Battle city - classical tank fire',
+      name: 'Battle_city_classical_tank_fire',
       duringTime: '2 months',
       description: 'team member: 2. -- Create a game with MS XNA game studio code',
       renderType: RENDER_TYPE.CardFullWidth,
