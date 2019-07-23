@@ -14,7 +14,7 @@ import apiInstant from './../../api'
 function* submitPortfolioData() {
   let dataSubmit = store.getState().portfolio
   try {
-    const dataResponse = yield apiInstant.post('portfolio/update', dataSubmit)
+    const dataResponse = yield apiInstant.post('users/update', dataSubmit)
     .then(response => response )
     yield put({ type: SUBMIT_PORTFOLIO_SUCCESS, payload: { loading: false, dataResponse: dataResponse } });
   } catch(error) {
