@@ -92,7 +92,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={Portfolio} />
+      <Route path="/" exact component={Login} />
       {renderPublicRoute()}
       {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />

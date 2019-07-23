@@ -7,7 +7,7 @@ const devConfig = {
   method: 'get', // mặc định là GET
 
   // `baseURL` sẽ được gán vào trước url khi url là đường dẫn tương đối.
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: 'http://localhost:3000/api/',
 
   // `transformRequest` cho phép thay đổi dữ liệu trước khi gửi lên server
   // Option này chỉ khả dụng cho các request có phương thức là 'PUT', 'POST', và 'PATCH'
