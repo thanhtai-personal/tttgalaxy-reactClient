@@ -3,10 +3,9 @@ import axios from 'axios'
 import devConfig from './config/dev'
 import prodConfig from './config/product'
 
-const apiInstant = axios.create(devConfig)
+let apiInstant = axios.create(devConfig)
 
 if (process.env.NODE_ENV === "production") {
-  console.log("===============================BUILD PRODUCT API!!!!")
   apiInstant = axios.create(prodConfig)
 }
 
