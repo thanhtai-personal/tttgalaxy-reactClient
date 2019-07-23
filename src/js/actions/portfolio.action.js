@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { 
+import {
   UPDATE_PORTFOLIO_DATA,
   SUBMIT_PORTFOLIO_DATA
 } from "../constants/action-types";
@@ -9,6 +9,10 @@ import { RENDER_TYPE } from './../constants/enums'
 
 import store from './../store'
 
+import {
+  checkValidateObject
+} from './../helper'
+
 export const updatePortfolioData = (path, value) => {
   let data = {}
   data = _.set(data, path, value)
@@ -17,22 +21,26 @@ export const updatePortfolioData = (path, value) => {
 
 export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
   let state = _.clone(store.getState().portfolio)
-  if (data.renderType === RENDER_TYPE.ProgessBar && data.value) data.value = `${data.value.toString()}%`
+  if (data.renderType === RENDER_TYPE.ProgessBar && data.value && data.path === 'progress') {
+    if(parseInt(data.value > 100)) data.value = '100'
+    data.value = `${data.value.toString()}%`
+  }
   let objectData = state[objectKey]
   let getParentSectionIdIndex = 0
   const setDataToObject = (object, dataDefine) => {
-    let resultObj =  object.map((obj) => {
+    let resultObj = object.map((obj) => {
       if (!_.isNil(obj.subData)) {
-        if (dataDefine.isRemoveSub && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
-          if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
-            obj.removeMe = true
+        if ((dataDefine.isRemoveSub || dataDefine.isAddSection) && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
+          if (obj.id === data.parentsSection[getParentSectionIdIndex]) {
+            if (dataDefine.isAddSection) {
+              obj.isAddSectionToSubData = true
+            } else if (dataDefine.isRemoveSub) {
+              obj.removeMe = true
+            }
           }
         }
-        else if (dataDefine.isAddSection && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
-          obj.isAddSectionToSubData = true
-        } 
         else {
-          if(obj.id === data.parentsSection[getParentSectionIdIndex]) {
+          if (obj.id === data.parentsSection[getParentSectionIdIndex]) {
             getParentSectionIdIndex = getParentSectionIdIndex + 1
             obj.subData = setDataToObject(obj.subData, dataDefine)
           }
@@ -55,10 +63,11 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
       return list.map(obj => {
         if (obj.subData) {
           if (!obj.isAddSectionToSubData) {
-            return addSection(obj.subData)
+            obj.subData = addSection(obj.subData)
           } else {
             let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
-            if(dataDefine.isAddSubData) dataDefault.subData = []
+            if (dataDefine.isAddSubData) dataDefault.subData = []
+            if (dataDefine.isMissName) dataDefault.name = "default name"
             obj.subData.push(dataDefault)
             obj.isAddSectionToSubData = null
           }
@@ -66,10 +75,12 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
         return obj
       })
     }
+
     if (dataDefine.isAddSection) {
-      if(dataDefine.isAddToRoot) {
+      if (dataDefine.isAddToRoot) {
         let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
-        if(dataDefine.isAddSubData) {
+        if( dataDefine.renderType === RENDER_TYPE.CardFullWidth ) dataDefault.name = 'default name'
+        if (dataDefine.isAddSubData) {
           dataDefault.subData = []
           dataDefault.isBorderTop = true
         }
@@ -77,7 +88,7 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
       } else {
         resultObj = addSection(resultObj)
       }
-    }   
+    }
     return resultObj
   }
   let newState = {}
@@ -86,58 +97,67 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
 }
 
 export const submitDataUpdatePortfolio = () => {
-  return { type: SUBMIT_PORTFOLIO_DATA, payload: {} }
+  let payload = store.getState().portfolio,
+  keyList = Object.keys(payload)
+  const removeIsEmptyData = (objectData) => {
+    if(_.isArray(objectData)) {
+      objectData.forEach((subData) => {
+        removeIsEmptyData(subData)
+      })
+    } else {
+      if(objectData.subData) {
+        removeIsEmptyData(objectData.subData)
+      }
+      if(_.isObject(objectData) && objectData.isEmptyData) {
+        objectData.isEmptyData = false
+      }
+    }
+  }
+  keyList.forEach((key) => {
+    removeIsEmptyData(payload[key])
+  })
+  return { type: SUBMIT_PORTFOLIO_DATA, payload }
 }
 
 export const validateDataUpdate = () => {
   return new Promise((resolve, reject) => {
     let dataValidate = store.getState().portfolio,
-    validateObj = {}
-    try {
-      Object.keys(dataValidate).every((key) => {
-        validateObj[key] = {
-          validated: true,
-          errorMessage: ''
+    validateObj = [],
+    listKeys = Object.keys(dataValidate)
+    const conditionsChecking = [
+      (data) => {
+        if (_.isNil(data.name) || data.name.trim() === "") {
+          return { validated: false, errorMessage: 'name of field cannot be null' }
         }
-        let dataChecking = dataValidate[key]
-        const checkValidateData = (dataCheck) => {
-          let resultValidated = { validated: true, errorMessage: 'validated!!' }
-          dataCheck.every((_dtCheck) => {
-            let validatedSubData = { validated: true }
-            if (_dtCheck.subData) {
-              validatedSubData = checkValidateData(_dtCheck.subData)
-            }
-            if (!validatedSubData.validated) {
-              resultValidated = validatedSubData
-            }
-            if (_.isNil(_dtCheck.name) || _dtCheck.name.trim() === "") {
-              resultValidated = { validated: false, errorMessage: 'name of field cannot be null' }
-            }
-            if (_dtCheck.renderType === RENDER_TYPE.ProgessBar) {
-              if (_.isNil(_dtCheck.progress)
-                || _dtCheck.progress.trim() === ""
-                || parseInt(_dtCheck.progress) > 100
-                || parseInt(_dtCheck.progress) < 0
-              ) {
-                resultValidated = { validated: false, errorMessage: 'invalid progress' }
-              }
-            }
-          })
-          return resultValidated
+        return { validated: true, message: '' }
+      },
+      (data) => {
+        if (data.renderType === RENDER_TYPE.ProgessBar) {
+          if (_.isNil(data.progress)
+            || data.progress.trim() === ""
+            || parseInt(data.progress) > 100
+            || parseInt(data.progress) < 0
+          ) {
+           return { validated: false, errorMessage: 'invalid progress' }
+          }
         }
-        if (_.isArray(dataChecking)) {
-          return checkValidateData(dataChecking)
-        }
-      })
-      Object.keys(validateObj).forEach((key) => {
-        if (!validateObj[key].validated) {
-          reject(validateObj)
-        }
-      })
-      resolve(validateObj)
-    } catch (error) {
-      reject(error)
+        return { validated: true, message: '' }
+      }
+    ]
+    listKeys.forEach((key) => {
+      checkValidateObject(dataValidate[key], validateObj, conditionsChecking)
+    })
+    let resultObj = { validated: true, message: 'success' }
+    let isReject = false
+    validateObj.forEach(_validateObj => {
+      if(!_validateObj.validated) {
+        resultObj = _validateObj
+        isReject = true
+      }
+    })
+    if(isReject) {
+      reject(resultObj)
     }
-    
+    return resolve(resultObj)
   })
 }
