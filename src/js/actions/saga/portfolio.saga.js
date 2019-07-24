@@ -5,7 +5,8 @@ import _ from 'lodash'
 import {
   SUBMIT_PORTFOLIO_FAILED,
   SUBMIT_PORTFOLIO_SUCCESS,
-  SUBMIT_PORTFOLIO_DATA
+  SUBMIT_PORTFOLIO_DATA,
+  GET_PORTFOLIO_DATA
 } from '../../constants/action-types'
 
 import apiInstant from './../../api'
@@ -23,15 +24,37 @@ function* submitPortfolioData() {
 }
 
 function* submitDataPortfolioWatcher() {
-     yield takeLatest(SUBMIT_PORTFOLIO_DATA, submitPortfolioData)
+  yield takeLatest(SUBMIT_PORTFOLIO_DATA, submitPortfolioData)
+}
+
+function* getDataPortfolioWatcher() {
+     yield takeLatest(GET_PORTFOLIO_DATA, getPortfolioData)
+}
+
+function* getPortfolioData() {
+  let dataSubmit = store.getState().portfolio
+  try {
+    const dataResponse = yield apiInstant.get('portfolio-data')
+    .then(response => {
+      // re-map data response
+      // yield put({ type: GET_PORTFOLIO_SUCCESS, payload: response });
+    } )
+    .catch(error => {
+      // yield put({ type: GET_PORTFOLIO_FAILED, payload: { error: error } });
+    })
+  } catch(error) {
+    // yield put({ type: GET_PORTFOLIO_FAILED, payload: { error: error } });
+  }      
 }
 
 
 
-function* authActionWatcher() {
+
+function* portfolioActionWatcher() {
   yield all([
     submitDataPortfolioWatcher(),
+    getDataPortfolioWatcher()
   ]);
 }
 
-export default authActionWatcher
+export default portfolioActionWatcher

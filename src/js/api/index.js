@@ -21,4 +21,8 @@ apiInstant.interceptors.response.use((response) => {
   return Promise.reject(err);
 });
 
+apiInstant.setToken = (token) => {
+  apiInstant.defaults.headers['x-access-token'] = token
+}
+
 export default apiInstant

@@ -7,7 +7,7 @@ import actionService from '../actions'
 class PortfolioContainer extends Component {
   render () {
     const {
-      skill, basicInfo, experiences, education, profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey, submitDataUpdatePortfolio
+      skill, basicInfo, experiences, education, profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey, submitDataUpdatePortfolio, getProfolioData
     } = this.props
     return (
       <Portfolio
@@ -20,6 +20,7 @@ class PortfolioContainer extends Component {
         updatePortfolioDataWithObjectKey={updatePortfolioDataWithObjectKey}
         validateDataUpdate={actionService.validateDataUpdate}
         submitDataUpdate={submitDataUpdatePortfolio}
+        getProfolioData={getProfolioData}
       />
     )
   }
@@ -36,6 +37,7 @@ export default connect(
   {
     updatePortfolioData: actionService.updatePortfolioData,
     updatePortfolioDataWithObjectKey: actionService.updatePortfolioDataWithObjectKey,
-    submitDataUpdatePortfolio: actionService.submitDataUpdatePortfolio
+    submitDataUpdatePortfolio: actionService.submitDataUpdatePortfolio,
+    getProfolioData: actionService.getProfolioData
   }
 )(PortfolioContainer);

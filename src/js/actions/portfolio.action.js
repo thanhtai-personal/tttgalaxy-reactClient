@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import {
   UPDATE_PORTFOLIO_DATA,
-  SUBMIT_PORTFOLIO_DATA
+  SUBMIT_PORTFOLIO_DATA,
+  GET_PORTFOLIO_DATA
 } from "../constants/action-types";
 
 import uuidv1 from 'uuid/v1'
@@ -17,6 +18,10 @@ export const updatePortfolioData = (path, value) => {
   let data = {}
   data = _.set(data, path, value)
   return { type: UPDATE_PORTFOLIO_DATA, payload: data };
+}
+
+export const getProfolioData = () => {
+  return { type: GET_PORTFOLIO_DATA, payload: {} };
 }
 
 export const updatePortfolioDataWithObjectKey = (objectKey, data) => {

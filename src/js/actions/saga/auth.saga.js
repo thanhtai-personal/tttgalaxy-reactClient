@@ -55,6 +55,7 @@ function* signup() {
   try {
     const dataResponse = yield apiInstant.post('users/register', { email: dataRegister.email, password: dataRegister.password })
     .then(response => response )
+    apiInstant.setToken(dataResponse)
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
     yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/login', isRedirect: true }});

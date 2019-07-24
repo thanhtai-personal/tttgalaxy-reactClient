@@ -6,6 +6,10 @@ import './portfolio.scss'
 
 class Portfolio extends PureComponent {
 
+  componentWillMount() {
+    this.props.getProfolioData()
+  }
+
   render () {
     const {
       skill,
