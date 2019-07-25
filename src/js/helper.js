@@ -288,6 +288,17 @@ export const convertPortfolioData = (data, desType) => {
   }
 
   if (desType === 'dynamic') {
+    /**
+     basicInfo: user,
+        skill: dataRs[0].skill,
+        group: dataRs[0].group,
+        userSkill: dataRs[0].userSkill,
+        experiences: dataRs[1].experience,
+        userExperience: dataRs[1].userExperience,
+        education: dataRs[2].education,
+        school: dataRs[2].school,
+        userEducation: dataRs[2].userEducation
+     */
     
   }
 
