@@ -147,8 +147,8 @@ class Content extends PureComponent {
     })
   }
 
-  exportPdf() {
-    const { props: { skill, basicInfo, experiences, education, profileImageUrl}} = this
+  exportPdf () {
+    const { props: { skill, basicInfo, experiences, education, profileImageUrl } } = this
     // const imageProfileElement = document.getElementById('image-profile');
     const basicInfoElement = document.getElementById('basic-info');
     const skillsElement = document.getElementById('skills');
@@ -158,48 +158,53 @@ class Content extends PureComponent {
     const pdf = new jsPDF();
     pdf.setFontSize(20);
     pdf.text(60, 25, "CURRICULUM VITAE");
-    this.setState({exportingPdf: true})
-    // html2canvas(imageProfileElement)
+    this.setState({ exportingPdf: true })
+    try {
+      // html2canvas(imageProfileElement)
       // .then((imageCanvas) => {
-        // const imgData = imageCanvas.toDataURL('image/png');
-        let img = new Image()
-        img.src = profileImageUrl
-        let pdfHeight =  pdf.internal.pageSize.getHeight()
-        let imageProfileHeight = img.height / img.width * 40
-        pdf.addImage(img, 'JPEG', 10, 45, 40, imageProfileHeight);
-        html2canvas(basicInfoElement)
-          .then((basicInfoCanvas) => {
-            let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
-            pdf.addImage(basicInfoCanvas, 'JPEG', 40, 40, 75, basicInfoHeight);
-            html2canvas(skillsElement)
-              .then((skillsCanvas) => {
-                let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
-                pdf.addImage(skillsCanvas, 'JPEG', 125, 40, 75, skillHeight);
-                html2canvas(experienceElement)
-                  .then((experienceCanvas) => {
-                    let experienceHeight = experienceCanvas.height / experienceCanvas.width * 180
-                    let experienceY = 40 + skillHeight + 15
-                    if (experienceY + experienceHeight > pdfHeight) {
-                      pdf.addPage();
-                      experienceY = 15
-                    }
-                    pdf.addImage(experienceCanvas, 'JPEG', 15, experienceY, 180, experienceHeight);
-                    html2canvas(educationElement)
-                      .then((educationCanvas) => {
-                        let educationHeight = educationCanvas.height / educationCanvas.width * 180
-                        let educationY = 40 + skillHeight + experienceHeight + 15
-                        if (educationY + educationHeight > pdfHeight) {
-                          pdf.addPage();
-                          educationY = 15
-                        }
-                        pdf.addImage(educationCanvas, 'JPEG', 15, educationY, 180 , educationHeight);
-                         pdf.save("cv.pdf")
-                         this.setState({ exportingPdf: false })
-                      })
-                  })
-              })
-          })
+      // const imgData = imageCanvas.toDataURL('image/png');
+      let img = new Image()
+      img.src = profileImageUrl
+      let pdfHeight = pdf.internal.pageSize.getHeight()
+      let imageProfileHeight = img.height / img.width * 40
+      pdf.addImage(img, 'JPEG', 10, 45, 40, imageProfileHeight);
+      html2canvas(basicInfoElement)
+        .then((basicInfoCanvas) => {
+          let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
+          pdf.addImage(basicInfoCanvas, 'JPEG', 40, 40, 75, basicInfoHeight);
+          html2canvas(skillsElement)
+            .then((skillsCanvas) => {
+              let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
+              pdf.addImage(skillsCanvas, 'JPEG', 125, 40, 75, skillHeight);
+              html2canvas(experienceElement)
+                .then((experienceCanvas) => {
+                  let experienceHeight = experienceCanvas.height / experienceCanvas.width * 180
+                  let experienceY = 40 + skillHeight + 15
+                  if (experienceY + experienceHeight > pdfHeight) {
+                    pdf.addPage();
+                    experienceY = 15
+                  }
+                  pdf.addImage(experienceCanvas, 'JPEG', 15, experienceY, 180, experienceHeight);
+                  html2canvas(educationElement)
+                    .then((educationCanvas) => {
+                      let educationHeight = educationCanvas.height / educationCanvas.width * 180
+                      let educationY = 40 + skillHeight + experienceHeight + 15
+                      if (educationY + educationHeight > pdfHeight) {
+                        pdf.addPage();
+                        educationY = 15
+                      }
+                      pdf.addImage(educationCanvas, 'JPEG', 15, educationY, 180, educationHeight);
+                      pdf.save("cv.pdf")
+                      this.setState({ exportingPdf: false })
+                    })
+                })
+            })
+        })
       // })
+    } catch (error) {
+      window.alert('error', error.message)
+    }
+
   }
 
   render() {

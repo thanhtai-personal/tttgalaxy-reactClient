@@ -22,6 +22,7 @@ function* login() {
     const dataResponse = yield apiInstant.post('users/login', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
     !_.isNil(dataResponse.data.token) && window.localStorage.setItem('jwtToken', dataResponse.data.token)
+    !_.isNil(dataResponse.data.token) && apiInstant.setToken(dataResponse.data.token)
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
     yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/home', isRedirect: true }});
@@ -40,6 +41,8 @@ function* reLogin() {
   try {
     const dataResponse = yield apiInstant.post('users/login', { email: dataLogin.email, password: dataLogin.password })
     .then(response => response )
+    !_.isNil(dataResponse.data.token) && window.localStorage.setItem('jwtToken', dataResponse.data.token)
+    !_.isNil(dataResponse.data.token) && apiInstant.setToken(dataResponse.data.token)
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
   } catch(error) {
@@ -55,7 +58,6 @@ function* signup() {
   try {
     const dataResponse = yield apiInstant.post('users/register', { email: dataRegister.email, password: dataRegister.password })
     .then(response => response )
-    apiInstant.setToken(dataResponse)
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
     yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/login', isRedirect: true }});

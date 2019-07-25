@@ -4,8 +4,10 @@ import _ from 'lodash'
 import {
   UPDATE_DATA_INPUT_LOGIN,
   USER_LOGIN,
-  UPDATE_USER_DATA
+  RESET_ALL_STATE
 } from "../constants/action-types";
+
+import apiInstant from './../api'
 
 export const updateDataInputLogin = (valuePath, value) => {
   let payload = {}
@@ -20,5 +22,6 @@ export const login = (data) => {
 export const logout = () => {
   window.localStorage.removeItem('jwtToken')
   window.localStorage.clear()
-  return { type: UPDATE_USER_DATA, payload: { userData: {} } };
+  apiInstant.setToken(null)
+  return { type: RESET_ALL_STATE };
 }

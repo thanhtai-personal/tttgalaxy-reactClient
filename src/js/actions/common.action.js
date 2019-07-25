@@ -1,7 +1,7 @@
 
 // import _ from 'lodash'
 
-import { 
+import {
   UPDATE_REDIRECT_DATA
 } from "../constants/action-types";
 

@@ -2,7 +2,8 @@ import {
   UPDATE_DATA_INPUT_LOGIN,
   USER_LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_FAILED
+  LOGIN_FAILED,
+  RESET_ALL_STATE
 } from "../constants/action-types";
 
 const initialState = {
@@ -11,14 +12,15 @@ const initialState = {
   loginLoading: false
 };
 
-function loginReducer(state = initialState, action) {
+function loginReducer (state = initialState, action) {
   switch (action.type) {
     case UPDATE_DATA_INPUT_LOGIN:
     case USER_LOGIN:
     case LOGIN_SUCCESS:
     case LOGIN_FAILED:
-        let newState = { ...state, ...action.payload }
-        return newState
+      return { ...state, ...action.payload }
+    case RESET_ALL_STATE:
+      return initialState
     default:
       return state
   }

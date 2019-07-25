@@ -1,6 +1,8 @@
 
 import React from 'react'
 import _ from 'lodash'
+import actionService from './../actions'
+import apiInstant from './../api'
 
 export const logger = store => next => action => {
   // debugger
@@ -44,7 +46,6 @@ export const RequireAuth = (ComposedComponent) => {
 
 export const UserLayout = (Layout, ComposedComponent) => {
   class UseHeaderComponent extends React.PureComponent {
-
     render () {
       return (
         < React.Fragment >

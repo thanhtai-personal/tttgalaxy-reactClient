@@ -5,6 +5,13 @@ import Login from '../components/login'
 import ActionService from './../actions'
 
 class LoginContainer extends Component {
+
+  componentWillMount () {
+    if(window.localStorage.getItem('jwtToken')) {
+      this.props.history.push('/home')
+    }
+  }
+
   render () {
     const {
       email,

@@ -3,7 +3,8 @@ import {
   SUBMIT_PORTFOLIO_FAILED,
   SUBMIT_PORTFOLIO_SUCCESS,
   SUBMIT_PORTFOLIO_DATA,
-  GET_PORTFOLIO_DATA
+  GET_PORTFOLIO_DATA,
+  RESET_ALL_STATE
 } from "../constants/action-types";
 
 import {
@@ -264,7 +265,9 @@ function portfolioReducer (state = initialState, action) {
     case SUBMIT_PORTFOLIO_FAILED:
     case SUBMIT_PORTFOLIO_SUCCESS:
     case GET_PORTFOLIO_DATA:
-      return {...state, ...action.payload}
+      return { ...state, ...action.payload }
+    case RESET_ALL_STATE:
+      return initialState
     default:
       return state
   }
