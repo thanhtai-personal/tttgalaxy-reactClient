@@ -24,7 +24,8 @@ class Content extends PureComponent {
     this.exportPdf = this.exportPdf.bind(this)
     this.state = {
       openEditMode: false,
-      exportingPdf: false
+      exportingPdf: false,
+      imageUrlNull: _.isNil(props.profileImageUrl) || props.profileImageUrl === ''
     }
   }
 
@@ -86,9 +87,9 @@ class Content extends PureComponent {
                   <p>
                     {openEditMode ?
                       <input
-                        placeholder="title"
+                        placeholder="example: Front End"
                         defaultValue={section.name}
-                        onChange={typeof htmlEvent.onChange === "function" ?
+                        onBlur={typeof htmlEvent.onChange === "function" ?
                           htmlEvent.onChange.bind(null, [], { path: 'name', sectionId: section.id }) : () => { }} //not working here
                     />
                     :<b>{section.name}</b>
@@ -148,7 +149,7 @@ class Content extends PureComponent {
   }
 
   exportPdf () {
-    const { props: { skill, basicInfo, experiences, education, profileImageUrl } } = this
+    const { props: { profileImageUrl } } = this
     // const imageProfileElement = document.getElementById('image-profile');
     const basicInfoElement = document.getElementById('basic-info');
     const skillsElement = document.getElementById('skills');
@@ -225,7 +226,8 @@ class Content extends PureComponent {
       exportPdf,
       state: {
         openEditMode,
-        exportingPdf
+        exportingPdf,
+        imageUrlNull
       }
     } = this;
     return (
@@ -261,6 +263,7 @@ class Content extends PureComponent {
             <div className="col-sm-12">
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-save" value="Save"
+                  disabled={imageUrlNull}
                   onClick={onSubmit.bind(this)}
                 />
                 <input type="button" className="btn btn-secondary btn-cancel" value="Cancel" data-toggle="modal" data-target="#confirm-cancel"
@@ -284,15 +287,24 @@ class Content extends PureComponent {
         <div className="row">
           <div className="col-sm-3">
             <div className="image-profile-wrapper">
-              <img className="image-profile margin-center" id="image-profile" src={profileImageUrl} alt="profile" />
+              <img className="image-profile margin-center" id="image-profile" 
+              src={profileImageUrl || 'https://vignette.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20170628120149'}
+              alt="profile" />
             </div>
             {openEditMode &&
             <div className="edit-image-area">
               <input 
-                className="edit-image"
-                placeholder="enter your image url here!!!"
+                className={`edit-image ${imageUrlNull ? 'error' : ''}`}
+                placeholder="Enter your image url"
                 defaultValue={profileImageUrl}
-                onBlur={(e) => {this.props.updateData('profileImageUrl', e.target.value)}}
+                onBlur={(e) => {
+                  if(_.isNil(e.target.value) || e.target.value === "") {
+                    this.setState({imageUrlNull: true})
+                  } else {
+                    this.setState({imageUrlNull: false})
+                  }
+                  this.props.updateData('profileImageUrl', e.target.value)}
+                }
               />
             </div>}
           </div>
@@ -341,7 +353,7 @@ class Content extends PureComponent {
         <div className="row padding-top-15">
           <div className="col-sm-12">
             <div className="title center">
-              EDUCATION - Nature Science University
+              EDUCATION
               </div>
           </div>
         </div>

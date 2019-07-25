@@ -46,8 +46,9 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
         <div className="row padding-top-10 word-break" key={`${data.name}-${data.id}`}>
           <div className="col-sm-4">
             {data.isEmptyData &&
-              <input defaultValue={data.name} style={{ width: '100%', minWidth: '100px' }}
-                placeholder="Property name"
+              <input
+                defaultValue={data.name} style={{ width: '100%', minWidth: '100px' }}
+                placeholder="example: Email"
                 onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'name', sectionId: data.id }) : () => { }} />
             }
             {!data.isEmptyData &&
@@ -55,14 +56,14 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             }
           </div>
           <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
-            {isEditMode ? 
+            {isEditMode ?
               <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}
-                placeholder="property value"
+                placeholder=""
                 onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
               : data.value
             }
           </div>
-          {isEditMode && 
+          {isEditMode &&
             <div className="col-sm-1">
               <div className="btn-remove">
                 <i className="fas fa-minus-square cursor-pointer"
@@ -82,21 +83,21 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             </div>
             <div className="col-sm-3">
               {data.isEmptyData &&
-                <input 
+                <input
                   className="width-100-100"
                   defaultValue={data.name || ""}
-                  placeholder="skill name"
+                  placeholder="ex: ReactJS"
                   onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'name', sectionId: data.id }) : () => { }} />
               }{!data.isEmptyData &&
                 data.name
               }
             </div>
-            <div className={`${isEditMode  ? "col-sm-7" : "col-sm-8"} padding-top-5`}>
+            <div className={`${isEditMode ? "col-sm-7" : "col-sm-8"} padding-top-5`}>
               <div className="progress background-color-red">
                 <div className="progress-bar bg-info" role="progressbar" style={{ width: data.progress }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            {isEditMode && 
+            {isEditMode &&
               <div className="col-sm-1">
                 <div className="btn-remove">
                   <i className="fas fa-minus-square cursor-pointer"
@@ -107,7 +108,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               </div>
             }
           </div>
-          {isEditMode && 
+          {isEditMode &&
             <div className="row" key={`${data.name}-edit-${data.id}`}>
               <div className="col-sm-1">
               </div>
@@ -117,7 +118,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
                 <input style={{ width: '30%', minWidth: '50px', maxWidth: '150px' }} type="number" defaultValue={parseInt(data.progress || '0')}
                   min={0} max={100}
                   maxLength={3}
-                  placeholder="progress"
+                  placeholder="example: 70"
                   onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.ProgessBar, path: 'progress', sectionId: data.id }) : () => { }} />
               </div>
             </div>
@@ -132,7 +133,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               <div className="row">
                 <div className="col-sm-12">
                   <input style={{ width: '30%', minWidth: '100px' }}
-                    placeholder="add new title" defaultValue={data.title}
+                    placeholder="example: TiTan tech" defaultValue={data.title}
                     onChange={typeof htmlEvent.onChange === "function" ?
                       htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.CardFullWidth, path: 'title', sectionId: data.id }) : () => { }}
                   />
@@ -143,7 +144,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
               <div className="row">
                 <div className="col-sm-12">
                   <input style={{ width: '30%', minWidth: '100px' }}
-                    placeholder="add during time" defaultValue={data.duringTime}
+                    placeholder="example: 2 years" defaultValue={data.duringTime}
                     onChange={typeof htmlEvent.onChange === "function" ?
                       htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.CardFullWidth, path: 'duringTime', sectionId: data.id })
                       : () => { }}
@@ -157,7 +158,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
                 <div className="col-sm-12">
                   <textarea rows={3}
                     style={{ overflow: 'auto', width: '100%' }}
-                    placeholder="add description" defaultValue={data.description}
+                    placeholder="example: i'm a fullstack developer" defaultValue={data.description}
                     onChange={typeof htmlEvent.onChange === "function" ?
                       htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.CardFullWidth, path: 'description', sectionId: data.id })
                       : () => { }}
@@ -177,21 +178,24 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           </div>
         </div>
       )
+    default:
+      break;
   }
 }
 
 export const checkValidateObject = (objectData, tracker, conditionsChecking) => {
-  if(_.isArray(objectData)) {
+  if (_.isNull(objectData)) return
+  if (_.isArray(objectData) && !_.isEmpty(objectData)) {
     objectData.forEach((subData) => {
       checkValidateObject(subData, tracker, conditionsChecking)
     })
   } else {
-    if(objectData.subData) {
+    if (!_.isNil(objectData) && !_.isNil(objectData.subData)) {
       checkValidateObject(objectData.subData, tracker, conditionsChecking)
     }
-    if(_.isObject(objectData)) {
+    if (_.isObject(objectData)) {
       conditionsChecking.forEach((functionChecking) => {
-        if(typeof functionChecking === 'function') {
+        if (typeof functionChecking === 'function') {
           tracker.push(functionChecking(objectData))
         }
       })
@@ -202,18 +206,18 @@ export const checkValidateObject = (objectData, tracker, conditionsChecking) => 
 
 export const convertPortfolioData = (data, desType) => {
 
-  let resData = {
-    userEducation: [],
-    userExperience: [],
-    userSkill: [],
-  }
-
+  let resData = {}
   if (desType === 'static') {
+    resData = {
+      userEducation: [],
+      userExperience: [],
+      userSkill: [],
+    }
     resData.basicInfo = {
       profileImageUrl: data.profileImageUrl
     }
     data.basicInfo.forEach((bi) => {
-      resData.basicInfo[bi.name] = bi.value
+      resData.basicInfo[_.camelCase(bi.name)] = bi.value
     })
     resData.skill = []
     resData.group = []
@@ -225,7 +229,7 @@ export const convertPortfolioData = (data, desType) => {
           name: g.name
         }
       )
-      if(_.isArray(g.subData)) {
+      if (_.isArray(g.subData)) {
         g.subData.forEach((s) => {
           resData.userSkill.push({
             userId: data.basicInfo.id,
@@ -288,18 +292,92 @@ export const convertPortfolioData = (data, desType) => {
   }
 
   if (desType === 'dynamic') {
-    /**
-     basicInfo: user,
-        skill: dataRs[0].skill,
-        group: dataRs[0].group,
-        userSkill: dataRs[0].userSkill,
-        experiences: dataRs[1].experience,
-        userExperience: dataRs[1].userExperience,
-        education: dataRs[2].education,
-        school: dataRs[2].school,
-        userEducation: dataRs[2].userEducation
-     */
-    
+    const defaultPropertyKeys = ['id', 'password', 'profileImageUrl', 'createdAt', 'updatedAt', 'isDelete']
+    resData.profileImageUrl = data.basicInfo.profileImageUrl
+    resData.basicInfo = []
+    Object.keys(data.basicInfo).forEach((k, index) => {
+      if (!defaultPropertyKeys.includes(k)) {
+        if(k === 'name') {
+          resData.basicInfo.unshift({
+            id: `${index}`,
+            name: _.startCase(k),
+            value: data.basicInfo[k],
+            renderType: RENDER_TYPE.TextWithLabel,
+          })
+        } else {
+          resData.basicInfo.push({
+            id: `${index}`,
+            name: _.startCase(k),
+            value: data.basicInfo[k],
+            renderType: RENDER_TYPE.TextWithLabel,
+          })
+        }
+      }
+    })
+    resData.skill = []
+    data.group.forEach((g, gIndex) => {
+      let skillReturn = {
+        subData: [],
+        id: g.id,
+        name: g.name,
+        isBorderTop: gIndex !== 0,
+        renderType: RENDER_TYPE.Title,
+      }
+      data.skill.forEach((s) => {
+        if (s.groupId === g.id) {
+          let skillDataReturn = {
+            id: s.id,
+            name: s.name,
+            renderType: RENDER_TYPE.ProgessBar,
+          }
+          let gsData = data.groupSkill.find((gs) => gs.groupId === g.id && gs.skillId === s.id)
+          if (!_.isNil(gsData)) {
+            skillDataReturn.progress = gsData.progress
+          }
+          skillReturn.subData.push(skillDataReturn)
+        }
+      })
+      resData.skill.push(skillReturn)
+    })
+    resData.experiences = []
+    data.experiences.forEach((exp) => {
+      let expReturn = {
+        id: exp.id,
+        title: exp.title,
+        name: _.camelCase(exp.title),
+        description: exp.descriptions,
+        renderType: RENDER_TYPE.CardFullWidth,
+      }
+      let ueData = data.userExperience.find((ue) => ue.userId === data.basicInfo.id && ue.experienceId === exp.id)
+      if (!_.isNil(ueData)) {
+        expReturn.duringTime = ueData.duringTime
+      }
+      resData.experiences.push(expReturn)
+    })
+    resData.education = []
+    data.education.forEach((edu) => {
+      let eduReturn = {
+        id: edu.id,
+        title: edu.title,
+        name: _.camelCase(edu.title),
+        description: edu.description,
+        renderType: RENDER_TYPE.CardFullWidth
+      }
+      let esData = data.educationSchool.find((es) => es.educationId === edu.id)
+      if (!_.isNil(esData)) {
+        let sData = data.school.find((s) => s.id === esData.schoolId)
+        if (!_.isNil(sData)) {
+          eduReturn.schoolId = esData.schoolId
+          eduReturn.schoolName = sData.name
+          eduReturn.schoolDescription = sData.description
+        }
+        let ueData = data.userEducation.find((ue) => ue.userId === data.basicInfo.id && ue.educationId === edu.id)
+        if (!_.isNil(ueData)) {
+          eduReturn.duringTime = ueData.duringTime
+        }
+      }
+      resData.education.push(eduReturn)
+    })
   }
 
   return resData

@@ -34,6 +34,9 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
   let getParentSectionIdIndex = 0
   const setDataToObject = (object, dataDefine) => {
     let resultObj = object.map((obj) => {
+      if (_.isEmpty(data.parentsSection) && obj.id === dataDefine.sectionId) {
+        obj[dataDefine.path] = dataDefine.value
+      }
       if (!_.isNil(obj.subData)) {
         if ((dataDefine.isRemoveSub || dataDefine.isAddSection) && _.isNil(data.parentsSection[getParentSectionIdIndex + 1])) {
           if (obj.id === data.parentsSection[getParentSectionIdIndex]) {
@@ -72,7 +75,6 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
           } else {
             let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
             if (dataDefine.isAddSubData) dataDefault.subData = []
-            if (dataDefine.isMissName) dataDefault.name = "default name"
             obj.subData.push(dataDefault)
             obj.isAddSectionToSubData = null
           }
@@ -84,7 +86,6 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
     if (dataDefine.isAddSection) {
       if (dataDefine.isAddToRoot) {
         let dataDefault = { isEmptyData: true, id: uuidv1(), renderType: dataDefine.renderType }
-        if( dataDefine.renderType === RENDER_TYPE.CardFullWidth ) dataDefault.name = 'default name'
         if (dataDefine.isAddSubData) {
           dataDefault.subData = []
           dataDefault.isBorderTop = true
@@ -131,7 +132,13 @@ export const validateDataUpdate = () => {
     listKeys = Object.keys(dataValidate)
     const conditionsChecking = [
       (data) => {
-        if (_.isNil(data.name) || data.name.trim() === "") {
+        if(!_.isObject(data)) {
+          return { validated: true, message: 'data is not object' }
+        }
+        if(_.isEmpty(data)) {
+          return { validated: true, message: 'data is empty array' }
+        }
+        if ((_.isNil(data.name) || data.name.trim() === "") && (_.isNil(data.title) || data.title.trim() === "")) {
           return { validated: false, errorMessage: 'name of field cannot be null' }
         }
         return { validated: true, message: '' }

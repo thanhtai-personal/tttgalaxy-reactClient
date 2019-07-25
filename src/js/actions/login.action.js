@@ -7,7 +7,7 @@ import {
   RESET_ALL_STATE
 } from "../constants/action-types";
 
-import apiInstant from './../api'
+// import apiInstant from './../api'
 
 export const updateDataInputLogin = (valuePath, value) => {
   let payload = {}
