@@ -238,6 +238,8 @@ const initialState = {
       duringTime: '1 months',
       description: 'Team members: 1. -- window phone',
       renderType: RENDER_TYPE.CardFullWidth,
+      schoolId: 1,
+      schoolName: 'Nature of science'
     },
     {
       id: 2,
@@ -246,6 +248,8 @@ const initialState = {
       duringTime: '2 months',
       description: 'Team members: 2. -- ASP.net web application ',
       renderType: RENDER_TYPE.CardFullWidth,
+      schoolId: 1,
+      schoolName: 'Nature of science'
     },
     {
       id: 3,
@@ -254,6 +258,8 @@ const initialState = {
       duringTime: '2 months',
       description: 'team member: 2. -- Create a game with MS XNA game studio code',
       renderType: RENDER_TYPE.CardFullWidth,
+      schoolId: 1,
+      schoolName: 'Nature of science'
     }
   ]
 };

@@ -11,11 +11,13 @@ import {
 
 import apiInstant from './../../api'
 
+import { convertPortfolioData } from './../../helper'
+
 
 function* submitPortfolioData() {
-  let dataSubmit = store.getState().portfolio
+  let dataSubmit = convertPortfolioData(store.getState().portfolio, 'static')
   try {
-    const dataResponse = yield apiInstant.post('users/update', dataSubmit)
+    const dataResponse = yield apiInstant.post('users/update-portfolio', dataSubmit)
     .then(response => response )
     yield put({ type: SUBMIT_PORTFOLIO_SUCCESS, payload: { loading: false, dataResponse: dataResponse } });
   } catch(error) {
@@ -32,11 +34,11 @@ function* getDataPortfolioWatcher() {
 }
 
 function* getPortfolioData() {
-  let dataSubmit = store.getState().portfolio
   try {
-    const dataResponse = yield apiInstant.get('portfolio-data')
+    const dataResponse = yield apiInstant.get('users/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') }})
     .then(response => {
       // re-map data response
+      let portfolioData = convertPortfolioData(store.getState().portfolio, 'dynamic')
       // yield put({ type: GET_PORTFOLIO_SUCCESS, payload: response });
     } )
     .catch(error => {

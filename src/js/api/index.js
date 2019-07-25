@@ -2,12 +2,11 @@ import axios from 'axios'
 
 import devConfig from './config/dev'
 import prodConfig from './config/product'
-
-let apiInstant = axios.create(devConfig)
-
+let apiConfig = devConfig
 if (process.env.NODE_ENV === "production") {
-  apiInstant = axios.create(prodConfig)
+  apiConfig = prodConfig
 }
+let apiInstant = axios.create(apiConfig)
 
 apiInstant.interceptors.request.use((config) => {
   return config;
@@ -21,8 +20,9 @@ apiInstant.interceptors.response.use((response) => {
   return Promise.reject(err);
 });
 
-apiInstant.setToken = (token) => {
-  apiInstant.defaults.headers['x-access-token'] = token
-}
+// apiInstant.setToken = (token) => {
+//   apiConfig.headers['x-access-token'] = token
+//   apiInstant = axios.create(apiConfig)
+// }
 
 export default apiInstant

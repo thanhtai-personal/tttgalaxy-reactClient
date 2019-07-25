@@ -198,3 +198,98 @@ export const checkValidateObject = (objectData, tracker, conditionsChecking) => 
     }
   }
 }
+
+
+export const convertPortfolioData = (data, desType) => {
+
+  let resData = {
+    userEducation: [],
+    userExperience: [],
+    userSkill: [],
+  }
+
+  if (desType === 'static') {
+    resData.basicInfo = {
+      profileImageUrl: data.profileImageUrl
+    }
+    data.basicInfo.forEach((bi) => {
+      resData.basicInfo[bi.name] = bi.value
+    })
+    resData.skill = []
+    resData.group = []
+    resData.groupSkill = []
+    data.skill.forEach((g) => {
+      resData.group.push(
+        {
+          id: g.id,
+          name: g.name
+        }
+      )
+      if(_.isArray(g.subData)) {
+        g.subData.forEach((s) => {
+          resData.userSkill.push({
+            userId: data.basicInfo.id,
+            skillId: s.id,
+            progress: parseInt(s.progress || 0),
+            isDelete: g.isDelete || s.isDelete,
+          })
+          resData.skill.push({
+            id: s.id,
+            name: s.name
+          })
+          resData.groupSkill.push({
+            groupId: g.id,
+            skillId: s.Id
+          })
+        })
+      }
+    })
+    resData.education = []
+    resData.school = []
+    resData.educationSchool = []
+    data.education.forEach((edu) => {
+      resData.userEducation.push({
+        userId: data.basicInfo.id,
+        educationId: edu.id,
+        isDelete: edu.isDelete,
+      })
+      resData.school.push({
+        id: edu.schoolId || '',
+        name: edu.schoolName,
+        description: edu.schoolDescription || ''
+      })
+      resData.education.push({
+        id: edu.id || '',
+        name: edu.name,
+        descriptions: edu.description,
+        duringTime: edu.duringTime,
+        title: edu.title
+      })
+      resData.educationSchool.push({
+        schoolId: edu.schoolId,
+        educationId: edu.id,
+        isDelete: edu.isDelete
+      })
+    })
+    resData.experience = []
+    data.experiences.forEach((exp) => {
+      resData.userExperience.push({
+        userId: data.basicInfo.id,
+        experienceId: exp.id,
+        isDelete: exp.isDelete,
+      })
+      resData.experience.push({
+        id: exp.id || '',
+        title: exp.title,
+        descriptions: exp.description,
+        duringTime: exp.duringTime
+      })
+    })
+  }
+
+  if (desType === 'dynamic') {
+    
+  }
+
+  return resData
+}

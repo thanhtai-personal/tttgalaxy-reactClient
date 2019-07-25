@@ -63,7 +63,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "client": "node scripts/start.js",
-    "server": "nodemon scripts/server.js --inspect",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "eslintConfig": {

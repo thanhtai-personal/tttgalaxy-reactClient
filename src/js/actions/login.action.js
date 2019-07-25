@@ -22,6 +22,6 @@ export const login = (data) => {
 export const logout = () => {
   window.localStorage.removeItem('jwtToken')
   window.localStorage.clear()
-  apiInstant.setToken(null)
+  // apiInstant.setToken(null)
   return { type: RESET_ALL_STATE };
 }
