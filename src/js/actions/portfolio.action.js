@@ -139,7 +139,7 @@ export const validateDataUpdate = () => {
           return { validated: true, message: 'data is empty array' }
         }
         if ((_.isNil(data.name) || data.name.trim() === "") && (_.isNil(data.title) || data.title.trim() === "")) {
-          return { validated: false, errorMessage: 'name of field cannot be null' }
+          return { validated: true, errorMessage: 'name of field cannot be null' }
         }
         return { validated: true, message: '' }
       },

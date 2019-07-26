@@ -7,9 +7,9 @@ import {
   RESET_ALL_STATE
 } from "../constants/action-types";
 
-import {
-  RENDER_TYPE
-} from "../constants/enums"
+// import {
+//   RENDER_TYPE
+// } from "../constants/enums"
 
 const initialState = {
   profileImageUrl: '',
