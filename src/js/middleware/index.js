@@ -1,7 +1,7 @@
 
 import React from 'react'
 import _ from 'lodash'
-// import actionService from './../actions'
+import actionService from './../actions'
 // import apiInstant from './../api'
 
 export const logger = store => next => action => {
@@ -23,6 +23,16 @@ export const RequireAuth = (ComposedComponent) => {
     componentWillMount () {
       if (_.isNil(this.getToken())) {
         this.props.history.push('/login')
+      } else {
+        actionService.getAuthData()
+      }
+    }
+
+    componentDidUpdate () {
+      let { redirectData : { isRedirect, from, to } } = this.props
+      if (isRedirect && from === 'token_failed') {
+        actionService.resetRedirectData()
+        this.props.history.push(to)
       }
     }
 

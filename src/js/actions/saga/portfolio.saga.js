@@ -16,9 +16,11 @@ import { convertPortfolioData } from './../../helper'
 
 
 function* submitPortfolioData() {
-  let dataSubmit = convertPortfolioData(store.getState().portfolio, 'static')
+  let dataSubmit = store.getState().portfolio
+  dataSubmit.currentUser = store.getState().auth.userData
+  dataSubmit = convertPortfolioData(dataSubmit, 'static')
   try {
-    const dataResponse = yield apiInstant.post('users/update-portfolio', dataSubmit, { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
+    const dataResponse = yield apiInstant.post('portfolio/update-portfolio', dataSubmit, { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
       .then(response => response)
     yield put({ type: SUBMIT_PORTFOLIO_SUCCESS, payload: { loading: false, dataResponse: dataResponse } });
   } catch (error) {
@@ -36,7 +38,7 @@ function* getDataPortfolioWatcher() {
 
 function* getPortfolioData() {
   try {
-    const dataResponse = yield apiInstant.get('users/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
+    const dataResponse = yield apiInstant.get('portfolio/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
       .then(response => response)
       let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
       yield put({ type: UPDATE_PORTFOLIO_DATA, payload: portfolioData });

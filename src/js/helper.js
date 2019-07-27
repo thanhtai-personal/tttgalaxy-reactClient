@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import moment from 'moment'
 
 import { RENDER_TYPE } from './constants/enums'
 
@@ -207,6 +208,7 @@ export const checkValidateObject = (objectData, tracker, conditionsChecking) => 
 export const convertPortfolioData = (data, desType) => {
 
   let resData = {}
+  const dateField = ['birthDay', 'birthDate']
   if (desType === 'static') {
     resData = {
       userEducation: [],
@@ -217,7 +219,15 @@ export const convertPortfolioData = (data, desType) => {
       profileImageUrl: data.profileImageUrl
     }
     data.basicInfo.forEach((bi) => {
-      resData.basicInfo[_.camelCase(bi.name)] = bi.value
+      if (dateField.includes(_.camelCase(bi.name))) {
+        if (!_.isNil(bi.value)) {
+          resData.basicInfo[_.camelCase(bi.name)] = moment(bi.value).format('DD/MM/YYYY')
+        } else {
+          resData.basicInfo[_.camelCase(bi.name)] = null
+        }
+      } else {
+        resData.basicInfo[_.camelCase(bi.name)] = bi.value
+      }
     })
     resData.skill = []
     resData.group = []
@@ -232,7 +242,7 @@ export const convertPortfolioData = (data, desType) => {
       if (_.isArray(g.subData)) {
         g.subData.forEach((s) => {
           resData.userSkill.push({
-            userId: data.basicInfo.id,
+            userId: data.currentUser.id,
             skillId: s.id,
             progress: parseInt(s.progress || 0),
             isDelete: g.isDelete || s.isDelete,
@@ -243,7 +253,7 @@ export const convertPortfolioData = (data, desType) => {
           })
           resData.groupSkill.push({
             groupId: g.id,
-            skillId: s.Id
+            skillId: s.id
           })
         })
       }

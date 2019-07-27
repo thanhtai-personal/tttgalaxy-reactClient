@@ -60,7 +60,7 @@ const publicRoute = [
     layout: { header: Header, footer: Footer }
   },
   {
-    path: '/portfolio',
+    path: '/portfolio/public/:id',
     component: Portfolio,
     isExact: false
   }
@@ -72,6 +72,11 @@ const privateRoute = [
     component: Home,
     isExact: false,
     layout: { header: Header, footer: Footer }
+  },
+  {
+    path: '/portfolio',
+    component: Portfolio,
+    isExact: false
   }
 ]
 
