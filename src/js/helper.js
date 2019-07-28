@@ -57,14 +57,14 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             }
           </div>
           <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
-            {isEditMode ?
-              <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}
+            {isEditMode && data.name !== 'Email' ?
+              <input defaultValue={data.name === 'Birth Date' ? moment(data.value).format('MM/DD/YYYY') : data.value} style={{ width: '100%', minWidth: '100px' }}
                 placeholder=""
                 onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
-              : data.value
+              : data.name === 'Birth Date' ? moment(data.value).format('MM/DD/YYYY') : data.value
             }
           </div>
-          {isEditMode &&
+          {isEditMode && data.isEmptyData &&
             <div className="col-sm-1">
               <div className="btn-remove">
                 <i className="fas fa-minus-square cursor-pointer"
@@ -95,7 +95,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             </div>
             <div className={`${isEditMode ? "col-sm-7" : "col-sm-8"} padding-top-5`}>
               <div className="progress background-color-red">
-                <div className="progress-bar bg-info" role="progressbar" style={{ width: data.progress }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div className="progress-bar bg-info" role="progressbar" style={{ width: `${parseInt(data.progress)}%` }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
             {isEditMode &&
@@ -263,7 +263,7 @@ export const convertPortfolioData = (data, desType) => {
     resData.educationSchool = []
     data.education.forEach((edu) => {
       resData.userEducation.push({
-        userId: data.basicInfo.id,
+        userId: data.currentUser.id,
         educationId: edu.id,
         isDelete: edu.isDelete,
       })
@@ -288,7 +288,7 @@ export const convertPortfolioData = (data, desType) => {
     resData.experience = []
     data.experiences.forEach((exp) => {
       resData.userExperience.push({
-        userId: data.basicInfo.id,
+        userId: data.currentUser.id,
         experienceId: exp.id,
         isDelete: exp.isDelete,
       })
@@ -333,16 +333,20 @@ export const convertPortfolioData = (data, desType) => {
         isBorderTop: gIndex !== 0,
         renderType: RENDER_TYPE.Title,
       }
-      data.skill.forEach((s) => {
-        if (s.groupId === g.id) {
+      data.groupSkill.forEach((gs) => {
+        if (gs.groupId === g.id) {
           let skillDataReturn = {
-            id: s.id,
-            name: s.name,
+            id: gs.skillId,
+            progress: gs.progress,
             renderType: RENDER_TYPE.ProgessBar,
           }
-          let gsData = data.groupSkill.find((gs) => gs.groupId === g.id && gs.skillId === s.id)
-          if (!_.isNil(gsData)) {
-            skillDataReturn.progress = gsData.progress
+          let sData = data.skill.find((s) => s.id === gs.skillId)
+          if (!_.isNil(sData)) {
+            skillDataReturn.name = sData.name
+          }
+          let usData = data.userSkill.find((us) => us.skillId === sData.id)
+          if (!_.isNil(usData)) {
+            skillDataReturn.progress = usData.progress
           }
           skillReturn.subData.push(skillDataReturn)
         }
@@ -358,7 +362,7 @@ export const convertPortfolioData = (data, desType) => {
         description: exp.descriptions,
         renderType: RENDER_TYPE.CardFullWidth,
       }
-      let ueData = data.userExperience.find((ue) => ue.userId === data.basicInfo.id && ue.experienceId === exp.id)
+      let ueData = data.userExperience.find((ue) => ue.experienceId === exp.id)
       if (!_.isNil(ueData)) {
         expReturn.duringTime = ueData.duringTime
       }
@@ -381,7 +385,7 @@ export const convertPortfolioData = (data, desType) => {
           eduReturn.schoolName = sData.name
           eduReturn.schoolDescription = sData.description
         }
-        let ueData = data.userEducation.find((ue) => ue.userId === data.basicInfo.id && ue.educationId === edu.id)
+        let ueData = data.userEducation.find((ue) => ue.userId === data.currentUser.id && ue.educationId === edu.id)
         if (!_.isNil(ueData)) {
           eduReturn.duringTime = ueData.duringTime
         }
