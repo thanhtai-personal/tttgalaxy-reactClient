@@ -217,7 +217,7 @@ export const checkValidateObject = (objectData, tracker, conditionsChecking) => 
     }
     if (_.isObject(objectData)) {
       conditionsChecking.forEach((functionChecking) => {
-        if (typeof functionChecking === 'function') {
+        if (typeof functionChecking === 'function' && !objectData.isDelete) {
           tracker.push(functionChecking(objectData))
         }
       })
