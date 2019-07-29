@@ -43,7 +43,7 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
             if (dataDefine.isAddSection) {
               obj.isAddSectionToSubData = true
             } else if (dataDefine.isRemoveSub) {
-              obj.removeMe = true
+              obj.isDelete = true
             }
           }
         }
@@ -58,14 +58,11 @@ export const updatePortfolioDataWithObjectKey = (objectKey, data) => {
           if (!dataDefine.isRemove) {
             obj[dataDefine.path] = dataDefine.value
           } else {
-            obj.removeMe = true
+            obj.isDelete = true
           }
         }
       }
       return obj
-    })
-    _.remove(resultObj, {
-      removeMe: true
     })
     const addSection = (list) => {
       return list.map(obj => {

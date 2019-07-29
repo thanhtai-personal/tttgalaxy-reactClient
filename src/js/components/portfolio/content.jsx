@@ -72,6 +72,7 @@ class Content extends PureComponent {
   buildSection(data, htmlEvent) {
     let { state: { openEditMode } } = this
     const renderListSection = (sectionList, listParentSection, isRoot = true) => {
+      sectionList = sectionList.filter((sect) => sect.isDelete !== true)
       return sectionList.map((section) => {
         if (isRoot) {
           listParentSection = [] 

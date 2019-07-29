@@ -214,6 +214,12 @@ export const convertPortfolioData = (data, desType) => {
       userEducation: [],
       userExperience: [],
       userSkill: [],
+      skill: [],
+      group: [],
+      groupSkill: [],
+      education: [],
+      school: [],
+      educationSchool: []
     }
     resData.basicInfo = {
       profileImageUrl: data.profileImageUrl
@@ -229,14 +235,12 @@ export const convertPortfolioData = (data, desType) => {
         resData.basicInfo[_.camelCase(bi.name)] = bi.value
       }
     })
-    resData.skill = []
-    resData.group = []
-    resData.groupSkill = []
     data.skill.forEach((g) => {
       resData.group.push(
         {
           id: g.id,
-          name: g.name
+          name: g.name,
+          isDelete: !!g.isDelete
         }
       )
       if (_.isArray(g.subData)) {
@@ -245,44 +249,45 @@ export const convertPortfolioData = (data, desType) => {
             userId: data.currentUser.id,
             skillId: s.id,
             progress: parseInt(s.progress || 0),
-            isDelete: g.isDelete || s.isDelete,
+            isDelete: !!s.isDelete,
           })
           resData.skill.push({
             id: s.id,
-            name: s.name
+            name: s.name,
+            isDelete: !!s.isDelete
           })
           resData.groupSkill.push({
             groupId: g.id,
-            skillId: s.id
+            skillId: s.id,
+            isDelete: g.isDelete || s.isDelete,
           })
         })
       }
     })
-    resData.education = []
-    resData.school = []
-    resData.educationSchool = []
     data.education.forEach((edu) => {
       resData.userEducation.push({
         userId: data.currentUser.id,
         educationId: edu.id,
-        isDelete: edu.isDelete,
         description: edu.description,
-        duringTime: edu.duringTime
+        duringTime: edu.duringTime,
+        isDelete: !!edu.isDelete,
       })
       resData.school.push({
         id: edu.schoolId || '',
         name: edu.schoolName,
-        description: edu.schoolDescription || ''
+        description: edu.schoolDescription || '',
+        isDelete: !!edu.isDelete
       })
       resData.education.push({
         id: edu.id || '',
         name: edu.name || _.camelCase(edu.title),
-        title: edu.title
+        title: edu.title,
+        isDelete: !!edu.isDelete
       })
       resData.educationSchool.push({
         schoolId: edu.schoolId,
         educationId: edu.id,
-        isDelete: edu.isDelete
+        isDelete: !!edu.isDelete
       })
     })
     resData.experience = []
@@ -290,14 +295,15 @@ export const convertPortfolioData = (data, desType) => {
       resData.userExperience.push({
         userId: data.currentUser.id,
         experienceId: exp.id,
-        isDelete: exp.isDelete,
         duringTime: exp.duringTime,
-        description: exp.description
+        description: exp.description,
+        isDelete: !!exp.isDelete
       })
       resData.experience.push({
         id: exp.id || '',
         title: exp.title,
         name: _.camelCase(exp.title),
+        isDelete: !!exp.isDelete
       })
     })
   }
