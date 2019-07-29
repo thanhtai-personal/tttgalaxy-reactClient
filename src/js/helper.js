@@ -1,6 +1,9 @@
 import React from 'react'
 import _ from 'lodash'
 import moment from 'moment'
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 import { RENDER_TYPE } from './constants/enums'
 
@@ -58,7 +61,12 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           </div>
           <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
             {isEditMode && data.name !== 'Email' ?
-              <input defaultValue={data.name === 'Birth Date' && !_.isNil(data.value) ? moment(data.value).format('MM/DD/YYYY') : data.value} style={{ width: '100%', minWidth: '100px' }}
+              data.name === 'Birth Date' && !_.isNil(data.value) ? 
+                <DatePicker
+                  selected={new Date(moment(data.value).format('MM/DD/YYYY'))}
+                  onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id, type: 'date-picker' }) : () => { }}
+                />
+              : <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}
                 placeholder=""
                 onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
               : data.name === 'Birth Date' && !_.isNil(data.value) ? moment(data.value).format('MM/DD/YYYY') : data.value
@@ -227,7 +235,7 @@ export const convertPortfolioData = (data, desType) => {
     data.basicInfo.forEach((bi) => {
       if (dateField.includes(_.camelCase(bi.name))) {
         if (!_.isNil(bi.value)) {
-          resData.basicInfo[_.camelCase(bi.name)] = moment(bi.value).format('DD/MM/YYYY')
+          resData.basicInfo[_.camelCase(bi.name)] = moment(bi.value).format('MM/DD/YYYY')
         } else {
           resData.basicInfo[_.camelCase(bi.name)] = null
         }

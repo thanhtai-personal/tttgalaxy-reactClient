@@ -10,6 +10,7 @@ import {
 import _ from 'lodash'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import $ from 'jquery'
 
 import './portfolio.scss'
 import { RENDER_TYPE } from "../../constants/enums";
@@ -29,8 +30,11 @@ class Content extends PureComponent {
     }
   }
 
+  componentDidMount() {
+  }
+
   onChangeBasicInfo(listParentSection, data, event) {
-    this.props.updateDataWithObjectKey('basicInfo', { ...data, value: event.target.value, parentsSection: listParentSection })
+    this.props.updateDataWithObjectKey('basicInfo', { ...data, value: data.type === 'date-picker' ? event : event.target.value, parentsSection: listParentSection })
   }
 
   onChangeEducation(listParentSection, data, event) {
@@ -244,7 +248,7 @@ class Content extends PureComponent {
               <div className="admin-menu">
                 <input type="button" className="btn btn-info btn-edit" value="Edit profile"
                   onClick={() => {
-                    this.setState({ openEditMode: true }, () => {
+                    this.setState({ openEditMode: true, imageUrlNull: _.isNil(profileImageUrl) || profileImageUrl === '' }, () => {
                       this.backUpData = {
                         skill: JSON.parse(JSON.stringify(skill)),
                         basicInfo: JSON.parse(JSON.stringify(basicInfo)),
@@ -312,12 +316,12 @@ class Content extends PureComponent {
           <div className="col-sm-4 basic-infomation" id="basic-info">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
             {buildSection(basicInfo, { onChange: onChangeBasicInfo.bind(this), onRemove: onRemoveBasicInfo.bind(this) })}
-            {openEditMode &&
+            {/* {openEditMode &&
               <i className="fas fa-plus-square cursor-pointer float-right"
                 title="add new info"
                 onClick={onAddSection.bind(this, 'basicInfo', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.TextWithLabel, isMissName: false })}
               />
-            }
+            } */}
           </div>
           <div className="col-sm-5 skills" id="skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
