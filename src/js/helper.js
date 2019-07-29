@@ -58,10 +58,10 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           </div>
           <div className={isEditMode ? "col-sm-7" : "col-sm-8"}>
             {isEditMode && data.name !== 'Email' ?
-              <input defaultValue={data.name === 'Birth Date' ? moment(data.value).format('MM/DD/YYYY') : data.value} style={{ width: '100%', minWidth: '100px' }}
+              <input defaultValue={data.name === 'Birth Date' && !_.isNil(data.value) ? moment(data.value).format('MM/DD/YYYY') : data.value} style={{ width: '100%', minWidth: '100px' }}
                 placeholder=""
                 onBlur={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id }) : () => { }} />
-              : data.name === 'Birth Date' ? moment(data.value).format('MM/DD/YYYY') : data.value
+              : data.name === 'Birth Date' && !_.isNil(data.value) ? moment(data.value).format('MM/DD/YYYY') : data.value
             }
           </div>
           {isEditMode && data.isEmptyData &&
