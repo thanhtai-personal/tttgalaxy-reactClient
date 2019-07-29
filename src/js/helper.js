@@ -266,6 +266,8 @@ export const convertPortfolioData = (data, desType) => {
         userId: data.currentUser.id,
         educationId: edu.id,
         isDelete: edu.isDelete,
+        description: edu.description,
+        duringTime: edu.duringTime
       })
       resData.school.push({
         id: edu.schoolId || '',
@@ -274,9 +276,7 @@ export const convertPortfolioData = (data, desType) => {
       })
       resData.education.push({
         id: edu.id || '',
-        name: edu.name,
-        descriptions: edu.description,
-        duringTime: edu.duringTime,
+        name: edu.name || _.camelCase(edu.title),
         title: edu.title
       })
       resData.educationSchool.push({
@@ -291,12 +291,13 @@ export const convertPortfolioData = (data, desType) => {
         userId: data.currentUser.id,
         experienceId: exp.id,
         isDelete: exp.isDelete,
+        duringTime: exp.duringTime,
+        description: exp.description
       })
       resData.experience.push({
         id: exp.id || '',
         title: exp.title,
-        descriptions: exp.description,
-        duringTime: exp.duringTime
+        name: _.camelCase(exp.title),
       })
     })
   }
@@ -358,13 +359,13 @@ export const convertPortfolioData = (data, desType) => {
       let expReturn = {
         id: exp.id,
         title: exp.title,
-        name: _.camelCase(exp.title),
-        description: exp.descriptions,
+        name: exp.name,
         renderType: RENDER_TYPE.CardFullWidth,
       }
       let ueData = data.userExperience.find((ue) => ue.experienceId === exp.id)
       if (!_.isNil(ueData)) {
         expReturn.duringTime = ueData.duringTime
+        expReturn.description = ueData.description
       }
       resData.experiences.push(expReturn)
     })
@@ -373,8 +374,7 @@ export const convertPortfolioData = (data, desType) => {
       let eduReturn = {
         id: edu.id,
         title: edu.title,
-        name: _.camelCase(edu.title),
-        description: edu.description,
+        name: edu.name,
         renderType: RENDER_TYPE.CardFullWidth
       }
       let esData = data.educationSchool.find((es) => es.educationId === edu.id)
@@ -385,10 +385,11 @@ export const convertPortfolioData = (data, desType) => {
           eduReturn.schoolName = sData.name
           eduReturn.schoolDescription = sData.description
         }
-        let ueData = data.userEducation.find((ue) => ue.userId === data.currentUser.id && ue.educationId === edu.id)
-        if (!_.isNil(ueData)) {
-          eduReturn.duringTime = ueData.duringTime
-        }
+      }
+      let ueData = data.userEducation.find((ue) => ue.educationId === edu.id)
+      if (!_.isNil(ueData)) {
+        eduReturn.duringTime = ueData.duringTime
+        eduReturn.description = ueData.description
       }
       resData.education.push(eduReturn)
     })
