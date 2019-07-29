@@ -135,6 +135,19 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
         </React.Fragment>
       )
     case RENDER_TYPE.CardFullWidth:
+      let descriptionRender = data.description
+      if (!isEditMode) {
+        let descriptionLine = _.split(descriptionRender ,"\n")
+        descriptionRender = []
+        if(!_.isEmpty(descriptionLine)) {
+          descriptionLine.forEach((line, index) => {
+            descriptionRender.push(line)
+            if (index + 1 < descriptionLine.length) {
+              descriptionRender.push(<br />)
+            }
+          })
+        }
+      }
       return (
         <div className="card" style={{ width: '100%' }} key={`${data.name}-${data.id}`}>
           <div className="card-body">
@@ -174,7 +187,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
                   />
                 </div>
               </div>
-              : <p className="card-text">{data.description}</p>
+              : <p className="card-text">{descriptionRender}</p>
             }
             {isEditMode &&
               <div className="btn-remove">

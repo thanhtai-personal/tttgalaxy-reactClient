@@ -16,10 +16,10 @@ class Header extends React.PureComponent {
         </div>
         <ul className="navbar-nav">
           <li className="nav-item home active"><Link to="/home">Home</Link></li>
-          <li className="nav-item portfolio"><Link to="/portfolio">About</Link></li>
-          <li className="nav-item games"><Link to="/games">Games</Link></li>
-          <li className="nav-item shopping"><Link to="/novals">Novals</Link></li>
-          <li className="nav-item shopping"><Link to="/mpthaotrang">PV Thao Trang shopping</Link></li>
+          <li className="nav-item portfolio"><Link to="/portfolio">Make your portfolio</Link></li>
+          {/* <li className="nav-item games"><Link to="/games">Games</Link></li> */}
+          {/* <li className="nav-item shopping"><Link to="/novals">Novals</Link></li> */}
+          {/* <li className="nav-item shopping"><Link to="/mpthaotrang">PV Thao Trang shopping</Link></li> */}
         </ul>
         {checkToken() &&
           <div className="dropdown right">
@@ -27,8 +27,8 @@ class Header extends React.PureComponent {
               User Setting
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item"><Link to="/#">Profile</Link></div>
-              <div className="dropdown-item"><Link to="/#">Blog</Link></div>
+              {/* <div className="dropdown-item"><Link to="/#">Profile</Link></div> */}
+              {/* <div className="dropdown-item"><Link to="/#">Blog</Link></div> */}
               <div className="dropdown-item logout"><Link to="/#" onClick={this.props.logout}>Logout</Link></div>
             </div>
           </div>
