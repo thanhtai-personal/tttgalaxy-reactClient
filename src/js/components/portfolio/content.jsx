@@ -10,7 +10,7 @@ import {
 import _ from 'lodash'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import $ from 'jquery'
+// import $ from 'jquery'
 
 import './portfolio.scss'
 import { RENDER_TYPE } from "../../constants/enums";
