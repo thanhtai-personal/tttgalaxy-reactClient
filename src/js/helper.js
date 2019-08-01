@@ -143,13 +143,13 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
           descriptionLine.forEach((line, index) => {
             descriptionRender.push(line)
             if (index + 1 < descriptionLine.length) {
-              descriptionRender.push(<br />)
+              descriptionRender.push(<br key={`card-br-${index}-${data.id}`}/>)
             }
           })
         }
       }
       return (
-        <div className="card" style={{ width: '100%' }} key={`${data.name}-${data.id}`}>
+        <div className="card" style={{ width: '100%' }} key={`${data.name}-${data.id}`}  id={`card-${data.id}`}>
           <div className="card-body">
             {isEditMode ?
               <div className="row">

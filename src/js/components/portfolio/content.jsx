@@ -70,17 +70,17 @@ class Content extends PureComponent {
   }
 
   onAddSection(key, listParentSection, data) {
-    this.props.updateDataWithObjectKey(key, { ...data, parentsSection: listParentSection})
+    this.props.updateDataWithObjectKey(key, { ...data, parentsSection: listParentSection })
   }
-  
+
   buildSection(data, htmlEvent) {
     let { state: { openEditMode } } = this
     const renderListSection = (sectionList, listParentSection, isRoot = true) => {
       sectionList = sectionList.filter((sect) => sect.isDelete !== true)
       return sectionList.map((section) => {
         if (isRoot) {
-          listParentSection = [] 
-       }
+          listParentSection = []
+        }
         if (!_.isNil(section.subData)) {
           listParentSection.push(section.id)
           return (
@@ -95,33 +95,33 @@ class Content extends PureComponent {
                         placeholder="example: Front End"
                         defaultValue={section.name}
                         onBlur={typeof htmlEvent.onChange === "function" ?
-                          htmlEvent.onChange.bind(null, [], { path: 'name', sectionId: section.id }) : () => { }} //not working here
-                    />
-                    :<b>{section.name}</b>
+                          htmlEvent.onChange.bind(null, [], { path: 'name', sectionId: section.id }) : () => { }}
+                      />
+                      : <b>{section.name}</b>
                     }</p>
                 </div>
                 <div className="col-sm-8">
                 </div>
               </div>
               {renderListSection(section.subData, JSON.parse(JSON.stringify(listParentSection)), false)}
-              {openEditMode && 
-              <div className="btn-remove float-left">
-                <i className="fas fa-minus-square cursor-pointer"
-                  title="remove skill group"
-                  onClick={typeof htmlEvent.onRemoveSubData === "function" ?
-                  htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(listParentSection))) : () => { }}
-                />
-                <i className="fas fa-plus-square cursor-pointer"
-                  title="add new skill"
-                  onClick={typeof htmlEvent.onAddSection === "function" ?
-                  htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(listParentSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar, isMissName: false}) : () => { }}
-                />
-              </div>}
+              {openEditMode &&
+                <div className="btn-remove float-left">
+                  <i className="fas fa-minus-square cursor-pointer"
+                    title="remove skill group"
+                    onClick={typeof htmlEvent.onRemoveSubData === "function" ?
+                      htmlEvent.onRemoveSubData.bind(null, JSON.parse(JSON.stringify(listParentSection))) : () => { }}
+                  />
+                  <i className="fas fa-plus-square cursor-pointer"
+                    title="add new skill"
+                    onClick={typeof htmlEvent.onAddSection === "function" ?
+                      htmlEvent.onAddSection.bind(null, JSON.parse(JSON.stringify(listParentSection)), { isAddSection: true, renderType: RENDER_TYPE.ProgessBar, isMissName: false }) : () => { }}
+                  />
+                </div>}
             </React.Fragment>
           )
         }
-        return this.renderSection(section, this.state.openEditMode, 
-          { 
+        return this.renderSection(section, this.state.openEditMode,
+          {
             onChange: htmlEvent.onChange.bind(null, listParentSection),
             onRemove: htmlEvent.onRemove.bind(null, listParentSection)
           })
@@ -130,7 +130,7 @@ class Content extends PureComponent {
     return renderListSection(data)
   }
 
-  cancelEditMode () {
+  cancelEditMode() {
     this.setState({ openEditMode: false }, () => {
       this.revertData(_.clone(this.backUpData))
     })
@@ -144,77 +144,122 @@ class Content extends PureComponent {
 
   onSubmit() {
     this.props.validateDataUpdate()
-    .then((dataValidate) => {
-      this.props.submitDataUpdate()
-      this.setState({ openEditMode: false })
-    })
-    .catch((errorValidate) => {
-      window.alert(errorValidate.errorMessage || errorValidate.message)
-    })
+      .then((dataValidate) => {
+        this.props.submitDataUpdate()
+        this.setState({ openEditMode: false })
+      })
+      .catch((errorValidate) => {
+        window.alert(errorValidate.errorMessage || errorValidate.message)
+      })
   }
 
-  exportPdf () {
-    const { props: { profileImageUrl } } = this
+  exportPdf = async () => {
+    const { props: { profileImageUrl, experiences, education } } = this
     // const imageProfileElement = document.getElementById('image-profile');
     const basicInfoElement = document.getElementById('basic-info');
     const skillsElement = document.getElementById('skills');
-    const experienceElement = document.getElementById('experience');
-    const educationElement = document.getElementById('education');
 
     const pdf = new jsPDF();
     pdf.setFontSize(20);
+    pdf.setFontType("bold")
     pdf.text(60, 25, "CURRICULUM VITAE");
     this.setState({ exportingPdf: true })
+    let currentHeight = 0
     try {
       // html2canvas(imageProfileElement)
       // .then((imageCanvas) => {
       // const imgData = imageCanvas.toDataURL('image/png');
       let img = new Image()
       img.src = profileImageUrl
-      let pdfHeight = pdf.internal.pageSize.getHeight()
       let imageProfileHeight = img.height / img.width * 40
-      pdf.addImage(img, 'JPEG', 10, 45, 40, imageProfileHeight);
+      pdf.addImage(img, 'JPEG', 10, 45, 40, imageProfileHeight)
+      currentHeight = 45 + imageProfileHeight
       html2canvas(basicInfoElement)
         .then((basicInfoCanvas) => {
           let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
-          pdf.addImage(basicInfoCanvas, 'JPEG', 40, 40, 75, basicInfoHeight);
+          let basicInfoPos = { x: 40, y: 40, w: 75, h: basicInfoHeight }
+          pdf.addImage(basicInfoCanvas, 'JPEG', basicInfoPos.x, basicInfoPos.y, basicInfoPos.w, basicInfoPos.h)
+          if (40 + basicInfoHeight > currentHeight) {
+            currentHeight = 40 + basicInfoHeight
+          }
+          let checkCurrentHeight = (pdfDoc, _currentHeight) => {
+            if (_currentHeight > pdfDoc.internal.pageSize.getHeight()) {
+              pdfDoc.addPage();
+              _currentHeight = 15
+            }
+            return _currentHeight
+          }
+
+          const renderListCanvas = (pdfDoc, listGetCanvasfunc, _currentHeight) => {
+            return new Promise((resolve, reject) => {
+              Promise.all(listGetCanvasfunc)
+                .then((listCanvas) => {
+                  if ((_.isNil(listCanvas) && _.isEmpty(listCanvas)) || listCanvas.length === 1) return resolve(_currentHeight)
+                  listCanvas.forEach((canvas) => {
+                    let cardHeight = canvas.height / canvas.width * 180
+                    _currentHeight = checkCurrentHeight(pdfDoc, _currentHeight + cardHeight)
+                    let cardPos = { x: 10, y: _currentHeight, w: 180, h: cardHeight }
+                    pdf.addImage(canvas, 'JPEG', cardPos.x, cardPos.y, cardPos.w, cardPos.h)
+                    resolve(_currentHeight)
+                  })
+                })
+                .catch((error) => {
+                  window.alert('error while render card', error.message)
+                  this.setState({ exportingPdf: false })
+                  reject(_currentHeight)
+                })
+            })
+          }
+
           html2canvas(skillsElement)
             .then((skillsCanvas) => {
               let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
-              pdf.addImage(skillsCanvas, 'JPEG', 125, 40, 75, skillHeight);
-              html2canvas(experienceElement)
-                .then((experienceCanvas) => {
-                  let experienceHeight = experienceCanvas.height / experienceCanvas.width * 180
-                  let experienceY = 40 + skillHeight + 15
-                  if (experienceY + experienceHeight > pdfHeight) {
-                    pdf.addPage();
-                    experienceY = 15
-                  }
-                  pdf.addImage(experienceCanvas, 'JPEG', 15, experienceY, 180, experienceHeight);
-                  html2canvas(educationElement)
-                    .then((educationCanvas) => {
-                      let educationHeight = educationCanvas.height / educationCanvas.width * 180
-                      let educationY = 40 + skillHeight + experienceHeight + 15
-                      if (educationY + educationHeight > pdfHeight) {
-                        pdf.addPage();
-                        educationY = 15
-                      }
-                      pdf.addImage(educationCanvas, 'JPEG', 15, educationY, 180, educationHeight);
-                      pdf.save("cv.pdf")
-                      this.setState({ exportingPdf: false })
-                    })
+              let skillPos = { x: 125, y: 40, w: 75, h: skillHeight }
+              pdf.addImage(skillsCanvas, 'JPEG', skillPos.x, skillPos.y, skillPos.w, skillPos.h)
+              if (40 + skillHeight > currentHeight) {
+                currentHeight = 40 + skillHeight
+              }
+              currentHeight = checkCurrentHeight(pdf, currentHeight);
+              if (!_.isNil(experiences) && !_.isEmpty(experiences)) {
+                let listGetCanvas = [html2canvas(document.getElementById("experience-title"))]
+                experiences.forEach((exp) => {
+                  listGetCanvas.push(html2canvas(document.getElementById(`card-${exp.id}`)))
                 })
+                renderListCanvas(pdf, listGetCanvas, currentHeight)
+                  .then((_currentHeight) => {
+                    currentHeight = _currentHeight
+                    if (!_.isNil(education) && !_.isEmpty(education)) {
+                      listGetCanvas = [html2canvas(document.getElementById("education-title"))]
+                      education.forEach((edu) => {
+                        listGetCanvas.push(html2canvas(document.getElementById(`card-${edu.id}`)))
+                      })
+                      renderListCanvas(pdf, listGetCanvas, currentHeight)
+                        .then((__currentHeight) => {
+                          currentHeight = __currentHeight
+                          pdf.save("cv.pdf")
+                          this.setState({ exportingPdf: false })
+                        })
+                        .catch(__currentHeight => {
+                          window.alert('error while exporting PDF', __currentHeight)
+                          this.setState({ exportingPdf: false })
+                        })
+                    }
+                  })
+                  .catch((_currentHeight) => {
+                    window.alert('error while exporting PDF', _currentHeight)
+                    this.setState({ exportingPdf: false })
+                  })
+              }
             })
         })
-      // })
     } catch (error) {
-      window.alert('error', error.message)
+      window.alert('error while exporting PDF', error.message)
+      this.setState({ exportingPdf: false })
     }
-
   }
 
   render() {
-    let { props: { skill, basicInfo, experiences, education, profileImageUrl, role = "admin" },
+    let { props: { skill, basicInfo, experiences, education, profileImageUrl },
       buildSection,
       onChangeBasicInfo,
       onChangeEducation,
@@ -242,7 +287,7 @@ class Content extends PureComponent {
             <div className="banner"></div>
           </div>
         </div>
-        {role === "admin" && !openEditMode &&
+        {!openEditMode &&
           <div className="row">
             <div className="col-sm-12">
               <div className="admin-menu">
@@ -292,26 +337,27 @@ class Content extends PureComponent {
         <div className="row">
           <div className="col-sm-3">
             <div className="image-profile-wrapper">
-              <img className="image-profile margin-center" id="image-profile" 
-              src={profileImageUrl || 'https://vignette.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20170628120149'}
-              alt="profile" />
+              <img className="image-profile margin-center" id="image-profile"
+                src={profileImageUrl || 'https://vignette.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20170628120149'}
+                alt="profile" />
             </div>
             {openEditMode &&
-            <div className="edit-image-area">
-              <input 
-                className={`edit-image ${imageUrlNull ? 'error' : ''}`}
-                placeholder="Enter your image url"
-                defaultValue={profileImageUrl}
-                onBlur={(e) => {
-                  if(_.isNil(e.target.value) || e.target.value === "") {
-                    this.setState({imageUrlNull: true})
-                  } else {
-                    this.setState({imageUrlNull: false})
+              <div className="edit-image-area">
+                <input
+                  className={`edit-image ${imageUrlNull ? 'error' : ''}`}
+                  placeholder="Enter your image url"
+                  defaultValue={profileImageUrl}
+                  onBlur={(e) => {
+                    if (_.isNil(e.target.value) || e.target.value === "") {
+                      this.setState({ imageUrlNull: true })
+                    } else {
+                      this.setState({ imageUrlNull: false })
+                    }
+                    this.props.updateData('profileImageUrl', e.target.value)
                   }
-                  this.props.updateData('profileImageUrl', e.target.value)}
-                }
-              />
-            </div>}
+                  }
+                />
+              </div>}
           </div>
           <div className="col-sm-4 basic-infomation" id="basic-info">
             <div className="row"><div className="col-sm-12 title"> BASIC INFO </div></div>
@@ -325,7 +371,8 @@ class Content extends PureComponent {
           </div>
           <div className="col-sm-5 skills" id="skills">
             <div className="row"><div className="col-sm-12 title"> SKILLS </div></div>
-            {buildSection(skill, { onChange: onChangeSkill.bind(this),
+            {buildSection(skill, {
+              onChange: onChangeSkill.bind(this),
               onRemove: onRemoveSkill.bind(this),
               onRemoveSubData: onRemoveSubData.bind(this),
               onAddSection: onAddSection.bind(this, 'skill')
@@ -339,38 +386,39 @@ class Content extends PureComponent {
           </div>
         </div>
         <div id="experience">
-        <div className="row padding-top-15">
-          <div className="col-sm-12">
-            <div className="title center">
-              EXPERIENCES
+          <div className="row padding-top-15">
+            <div className="col-sm-12">
+              <div className="title center" id="experience-title">
+                EXPERIENCES
               </div>
+            </div>
           </div>
+          {buildSection(experiences, { onChange: onChangeExperience.bind(this), onRemove: onRemoveExperience.bind(this) })}
         </div>
-        {buildSection(experiences, { onChange: onChangeExperience.bind(this), onRemove: onRemoveExperience.bind(this) })}
-        </div>
-        { openEditMode &&
+        {openEditMode &&
           <i className="fas fa-plus-square cursor-pointer"
             title="add new experience card"
             onClick={onAddSection.bind(this, 'experiences', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth, isMissName: true })}
           />
         }
         <div id="education">
-        <div className="row padding-top-15">
-          <div className="col-sm-12">
-            <div className="title center">
-              EDUCATION
+          <div className="row padding-top-15">
+            <div className="col-sm-12">
+              <div className="title center" id="education-title">
+                EDUCATION
               </div>
+            </div>
           </div>
+          {buildSection(education, { onChange: onChangeEducation.bind(this), onRemove: onRemoveEducation.bind(this) })}
         </div>
-        {buildSection(education, { onChange: onChangeEducation.bind(this), onRemove: onRemoveEducation.bind(this) })}
-        </div>
-        { openEditMode &&
+        {openEditMode &&
           <i className="fas fa-plus-square cursor-pointer"
             title="add new education card"
             onClick={onAddSection.bind(this, 'education', [], { isAddToRoot: true, isAddSection: true, renderType: RENDER_TYPE.CardFullWidth, isMissName: true })}
           />
         }
-        {renderModalConfirm({ id: 'confirm-cancel', title: 'Confirm cancel', content: 'Updated data will be unsaved. Do you want to cancel',
+        {renderModalConfirm({
+          id: 'confirm-cancel', title: 'Confirm cancel', content: 'Updated data will be unsaved. Do you want to cancel',
           onConfirm: cancelEditMode.bind(this)
         })}
       </div>
