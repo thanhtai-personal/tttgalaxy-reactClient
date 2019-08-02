@@ -263,7 +263,7 @@ class Content extends PureComponent {
     return (
       <button className="btn btn-edit no-opacity" disabled={true}>
         <label className="switch btn-edit" title={data.title}>
-          <input type="checkbox" checked={data.value} disabled={data.disabled}
+          <input type="checkbox" defaultChecked={data.value} disabled={data.disabled}
             onClick={typeof functions.onClick === 'function' ? functions.onClick : () => {}}
           />
           <span className="slider round"></span>

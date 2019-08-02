@@ -229,7 +229,7 @@ export const checkValidateObject = (objectData, tracker, conditionsChecking) => 
 export const convertPortfolioData = (data, desType) => {
 
   let resData = {}
-  const dateField = ['birthDay', 'birthDate']
+  const dateField = ['birthDate']
   if (desType === 'static') {
     resData = {
       userEducation: [],
@@ -243,7 +243,8 @@ export const convertPortfolioData = (data, desType) => {
       educationSchool: []
     }
     resData.basicInfo = {
-      profileImageUrl: data.profileImageUrl
+      profileImageUrl: data.profileImageUrl,
+      isPublicProfile: data.publicProfile
     }
     data.basicInfo.forEach((bi) => {
       if (dateField.includes(_.camelCase(bi.name))) {
@@ -330,9 +331,10 @@ export const convertPortfolioData = (data, desType) => {
   }
 
   if (desType === 'dynamic') {
-    const defaultPropertyKeys = ['id', 'password', 'profileImageUrl', 'createdAt', 'updatedAt', 'isDelete']
+    const defaultPropertyKeys = ['id', 'password', 'profileImageUrl', 'createdAt', 'updatedAt', 'isDelete', 'isPublicProfile']
     resData.profileImageUrl = data.basicInfo.profileImageUrl
     resData.basicInfo = []
+    resData.publicProfile = data.basicInfo.isPublicProfile
     Object.keys(data.basicInfo).forEach((k, index) => {
       if (!defaultPropertyKeys.includes(k)) {
         if(k === 'name') {

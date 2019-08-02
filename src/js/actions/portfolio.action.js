@@ -103,12 +103,13 @@ export const submitDataUpdatePortfolio = () => {
   let payload = store.getState().portfolio,
   keyList = Object.keys(payload)
   const removeIsEmptyData = (objectData) => {
+    if (_.isNil(objectData)) return
     if(_.isArray(objectData)) {
       objectData.forEach((subData) => {
         removeIsEmptyData(subData)
       })
     } else {
-      if(objectData.subData) {
+      if(!_.isNil(objectData.subData)) {
         removeIsEmptyData(objectData.subData)
       }
       if(_.isObject(objectData) && objectData.isEmptyData) {
