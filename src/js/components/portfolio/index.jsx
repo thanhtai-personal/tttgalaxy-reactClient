@@ -20,7 +20,8 @@ class Portfolio extends PureComponent {
       updateContentData,
       updatePortfolioDataWithObjectKey,
       submitDataUpdate,
-      validateDataUpdate
+      validateDataUpdate,
+      publicProfile
     } = this.props
     return (
       <div className="container-fluid" id="home">
@@ -34,6 +35,7 @@ class Portfolio extends PureComponent {
           updateDataWithObjectKey={updatePortfolioDataWithObjectKey}
           submitDataUpdate={submitDataUpdate}
           validateDataUpdate={validateDataUpdate}
+          publicProfile={publicProfile}
         />
       </div>
     )

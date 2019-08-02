@@ -23,6 +23,7 @@ class Content extends PureComponent {
     this.renderSection = renderSection.bind(this)
     this.revertData = this.revertData.bind(this)
     this.exportPdf = this.exportPdf.bind(this)
+    this.renderRadioButton = this.renderRadioButton.bind(this)
     this.state = {
       openEditMode: false,
       exportingPdf: false,
@@ -258,8 +259,23 @@ class Content extends PureComponent {
     }
   }
 
+  renderRadioButton(data, functions) {
+    return (
+      <button className="btn btn-edit no-opacity" disabled={true}>
+        <label className="switch btn-edit" title={data.title}>
+          <input type="checkbox" checked={data.value} disabled={data.disabled}
+            onClick={typeof functions.onClick === 'function' ? functions.onClick : () => {}}
+          />
+          <span className="slider round"></span>
+        </label>
+        <span className="padding-right-10 btn-edit">{data.label}</span>
+      </button>
+    )
+  }
+
   render() {
-    let { props: { skill, basicInfo, experiences, education, profileImageUrl },
+    let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile },
+      renderRadioButton,
       buildSection,
       onChangeBasicInfo,
       onChangeEducation,
@@ -287,12 +303,17 @@ class Content extends PureComponent {
             <div className="banner"></div>
           </div>
         </div>
-        {!openEditMode &&
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="admin-menu">
-                <input type="button" className="btn btn-info btn-edit" value="Edit profile"
-                  onClick={() => {
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="admin-menu">
+            <div className="btn-group-vertical btn-edit">
+                {renderRadioButton({
+                  title: 'Open edit mode',
+                  label: 'Edit Mode:',
+                  value: openEditMode,
+                  disabled: openEditMode
+                }, {
+                  onClick: () => {
                     this.setState({ openEditMode: true, imageUrlNull: _.isNil(profileImageUrl) || profileImageUrl === '' }, () => {
                       this.backUpData = {
                         skill: JSON.parse(JSON.stringify(skill)),
@@ -303,11 +324,21 @@ class Content extends PureComponent {
                       }
                     })
                   }}
-                />
-              </div>
+                )}
+                {renderRadioButton({
+                  title: 'Open public profile',
+                  label: 'Public profile:',
+                  value: publicProfile,
+                  disabled: false
+                }, {
+                  onClick: () => {
+                    this.props.updateData('publicProfile', !publicProfile)
+                  }}
+                )}
+            </div>
             </div>
           </div>
-        }
+        </div>
         {openEditMode &&
           <div className="row">
             <div className="col-sm-12">
@@ -325,12 +356,12 @@ class Content extends PureComponent {
         {!openEditMode &&
           <div className="row">
             <div className="col-sm-12">
-              <div className="admin-menu">
-                <input type="button" className="btn btn-info btn-save" value={exportingPdf ? "exporting your PDF" : "export PDF file"}
-                  disabled={exportingPdf}
-                  onClick={exportPdf.bind(this)}
-                />
-              </div>
+              <button className="btn btn-primary btn-info btn-save"
+                onClick={exportPdf.bind(this)}
+              >
+                {exportingPdf && <span className="spinner-border spinner-border-sm"></span>}
+                {exportingPdf ? "exporting your PDF" : "export PDF file"}
+              </button>
             </div>
           </div>
         }

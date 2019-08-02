@@ -63,7 +63,7 @@ export const renderSection = (data, isEditMode = false, htmlEvent) => {
             {isEditMode && data.name !== 'Email' ?
               data.name === 'Birth Date' && !_.isNil(data.value) ? 
                 <DatePicker
-                  selected={new Date(moment(data.value).format('MM/DD/YYYY'))}
+                  selected={new Date(data.value ? moment(data.value).format('MM/DD/YYYY') : moment().format('MM/DD/YYYY'))}
                   onChange={typeof htmlEvent.onChange === "function" ? htmlEvent.onChange.bind(null, { renderType: RENDER_TYPE.TextWithLabel, path: 'value', sectionId: data.id, type: 'date-picker' }) : () => { }}
                 />
               : <input defaultValue={data.value} style={{ width: '100%', minWidth: '100px' }}

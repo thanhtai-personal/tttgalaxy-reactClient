@@ -12,6 +12,7 @@ import {
 // } from "../constants/enums"
 
 const initialState = {
+  publicProfile: false,
   profileImageUrl: '',
   skill: [],
   basicInfo: [],
