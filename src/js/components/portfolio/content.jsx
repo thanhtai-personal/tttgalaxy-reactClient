@@ -17,7 +17,7 @@ import { RENDER_TYPE } from "../../constants/enums";
 
 
 class Content extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.buildSection = this.buildSection.bind(this)
     this.renderSection = renderSection.bind(this)
@@ -31,50 +31,50 @@ class Content extends PureComponent {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
   }
 
-  onChangeBasicInfo(listParentSection, data, event) {
+  onChangeBasicInfo (listParentSection, data, event) {
     this.props.updateDataWithObjectKey('basicInfo', { ...data, value: data.type === 'date-picker' ? event : event.target.value, parentsSection: listParentSection })
   }
 
-  onChangeEducation(listParentSection, data, event) {
+  onChangeEducation (listParentSection, data, event) {
     this.props.updateDataWithObjectKey('education', { ...data, value: event.target.value, parentsSection: listParentSection })
   }
 
-  onChangeExperience(listParentSection, data, event) {
+  onChangeExperience (listParentSection, data, event) {
     this.props.updateDataWithObjectKey('experiences', { ...data, value: event.target.value, parentsSection: listParentSection })
   }
 
-  onChangeSkill(listParentSection, data, event) {
+  onChangeSkill (listParentSection, data, event) {
     this.props.updateDataWithObjectKey('skill', { ...data, value: event.target.value, parentsSection: listParentSection })
   }
 
-  onRemoveBasicInfo(listParentSection, data) {
+  onRemoveBasicInfo (listParentSection, data) {
     this.props.updateDataWithObjectKey('basicInfo', { ...data, parentsSection: listParentSection, isRemove: true })
   }
 
-  onRemoveEducation(listParentSection, data) {
+  onRemoveEducation (listParentSection, data) {
     this.props.updateDataWithObjectKey('education', { ...data, parentsSection: listParentSection, isRemove: true })
   }
 
-  onRemoveExperience(listParentSection, data) {
+  onRemoveExperience (listParentSection, data) {
     this.props.updateDataWithObjectKey('experiences', { ...data, parentsSection: listParentSection, isRemove: true })
   }
 
-  onRemoveSkill(listParentSection, data) {
+  onRemoveSkill (listParentSection, data) {
     this.props.updateDataWithObjectKey('skill', { ...data, parentsSection: listParentSection, isRemove: true })
   }
 
-  onRemoveSubData(listParentSection) {
+  onRemoveSubData (listParentSection) {
     this.props.updateDataWithObjectKey('skill', { parentsSection: listParentSection, isRemoveSub: true })
   }
 
-  onAddSection(key, listParentSection, data) {
+  onAddSection (key, listParentSection, data) {
     this.props.updateDataWithObjectKey(key, { ...data, parentsSection: listParentSection })
   }
 
-  buildSection(data, htmlEvent) {
+  buildSection (data, htmlEvent) {
     let { state: { openEditMode } } = this
     const renderListSection = (sectionList, listParentSection, isRoot = true) => {
       sectionList = sectionList.filter((sect) => sect.isDelete !== true)
@@ -131,19 +131,19 @@ class Content extends PureComponent {
     return renderListSection(data)
   }
 
-  cancelEditMode() {
+  cancelEditMode () {
     this.setState({ openEditMode: false }, () => {
       this.revertData(_.clone(this.backUpData))
     })
   }
 
-  revertData(dataBackup) {
+  revertData (dataBackup) {
     Object.keys(dataBackup).forEach((key) => {
       this.props.updateData(key, dataBackup[key])
     })
   }
 
-  onSubmit() {
+  onSubmit () {
     this.props.validateDataUpdate()
       .then((dataValidate) => {
         this.props.submitDataUpdate()
@@ -155,8 +155,8 @@ class Content extends PureComponent {
   }
 
   exportPdf = async () => {
-    const { props: { profileImageUrl, experiences, education } } = this
-    // const imageProfileElement = document.getElementById('image-profile');
+    const { props: { experiences, education } } = this
+    const imageProfileElement = document.getElementById('image-profile');
     const basicInfoElement = document.getElementById('basic-info');
     const skillsElement = document.getElementById('skills');
 
@@ -167,91 +167,127 @@ class Content extends PureComponent {
     this.setState({ exportingPdf: true })
     let currentHeight = 0
     try {
-      // html2canvas(imageProfileElement)
-      // .then((imageCanvas) => {
-      // const imgData = imageCanvas.toDataURL('image/png');
-      let img = new Image()
-      img.src = profileImageUrl
-      let imageProfileHeight = img.height / img.width * 40
-      pdf.addImage(img, 'JPEG', 10, 45, 40, imageProfileHeight)
-      currentHeight = 45 + imageProfileHeight
-      html2canvas(basicInfoElement)
-        .then((basicInfoCanvas) => {
-          let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
-          let basicInfoPos = { x: 40, y: 40, w: 75, h: basicInfoHeight }
-          pdf.addImage(basicInfoCanvas, 'JPEG', basicInfoPos.x, basicInfoPos.y, basicInfoPos.w, basicInfoPos.h)
-          if (40 + basicInfoHeight > currentHeight) {
-            currentHeight = 40 + basicInfoHeight
-          }
-          let checkCurrentHeight = (pdfDoc, _currentHeight) => {
-            if (_currentHeight > pdfDoc.internal.pageSize.getHeight()) {
-              pdfDoc.addPage();
-              _currentHeight = 15
+      html2canvas(imageProfileElement)
+        .then((imageCanvas) => {
+          // const imgData = imageCanvas.toDataURL('image/png');
+          let imageProfileHeight = imageCanvas.width ? imageCanvas.height / imageCanvas.width * 40 : 0
+          if (imageProfileHeight) {
+            try {
+              pdf.addImage(imageCanvas, 'JPEG', 10, 45, 40, imageProfileHeight)
+              currentHeight = 45 + imageProfileHeight
+            } catch (error) {
+              window.alert('error while render image', error.message)
+              this.setState({ exportingPdf: false })
             }
-            return _currentHeight
-          }
+            html2canvas(basicInfoElement)
+              .then((basicInfoCanvas) => {
+                let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
+                let basicInfoPos = { x: 40, y: 40, w: 75, h: basicInfoHeight }
+                pdf.addImage(basicInfoCanvas, 'JPEG', basicInfoPos.x, basicInfoPos.y, basicInfoPos.w, basicInfoPos.h)
+                if (40 + basicInfoHeight > currentHeight) {
+                  currentHeight = 40 + basicInfoHeight
+                }
+                let checkCurrentHeight = (pdfDoc, _currentHeight) => {
+                  if (_currentHeight > pdfDoc.internal.pageSize.getHeight()) {
+                    pdfDoc.addPage();
+                    _currentHeight = 15
+                  }
+                  return _currentHeight
+                }
 
-          const renderListCanvas = (pdfDoc, listGetCanvasfunc, _currentHeight) => {
-            return new Promise((resolve, reject) => {
-              Promise.all(listGetCanvasfunc)
-                .then((listCanvas) => {
-                  if ((_.isNil(listCanvas) && _.isEmpty(listCanvas)) || listCanvas.length === 1) return resolve(_currentHeight)
-                  listCanvas.forEach((canvas) => {
-                    let cardHeight = canvas.height / canvas.width * 180
-                    _currentHeight = checkCurrentHeight(pdfDoc, _currentHeight + cardHeight)
-                    let cardPos = { x: 10, y: _currentHeight, w: 180, h: cardHeight }
-                    pdf.addImage(canvas, 'JPEG', cardPos.x, cardPos.y, cardPos.w, cardPos.h)
-                    resolve(_currentHeight)
-                  })
-                })
-                .catch((error) => {
-                  window.alert('error while render card', error.message)
-                  this.setState({ exportingPdf: false })
-                  reject(_currentHeight)
-                })
-            })
-          }
-
-          html2canvas(skillsElement)
-            .then((skillsCanvas) => {
-              let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
-              let skillPos = { x: 125, y: 40, w: 75, h: skillHeight }
-              pdf.addImage(skillsCanvas, 'JPEG', skillPos.x, skillPos.y, skillPos.w, skillPos.h)
-              if (40 + skillHeight > currentHeight) {
-                currentHeight = 40 + skillHeight
-              }
-              currentHeight = checkCurrentHeight(pdf, currentHeight);
-              if (!_.isNil(experiences) && !_.isEmpty(experiences)) {
-                let listGetCanvas = [html2canvas(document.getElementById("experience-title"))]
-                experiences.forEach((exp) => {
-                  listGetCanvas.push(html2canvas(document.getElementById(`card-${exp.id}`)))
-                })
-                renderListCanvas(pdf, listGetCanvas, currentHeight)
-                  .then((_currentHeight) => {
-                    currentHeight = _currentHeight
-                    if (!_.isNil(education) && !_.isEmpty(education)) {
-                      listGetCanvas = [html2canvas(document.getElementById("education-title"))]
-                      education.forEach((edu) => {
-                        listGetCanvas.push(html2canvas(document.getElementById(`card-${edu.id}`)))
+                const renderListCanvas = (pdfDoc, listGetCanvasfunc, _currentHeight) => {
+                  return new Promise((resolve, reject) => {
+                    Promise.all(listGetCanvasfunc)
+                      .then((listCanvas) => {
+                        if ((_.isNil(listCanvas) && _.isEmpty(listCanvas)) || listCanvas.length === 1) return resolve(_currentHeight)
+                        listCanvas.forEach((canvas) => {
+                          let cardHeight = canvas.height / canvas.width * 180
+                          _currentHeight = checkCurrentHeight(pdfDoc, _currentHeight + cardHeight)
+                          let cardPos = { x: 10, y: _currentHeight, w: 180, h: cardHeight }
+                          pdf.addImage(canvas, 'JPEG', cardPos.x, cardPos.y, cardPos.w, cardPos.h)
+                          resolve(_currentHeight)
+                        })
                       })
-                      renderListCanvas(pdf, listGetCanvas, currentHeight)
-                        .then((__currentHeight) => {
-                          currentHeight = __currentHeight
+                      .catch((error) => {
+                        window.alert('error while render card', error.message)
+                        this.setState({ exportingPdf: false })
+                        reject(_currentHeight)
+                      })
+                  })
+                }
+                if (!_.isNil(skillsElement)) {
+                  try {
+                    html2canvas(skillsElement)
+                      .then((skillsCanvas) => {
+                        let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
+                        let skillPos = { x: 125, y: 40, w: 75, h: skillHeight }
+                        pdf.addImage(skillsCanvas, 'JPEG', skillPos.x, skillPos.y, skillPos.w, skillPos.h)
+                        if (40 + skillHeight > currentHeight) {
+                          currentHeight = 40 + skillHeight
+                        }
+                        currentHeight = checkCurrentHeight(pdf, currentHeight);
+                        if (!_.isNil(experiences) && !_.isEmpty(experiences)) {
+                          let listGetCanvas = [html2canvas(document.getElementById("experience-title"))]
+                          experiences.forEach((exp) => {
+                            listGetCanvas.push(html2canvas(document.getElementById(`card-${exp.id}`)))
+                          })
+                          renderListCanvas(pdf, listGetCanvas, currentHeight)
+                            .then((_currentHeight) => {
+                              console.log('_currentHeight', _currentHeight)
+                              currentHeight = _currentHeight
+                              if (!_.isNil(education) && !_.isEmpty(education)) {
+                                listGetCanvas = [html2canvas(document.getElementById("education-title"))]
+                                education.forEach((edu) => {
+                                  listGetCanvas.push(html2canvas(document.getElementById(`card-${edu.id}`)))
+                                })
+                                renderListCanvas(pdf, listGetCanvas, currentHeight)
+                                  .then((__currentHeight) => {
+                                    console.log('__currentHeight', __currentHeight)
+                                    currentHeight = __currentHeight
+                                    pdf.save("cv.pdf")
+                                    this.setState({ exportingPdf: false })
+                                  })
+                                  .catch(__currentHeight => {
+                                    window.alert('error while exporting PDF', __currentHeight)
+                                    this.setState({ exportingPdf: false })
+                                  })
+                              } else {
+                                pdf.save("cv.pdf")
+                                this.setState({ exportingPdf: false })
+                              }
+                            })
+                            .catch((_currentHeight) => {
+                              window.alert('error while exporting PDF', _currentHeight)
+                              this.setState({ exportingPdf: false })
+                            })
+                        } else {
                           pdf.save("cv.pdf")
                           this.setState({ exportingPdf: false })
-                        })
-                        .catch(__currentHeight => {
-                          window.alert('error while exporting PDF', __currentHeight)
-                          this.setState({ exportingPdf: false })
-                        })
-                    }
-                  })
-                  .catch((_currentHeight) => {
-                    window.alert('error while exporting PDF', _currentHeight)
+                        }
+                      })
+                      .catch(error => {
+                        window.alert('error while exporting PDF', error.message)
+                        this.setState({ exportingPdf: false })
+                      })
+                  } catch (error) {
+                    window.alert('error while exporting PDF', error.message)
                     this.setState({ exportingPdf: false })
-                  })
-              }
-            })
+                  }
+
+                } else {
+                  pdf.save('cv.pdf')
+                  this.setState({ exportingPdf: false })
+                }
+              })
+              .catch((error) => {
+                window.alert('error while exporting PDF', error.message)
+                this.setState({ exportingPdf: false })
+              })
+          }
+        })
+        .catch((error) => {
+          window.alert('error while exporting PDF', error.message)
+          this.setState({ exportingPdf: false })
         })
     } catch (error) {
       window.alert('error while exporting PDF', error.message)
@@ -259,12 +295,12 @@ class Content extends PureComponent {
     }
   }
 
-  renderRadioButton(data, functions) {
+  renderRadioButton (data, functions) {
     return (
       <button className="btn btn-edit no-opacity" disabled={true}>
         <label className="switch btn-edit" title={data.title}>
           <input type="checkbox" defaultChecked={data.value} disabled={data.disabled}
-            onClick={typeof functions.onClick === 'function' ? functions.onClick : () => {}}
+            onClick={typeof functions.onClick === 'function' ? functions.onClick : () => { }}
           />
           <span className="slider round"></span>
         </label>
@@ -273,7 +309,7 @@ class Content extends PureComponent {
     )
   }
 
-  render() {
+  render () {
     let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile },
       renderRadioButton,
       buildSection,
@@ -306,24 +342,25 @@ class Content extends PureComponent {
         <div className="row">
           <div className="col-sm-12">
             <div className="admin-menu">
-            <div className="btn-group-vertical btn-edit">
+              <div className="btn-group-vertical btn-edit">
                 {renderRadioButton({
                   title: 'Open edit mode',
                   label: 'Edit Mode:',
                   value: openEditMode,
                   disabled: openEditMode
                 }, {
-                  onClick: () => {
-                    this.setState({ openEditMode: true, imageUrlNull: _.isNil(profileImageUrl) || profileImageUrl === '' }, () => {
-                      this.backUpData = {
-                        skill: JSON.parse(JSON.stringify(skill)),
-                        basicInfo: JSON.parse(JSON.stringify(basicInfo)),
-                        experiences: JSON.parse(JSON.stringify(experiences)),
-                        education: JSON.parse(JSON.stringify(education)),
-                        profileImageUrl: profileImageUrl,
-                      }
-                    })
-                  }}
+                    onClick: () => {
+                      this.setState({ openEditMode: true, imageUrlNull: _.isNil(profileImageUrl) || profileImageUrl === '' }, () => {
+                        this.backUpData = {
+                          skill: JSON.parse(JSON.stringify(skill)),
+                          basicInfo: JSON.parse(JSON.stringify(basicInfo)),
+                          experiences: JSON.parse(JSON.stringify(experiences)),
+                          education: JSON.parse(JSON.stringify(education)),
+                          profileImageUrl: profileImageUrl,
+                        }
+                      })
+                    }
+                  }
                 )}
                 {renderRadioButton({
                   title: 'Open public profile',
@@ -331,11 +368,12 @@ class Content extends PureComponent {
                   value: publicProfile,
                   disabled: false
                 }, {
-                  onClick: () => {
-                    this.props.updateData('publicProfile', !publicProfile)
-                  }}
+                    onClick: () => {
+                      this.props.updateData('publicProfile', !publicProfile)
+                    }
+                  }
                 )}
-            </div>
+              </div>
             </div>
           </div>
         </div>
@@ -366,9 +404,9 @@ class Content extends PureComponent {
           </div>
         }
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-sm-3" id="image-profile">
             <div className="image-profile-wrapper">
-              <img className="image-profile margin-center" id="image-profile"
+              <img className="image-profile margin-center"
                 src={profileImageUrl || 'https://vignette.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20170628120149'}
                 alt="profile" />
             </div>
