@@ -155,144 +155,149 @@ class Content extends PureComponent {
   }
 
   exportPdf = async () => {
-    const { props: { experiences, education } } = this
-    const imageProfileElement = document.getElementById('image-profile');
+    const { props: { experiences, education, profileImageUrl } } = this
     const basicInfoElement = document.getElementById('basic-info');
     const skillsElement = document.getElementById('skills');
-
-    const pdf = new jsPDF();
-    pdf.setFontSize(20);
-    pdf.setFontType("bold")
-    pdf.text(60, 25, "CURRICULUM VITAE");
     this.setState({ exportingPdf: true })
-    let currentHeight = 0
-    try {
-      html2canvas(imageProfileElement)
-        .then((imageCanvas) => {
-          // const imgData = imageCanvas.toDataURL('image/png');
-          let imageProfileHeight = imageCanvas.width ? imageCanvas.height / imageCanvas.width * 40 : 0
-          if (imageProfileHeight) {
-            try {
-              pdf.addImage(imageCanvas, 'JPEG', 10, 45, 40, imageProfileHeight)
-              currentHeight = 45 + imageProfileHeight
-            } catch (error) {
-              window.alert('error while render image', error.message)
-              this.setState({ exportingPdf: false })
-            }
-            html2canvas(basicInfoElement)
-              .then((basicInfoCanvas) => {
-                let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * 75
-                let basicInfoPos = { x: 40, y: 40, w: 75, h: basicInfoHeight }
-                pdf.addImage(basicInfoCanvas, 'JPEG', basicInfoPos.x, basicInfoPos.y, basicInfoPos.w, basicInfoPos.h)
-                if (40 + basicInfoHeight > currentHeight) {
-                  currentHeight = 40 + basicInfoHeight
+    setTimeout(() => {
+      const pdf = new jsPDF();
+      pdf.setFontSize(20);
+      pdf.setFontType("bold")
+      pdf.text(60, 25, "CURRICULUM VITAE");
+      let currentY = 45
+      try {
+        let profileImage = new Image()
+        let pdfWidth = pdf.internal.pageSize.getWidth() - 20 //canh le 10
+        profileImage.src = profileImageUrl
+        let imageProfileWidth = pdfWidth / 10 + 2
+        let imageProfileHeight = profileImage.width ? profileImage.height / profileImage.width * imageProfileWidth : 0
+        if (imageProfileHeight) {
+          try {
+            pdf.addImage(profileImage, 'JPEG', 10, 45, imageProfileWidth, imageProfileHeight)
+            currentY = 45 + imageProfileHeight
+          } catch (error) {
+            window.alert('error while render image', error.message)
+            this.setState({ exportingPdf: false })
+          }
+          html2canvas(basicInfoElement)
+            .then((basicInfoCanvas) => {
+              let basicInfoWidth = pdfWidth / 10 * 4
+              let basicInfoHeight = basicInfoCanvas.height / basicInfoCanvas.width * basicInfoWidth
+              let basicInfoPos = { x: 40, y: 45, w: basicInfoWidth, h: basicInfoHeight }
+              pdf.addImage(basicInfoCanvas, 'JPEG', basicInfoPos.x, basicInfoPos.y, basicInfoPos.w, basicInfoPos.h)
+              if (45 + basicInfoHeight > currentY) {
+                currentY = 45 + basicInfoHeight
+              }
+              let checkCurrentY = (pdfDoc, _currentY, cardHeight) => {
+                if (_currentY + cardHeight > pdfDoc.internal.pageSize.getHeight()) {
+                  pdfDoc.addPage();
+                  return 15
                 }
-                let checkCurrentHeight = (pdfDoc, _currentHeight) => {
-                  if (_currentHeight > pdfDoc.internal.pageSize.getHeight()) {
-                    pdfDoc.addPage();
-                    _currentHeight = 15
-                  }
-                  return _currentHeight
-                }
+                return _currentY
+              }
 
-                const renderListCanvas = (pdfDoc, listGetCanvasfunc, _currentHeight) => {
-                  return new Promise((resolve, reject) => {
-                    Promise.all(listGetCanvasfunc)
-                      .then((listCanvas) => {
-                        if ((_.isNil(listCanvas) && _.isEmpty(listCanvas)) || listCanvas.length === 1) return resolve(_currentHeight)
-                        listCanvas.forEach((canvas) => {
-                          let cardHeight = canvas.height / canvas.width * 180
-                          _currentHeight = checkCurrentHeight(pdfDoc, _currentHeight + cardHeight)
-                          let cardPos = { x: 10, y: _currentHeight, w: 180, h: cardHeight }
-                          pdf.addImage(canvas, 'JPEG', cardPos.x, cardPos.y, cardPos.w, cardPos.h)
-                          resolve(_currentHeight)
+              const renderListCanvas = (pdfDoc, listGetCanvasfunc, _currentY) => {
+                return new Promise((resolve, reject) => {
+                  Promise.all(listGetCanvasfunc)
+                    .then((listCanvas) => {
+                      if ((_.isNil(listCanvas) && _.isEmpty(listCanvas)) || listCanvas.length === 1) return resolve(_currentY)
+                      let rsCurrentY = _currentY, cardHeight = 0
+                      listCanvas.forEach((canvas, index) => {
+                        if (index === 0) {
+                          rsCurrentY = rsCurrentY + 10
+                        }
+                        cardHeight = canvas.height / canvas.width * pdfWidth
+                        rsCurrentY = checkCurrentY(pdfDoc, rsCurrentY, cardHeight)
+
+                        let cardPos = { x: 10, y: rsCurrentY, w: pdfWidth, h: cardHeight }
+                        pdf.addImage(canvas, 'JPEG', cardPos.x, cardPos.y, cardPos.w, cardPos.h)
+                        rsCurrentY = rsCurrentY + cardHeight
+                        if (index === 0) {
+                          rsCurrentY = rsCurrentY + 5
+                        }
+                      })
+                      resolve(rsCurrentY)
+                    })
+                    .catch((error) => {
+                      window.alert('error while render card', error.message)
+                      this.setState({ exportingPdf: false })
+                      reject(_currentY)
+                    })
+                })
+              }
+              if (!_.isNil(skillsElement)) {
+                try {
+                  html2canvas(skillsElement)
+                    .then((skillsCanvas) => {
+                      let skillWidth = pdfWidth / 10 * 4
+                      let skillHeight = skillsCanvas.height / skillsCanvas.width * skillWidth
+                      let skillPos = { x: 125, y: 45, w: skillWidth, h: skillHeight }
+                      pdf.addImage(skillsCanvas, 'JPEG', skillPos.x, skillPos.y, skillPos.w, skillPos.h)
+                      if (40 + skillPos.h > currentY) {
+                        currentY = 45 + skillPos.h
+                      }
+                      currentY = checkCurrentY(pdf, currentY);
+                      if (!_.isNil(experiences) && !_.isEmpty(experiences)) {
+                        let listGetExpCanvas = [html2canvas(document.getElementById("experience-title"))]
+                        experiences.forEach((exp) => {
+                          listGetExpCanvas.push(html2canvas(document.getElementById(`card-${exp.id}`)))
                         })
-                      })
-                      .catch((error) => {
-                        window.alert('error while render card', error.message)
-                        this.setState({ exportingPdf: false })
-                        reject(_currentHeight)
-                      })
-                  })
-                }
-                if (!_.isNil(skillsElement)) {
-                  try {
-                    html2canvas(skillsElement)
-                      .then((skillsCanvas) => {
-                        let skillHeight = skillsCanvas.height / skillsCanvas.width * 75
-                        let skillPos = { x: 125, y: 40, w: 75, h: skillHeight }
-                        pdf.addImage(skillsCanvas, 'JPEG', skillPos.x, skillPos.y, skillPos.w, skillPos.h)
-                        if (40 + skillHeight > currentHeight) {
-                          currentHeight = 40 + skillHeight
-                        }
-                        currentHeight = checkCurrentHeight(pdf, currentHeight);
-                        if (!_.isNil(experiences) && !_.isEmpty(experiences)) {
-                          let listGetCanvas = [html2canvas(document.getElementById("experience-title"))]
-                          experiences.forEach((exp) => {
-                            listGetCanvas.push(html2canvas(document.getElementById(`card-${exp.id}`)))
-                          })
-                          renderListCanvas(pdf, listGetCanvas, currentHeight)
-                            .then((_currentHeight) => {
-                              console.log('_currentHeight', _currentHeight)
-                              currentHeight = _currentHeight
-                              if (!_.isNil(education) && !_.isEmpty(education)) {
-                                listGetCanvas = [html2canvas(document.getElementById("education-title"))]
-                                education.forEach((edu) => {
-                                  listGetCanvas.push(html2canvas(document.getElementById(`card-${edu.id}`)))
+                        renderListCanvas(pdf, listGetExpCanvas, currentY)
+                          .then((_currentY) => {
+                            currentY = _currentY
+                            if (!_.isNil(education) && !_.isEmpty(education)) {
+                              let listGetEduCanvas = [html2canvas(document.getElementById("education-title"))]
+                              education.forEach((edu) => {
+                                listGetEduCanvas.push(html2canvas(document.getElementById(`card-${edu.id}`)))
+                              })
+                              renderListCanvas(pdf, listGetEduCanvas, currentY)
+                                .then((__currentY) => {
+                                  currentY = __currentY
+                                  pdf.save("cv.pdf")
+                                  this.setState({ exportingPdf: false })
                                 })
-                                renderListCanvas(pdf, listGetCanvas, currentHeight)
-                                  .then((__currentHeight) => {
-                                    console.log('__currentHeight', __currentHeight)
-                                    currentHeight = __currentHeight
-                                    pdf.save("cv.pdf")
-                                    this.setState({ exportingPdf: false })
-                                  })
-                                  .catch(__currentHeight => {
-                                    window.alert('error while exporting PDF', __currentHeight)
-                                    this.setState({ exportingPdf: false })
-                                  })
-                              } else {
-                                pdf.save("cv.pdf")
-                                this.setState({ exportingPdf: false })
-                              }
-                            })
-                            .catch((_currentHeight) => {
-                              window.alert('error while exporting PDF', _currentHeight)
+                                .catch(__currentY => {
+                                  window.alert('error while exporting PDF', __currentY)
+                                  this.setState({ exportingPdf: false })
+                                })
+                            } else {
+                              pdf.save("cv.pdf")
                               this.setState({ exportingPdf: false })
-                            })
-                        } else {
-                          pdf.save("cv.pdf")
-                          this.setState({ exportingPdf: false })
-                        }
-                      })
-                      .catch(error => {
-                        window.alert('error while exporting PDF', error.message)
+                            }
+                          })
+                          .catch((_currentY) => {
+                            window.alert('error while exporting PDF', _currentY)
+                            this.setState({ exportingPdf: false })
+                          })
+                      } else {
+                        pdf.save("cv.pdf")
                         this.setState({ exportingPdf: false })
-                      })
-                  } catch (error) {
-                    window.alert('error while exporting PDF', error.message)
-                    this.setState({ exportingPdf: false })
-                  }
-
-                } else {
-                  pdf.save('cv.pdf')
+                      }
+                    })
+                    .catch(error => {
+                      window.alert('error while exporting PDF', error.message)
+                      this.setState({ exportingPdf: false })
+                    })
+                } catch (error) {
+                  window.alert('error while exporting PDF', error.message)
                   this.setState({ exportingPdf: false })
                 }
-              })
-              .catch((error) => {
-                window.alert('error while exporting PDF', error.message)
+
+              } else {
+                pdf.save('cv.pdf')
                 this.setState({ exportingPdf: false })
-              })
-          }
-        })
-        .catch((error) => {
-          window.alert('error while exporting PDF', error.message)
-          this.setState({ exportingPdf: false })
-        })
-    } catch (error) {
-      window.alert('error while exporting PDF', error.message)
-      this.setState({ exportingPdf: false })
-    }
+              }
+            })
+            .catch((error) => {
+              window.alert('error while exporting PDF', error.message)
+              this.setState({ exportingPdf: false })
+            })
+        }
+      } catch (error) {
+        window.alert('error while exporting PDF', error.message)
+        this.setState({ exportingPdf: false })
+      }
+    }, 3000)
   }
 
   renderRadioButton (data, functions) {
