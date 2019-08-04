@@ -2,7 +2,8 @@ import _ from 'lodash'
 import {
   UPDATE_PORTFOLIO_DATA,
   SUBMIT_PORTFOLIO_DATA,
-  GET_PORTFOLIO_DATA
+  GET_PORTFOLIO_DATA,
+  UPDATE_PUBLIC_PROFILE
 } from "../constants/action-types";
 
 import uuidv1 from 'uuid/v1'
@@ -17,11 +18,14 @@ import {
 export const updatePortfolioData = (path, value) => {
   let data = {}
   data = _.set(data, path, value)
+  if (path === 'publicProfile') {
+    return { type: UPDATE_PUBLIC_PROFILE, payload: data };
+  }
   return { type: UPDATE_PORTFOLIO_DATA, payload: data };
 }
 
-export const getProfolioData = () => {
-  return { type: GET_PORTFOLIO_DATA, payload: {} };
+export const getProfolioData = (publicKey) => {
+  return { type: GET_PORTFOLIO_DATA, payload: { publicKey: publicKey } };
 }
 
 export const updatePortfolioDataWithObjectKey = (objectKey, data) => {

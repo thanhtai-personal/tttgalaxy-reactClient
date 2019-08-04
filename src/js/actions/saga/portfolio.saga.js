@@ -1,20 +1,21 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import store from '../../store'
-// import _ from 'lodash'
+import _ from 'lodash'
 
 import {
   SUBMIT_PORTFOLIO_FAILED,
   SUBMIT_PORTFOLIO_SUCCESS,
   SUBMIT_PORTFOLIO_DATA,
   GET_PORTFOLIO_DATA,
-  UPDATE_PORTFOLIO_DATA
+  UPDATE_PORTFOLIO_DATA,
+  UPDATE_PUBLIC_PROFILE
 } from '../../constants/action-types'
 
 import apiInstant from './../../api'
 
 import { convertPortfolioData } from './../../helper'
 
-
+//======================================================================
 function* submitPortfolioData() {
   let dataSubmit = store.getState().portfolio
   dataSubmit.currentUser = store.getState().auth.userData
@@ -32,16 +33,40 @@ function* submitDataPortfolioWatcher() {
   yield takeLatest(SUBMIT_PORTFOLIO_DATA, submitPortfolioData)
 }
 
+//========================================================================
 function* getDataPortfolioWatcher() {
   yield takeLatest(GET_PORTFOLIO_DATA, getPortfolioData)
 }
 
 function* getPortfolioData() {
   try {
-    const dataResponse = yield apiInstant.get('portfolio/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
-      .then(response => response)
+    if (_.isNil(store.getState().portfolio.publicKey)) {
+      const dataResponse = yield apiInstant.get('portfolio/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
+        .then(response => response)
       let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
       yield put({ type: UPDATE_PORTFOLIO_DATA, payload: portfolioData });
+    } else {
+      const dataResponse = yield apiInstant.post('portfolio/get-public-portfolio-data', { publicKey: store.getState().portfolio.publicKey })
+        .then(response => response)
+      let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
+      yield put({ type: UPDATE_PORTFOLIO_DATA, payload: portfolioData });
+    }
+  } catch (error) {
+    console.log('error', error)
+    // yield put({ type: GET_PORTFOLIO_FAILED, payload: { error: error } });
+  }
+}
+
+//=========================================================================
+function* updatePublicProfileActionWatcher() {
+  yield takeLatest(UPDATE_PUBLIC_PROFILE, updatePublicProfile)
+}
+
+function* updatePublicProfile() {
+  try {
+    let dataResponse = yield apiInstant.post('portfolio/public-profile', { isPublicProfile: store.getState().portfolio.publicProfile }, { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
+      .then(response => response)
+    yield put({ type: UPDATE_PORTFOLIO_DATA, payload: { publicKey: dataResponse.data } });
   } catch (error) {
     console.log('error', error)
     // yield put({ type: GET_PORTFOLIO_FAILED, payload: { error: error } });
@@ -49,12 +74,11 @@ function* getPortfolioData() {
 }
 
 
-
-
 function* portfolioActionWatcher() {
   yield all([
     submitDataPortfolioWatcher(),
-    getDataPortfolioWatcher()
+    getDataPortfolioWatcher(),
+    updatePublicProfileActionWatcher()
   ]);
 }
 

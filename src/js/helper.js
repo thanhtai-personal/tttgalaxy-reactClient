@@ -331,10 +331,11 @@ export const convertPortfolioData = (data, desType) => {
   }
 
   if (desType === 'dynamic') {
-    const defaultPropertyKeys = ['id', 'password', 'profileImageUrl', 'createdAt', 'updatedAt', 'isDelete', 'isPublicProfile']
+    const defaultPropertyKeys = ['id', 'password', 'profileImageUrl', 'createdAt', 'updatedAt', 'isDelete', 'isPublicProfile', 'publicKey']
     resData.profileImageUrl = data.basicInfo.profileImageUrl
     resData.basicInfo = []
     resData.publicProfile = data.basicInfo.isPublicProfile
+    resData.publicKey = data.basicInfo.publicKey
     Object.keys(data.basicInfo).forEach((k, index) => {
       if (!defaultPropertyKeys.includes(k)) {
         if(k === 'name') {
@@ -423,6 +424,5 @@ export const convertPortfolioData = (data, desType) => {
       resData.education.push(eduReturn)
     })
   }
-
   return resData
 }

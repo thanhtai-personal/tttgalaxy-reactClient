@@ -5,12 +5,14 @@ import Portfolio from '../components/portfolio'
 import actionService from '../actions'
 
 class PortfolioContainer extends Component {
+
   render () {
     const {
       skill, basicInfo, experiences, education,
       profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey,
       submitDataUpdatePortfolio, getProfolioData,
-      publicProfile
+      publicProfile,
+      publicKey
     } = this.props
     return (
       <Portfolio
@@ -25,14 +27,16 @@ class PortfolioContainer extends Component {
         submitDataUpdate={submitDataUpdatePortfolio}
         getProfolioData={getProfolioData}
         publicProfile={publicProfile}
+        paramPublicKey={this.props.match && this.props.match.params ? this.props.match.params.publicKey : null}
+        publicKey={publicKey}
       />
     )
   }
 }
 
-function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile } }) {
+function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey } }) {
   return {
-    skill, basicInfo, experiences, education, profileImageUrl, publicProfile
+    skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey
   };
 }
 

@@ -60,7 +60,7 @@ const publicRoute = [
     layout: { header: Header, footer: Footer }
   },
   {
-    path: '/portfolio/public/:id',
+    path: '/portfolio/public/:publicKey',
     component: Portfolio,
     isExact: false
   }

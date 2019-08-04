@@ -31,9 +31,6 @@ class Content extends PureComponent {
     }
   }
 
-  componentDidMount () {
-  }
-
   onChangeBasicInfo (listParentSection, data, event) {
     this.props.updateDataWithObjectKey('basicInfo', { ...data, value: data.type === 'date-picker' ? event : event.target.value, parentsSection: listParentSection })
   }
@@ -304,18 +301,24 @@ class Content extends PureComponent {
     return (
       <button className="btn btn-edit no-opacity" disabled={true}>
         <label className="switch btn-edit" title={data.title}>
-          <input type="checkbox" defaultChecked={data.value} disabled={data.disabled}
-            onClick={typeof functions.onClick === 'function' ? functions.onClick : () => { }}
+          <input type="checkbox" checked={data.value} disabled={data.disabled}
+            onChange={typeof functions.onClick === 'function' ? functions.onClick : () => { }}
           />
           <span className="slider round"></span>
         </label>
-        <span className="padding-right-10 btn-edit">{data.label}</span>
+        {
+          data.labelLink ? <a className="link" onClick={typeof functions.onClickLabel === 'function' ? functions.onClickLabel : () => { }}>
+            <span className="padding-right-10 btn-edit">{data.label}</span>
+          </a>
+          :
+          <span className="padding-right-10 btn-edit">{data.label}</span>
+        }
       </button>
     )
   }
 
   render () {
-    let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile },
+    let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, paramPublicKey, publicKey },
       renderRadioButton,
       buildSection,
       onChangeBasicInfo,
@@ -348,7 +351,7 @@ class Content extends PureComponent {
           <div className="col-sm-12">
             <div className="admin-menu">
               <div className="btn-group-vertical btn-edit">
-                {renderRadioButton({
+                {_.isNil(paramPublicKey) && renderRadioButton({
                   title: 'Open edit mode',
                   label: 'Edit Mode:',
                   value: openEditMode,
@@ -367,14 +370,18 @@ class Content extends PureComponent {
                     }
                   }
                 )}
-                {renderRadioButton({
+                {_.isNil(paramPublicKey) && renderRadioButton({
                   title: 'Open public profile',
                   label: 'Public profile:',
+                  labelLink: publicProfile,
                   value: publicProfile,
                   disabled: false
                 }, {
                     onClick: () => {
                       this.props.updateData('publicProfile', !publicProfile)
+                    },
+                    onClickLabel: () => {
+                      window.open(`${window.location.origin}/portfolio/public/${publicKey}`,'_blank');
                     }
                   }
                 )}
