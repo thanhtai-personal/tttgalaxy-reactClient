@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Blog from './../../components/blog/blog'
+import Blog from '../../components/blog/blog'
 
 
 class BlogContainer extends Component {

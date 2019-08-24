@@ -90,10 +90,18 @@ class Blog extends PureComponent {
                 <h4>About Me</h4>
                 <p>Instagram mode jeans color handbag apron apparel posture sportswear mainstream. Petticoat collection mode taste showcase skirt attractive bold wholesale.</p>
                 <div id="social-icons">
-                    <img src="./images/facebook.png" alt="A facebook icon"/>
-                    <img src="./images/twitter.png" alt="A twitter icon"/>
-                    <img src="./images/tumblr.png" alt="A tumblr icon"/>
-                    <img src="./images/linkedin.png" alt="A linkedin icon"/>
+                    <img src="./images/facebook.png" alt="A facebook icon" onClick={() => {
+                        window.open("https://www.facebook.com/tai.tranthanh1604")
+                    }}/>
+                    <img src="./images/twitter.png" alt="A twitter icon" onClick={() => {
+                        window.open("https://www.tttgalaxy.co.uk/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ")
+                    }}/>
+                    <img src="./images/tumblr.png" alt="A tumblr icon" onClick={() => {
+                        window.open("https://www.tttgalaxy.co.uk/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ")
+                    }}/>
+                    <img src="./images/linkedin.png" alt="A linkedin icon" onClick={() => {
+                        window.open("https://www.linkedin.com/in/tran-thanh-tai-539250129/")
+                    }}/>
                 </div>
             </div>
             <hr/>
@@ -140,7 +148,7 @@ class Blog extends PureComponent {
         </aside>
         
         <footer id="footer" className="uppercase">
-            <h4>I am Jim Durry</h4>
+            <h4>I am Tai Tran</h4>
             <h5>Copyright 2019</h5>
             <a href="#" className="small-text">Back to top</a>
         </footer>
