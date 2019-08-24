@@ -14,6 +14,7 @@ import Portfolio from './js/containers/portfolio.container'
 import Novals from './js/containers/novals/novals.container'
 import Header from './js/components/partials/header'
 import Footer from './js/components/partials/footer'
+import Blog from './js/containers/blog/blog.container'
 
 
 const publicRoute = [
@@ -63,7 +64,12 @@ const publicRoute = [
     path: '/portfolio/public/:publicKey',
     component: Portfolio,
     isExact: false
-  }
+  },
+  {
+    path: '/blog',
+    component: Blog,
+    isExact: false
+  },
 ]
 
 const privateRoute = [
@@ -97,7 +103,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={Login} />
+      <Route path="/" exact component={Blog} />
       {renderPublicRoute()}
       {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />

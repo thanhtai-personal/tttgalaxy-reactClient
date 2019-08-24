@@ -471,17 +471,6 @@ module.exports = function(webpackEnv) {
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],
-        },
-        {
-          test: /\.(png|jpg|gif)$/i,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192
-              }
-            }
-          ]
         }
       ],
     },
