@@ -39,6 +39,7 @@ class Blog extends PureComponent {
                             <li><a href="#">Archived</a></li>
                             <li><a href="#">Categories</a></li>
                             <li><a href="/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ">About Me</a></li>
+                            <li><a href="/login">Login to my site</a></li>
                         </ul>
                     </nav>
                     <div className="wrapper-bg">
@@ -113,9 +114,8 @@ class Blog extends PureComponent {
                     <hr />
 
                     <div id="search">
-
                         <form>
-                            <input type="text" value="" placeholder="Search my blog" className="uppercase generic-bg" />
+                            <input type="text" placeholder="Search my blog" className="uppercase generic-bg" />
                             <label className="small-text uppercase">Just hit enter!</label>
                         </form>
                         <img src="./images/search.png" alt="" />
