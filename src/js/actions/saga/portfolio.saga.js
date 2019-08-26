@@ -8,7 +8,8 @@ import {
   SUBMIT_PORTFOLIO_DATA,
   GET_PORTFOLIO_DATA,
   UPDATE_PORTFOLIO_DATA,
-  UPDATE_PUBLIC_PROFILE
+  UPDATE_PUBLIC_PROFILE,
+  GET_PORTFOLIO_DATA_FAILED
 } from '../../constants/action-types'
 
 import apiInstant from './../../api'
@@ -43,17 +44,27 @@ function* getPortfolioData() {
     if (_.isNil(store.getState().portfolio.publicKey)) {
       const dataResponse = yield apiInstant.get('portfolio/portfolio-data', { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
         .then(response => response)
-      let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
-      yield put({ type: UPDATE_PORTFOLIO_DATA, payload: portfolioData });
+      if (dataResponse.data.message) {
+        window.alert(dataResponse.data.message)
+        yield put({ type: UPDATE_PORTFOLIO_DATA, payload: { isLoading: false } });
+      } else {
+        let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
+        yield put({ type: UPDATE_PORTFOLIO_DATA, payload: { ...portfolioData, isLoading: false } });
+      }
     } else {
       const dataResponse = yield apiInstant.post('portfolio/get-public-portfolio-data', { publicKey: store.getState().portfolio.publicKey })
         .then(response => response)
-      let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
-      yield put({ type: UPDATE_PORTFOLIO_DATA, payload: portfolioData });
+      if (dataResponse.data.message) {
+        window.alert(dataResponse.data.message)
+        yield put({ type: UPDATE_PORTFOLIO_DATA, payload: { isLoading: false } });
+      } else {
+        let portfolioData = convertPortfolioData(dataResponse.data, 'dynamic');
+        yield put({ type: UPDATE_PORTFOLIO_DATA, payload: { ...portfolioData, isLoading: false } });
+      }
     }
   } catch (error) {
-    console.log('error', error)
-    // yield put({ type: GET_PORTFOLIO_FAILED, payload: { error: error } });
+    window.alert("get data from api failed!")
+    yield put({ type: GET_PORTFOLIO_DATA_FAILED, payload: { isLoading: false } });
   }
 }
 

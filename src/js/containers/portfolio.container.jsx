@@ -10,9 +10,10 @@ class PortfolioContainer extends Component {
     const {
       skill, basicInfo, experiences, education,
       profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey,
-      submitDataUpdatePortfolio, getProfolioData,
+      submitDataUpdatePortfolio, getPortfolioData,
       publicProfile,
-      publicKey
+      publicKey,
+      isLoading
     } = this.props
     return (
       <Portfolio
@@ -25,18 +26,19 @@ class PortfolioContainer extends Component {
         updatePortfolioDataWithObjectKey={updatePortfolioDataWithObjectKey}
         validateDataUpdate={actionService.validateDataUpdate}
         submitDataUpdate={submitDataUpdatePortfolio}
-        getProfolioData={getProfolioData}
+        getPortfolioData={getPortfolioData}
         publicProfile={publicProfile}
         paramPublicKey={this.props.match && this.props.match.params ? this.props.match.params.publicKey : null}
         publicKey={publicKey}
+        isLoading={isLoading}
       />
     )
   }
 }
 
-function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey } }) {
+function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey, isLoading } }) {
   return {
-    skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey
+    skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey, isLoading
   };
 }
 
@@ -46,6 +48,6 @@ export default connect(
     updatePortfolioData: actionService.updatePortfolioData,
     updatePortfolioDataWithObjectKey: actionService.updatePortfolioDataWithObjectKey,
     submitDataUpdatePortfolio: actionService.submitDataUpdatePortfolio,
-    getProfolioData: actionService.getProfolioData
+    getPortfolioData: actionService.getPortfolioData
   }
 )(PortfolioContainer);

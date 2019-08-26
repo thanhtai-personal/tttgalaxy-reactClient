@@ -254,3 +254,10 @@ input:checked + .slider:before {
   color: #007bff !important;
   cursor: pointer;
 }
+
+.loading {
+  padding-top: 45vh;
+  font-size: 4rem;
+  color: red;
+  text-align: center;
+}

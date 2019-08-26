@@ -18,7 +18,8 @@ const initialState = {
   skill: [],
   basicInfo: [],
   experiences: [],
-  education: []
+  education: [],
+  isLoading: true
 };
 
 function portfolioReducer (state = initialState, action) {

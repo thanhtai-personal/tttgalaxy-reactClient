@@ -318,7 +318,7 @@ class Content extends PureComponent {
   }
 
   render () {
-    let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, paramPublicKey, publicKey },
+    let { props: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, paramPublicKey, publicKey, loading },
       renderRadioButton,
       buildSection,
       onChangeBasicInfo,
@@ -340,6 +340,8 @@ class Content extends PureComponent {
         imageUrlNull
       }
     } = this;
+    if (loading) return (<div className="loading">data loading...</div>)
+    if (!publicProfile && !_.isNil(paramPublicKey)) return (<div className="loading">User does not public profile</div>)
     return (
       <div className="content container portfolio-content portfolio-view" style={{ paddingBottom: '100px' }}>
         <div className="row">

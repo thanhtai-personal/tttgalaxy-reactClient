@@ -24,7 +24,7 @@ export const updatePortfolioData = (path, value) => {
   return { type: UPDATE_PORTFOLIO_DATA, payload: data };
 }
 
-export const getProfolioData = (publicKey) => {
+export const getPortfolioData = (publicKey) => {
   return { type: GET_PORTFOLIO_DATA, payload: { publicKey: publicKey } };
 }
 

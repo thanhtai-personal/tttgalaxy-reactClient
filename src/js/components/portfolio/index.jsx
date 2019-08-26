@@ -6,8 +6,12 @@ import './portfolio.scss'
 
 class Portfolio extends PureComponent {
 
+  constructor(props) {
+    super(props)
+  }
+
   componentWillMount() {
-    this.props.getProfolioData(this.props.paramPublicKey)
+    this.props.getPortfolioData(this.props.paramPublicKey)
   }
 
   render () {
@@ -23,7 +27,8 @@ class Portfolio extends PureComponent {
       validateDataUpdate,
       publicProfile,
       paramPublicKey,
-      publicKey
+      publicKey,
+      isLoading
     } = this.props
     return (
       <div className="container-fluid" id="home">
@@ -40,6 +45,7 @@ class Portfolio extends PureComponent {
           publicProfile={publicProfile}
           paramPublicKey={paramPublicKey}
           publicKey={publicKey}
+          loading={isLoading}
         />
       </div>
     )
