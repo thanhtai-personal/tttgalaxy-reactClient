@@ -43,7 +43,7 @@ class Blog extends PureComponent {
                         </ul>
                     </nav>
                     <div className="wrapper-bg">
-                        <h1 className="generic-bg anim-enter">Thanh Tai Tran</h1>
+                        <h1 className="generic-bg anim-enter">TTT GALAXY</h1>
                         {/* <h1 className="generic-bg anim-enter-abstract-left">Thanh Tai Tran</h1>
                         <h1 className="generic-bg anim-enter-abstract-right">Thanh Tai Tran</h1> */}
                     </div>
