@@ -30,7 +30,31 @@ class Blog extends PureComponent {
     }
 
 
+
     render() {
+        // const { props: { novelData } } = this
+        const novelData = [
+            {
+                chapterNumber: 1,
+                publishDate: '29/08/2019',
+                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
+            },
+            {
+                chapterNumber: 2,
+                publishDate: '29/08/2019',
+                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
+            },
+            {
+                chapterNumber: 3,
+                publishDate: '29/08/2019',
+                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
+            },
+            {
+                chapterNumber: 4,
+                publishDate: '29/08/2019',
+                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
+            }
+        ]
         return (
             <React.Fragment>
                 <section id="top" className="uppercase">
@@ -44,37 +68,22 @@ class Blog extends PureComponent {
                     </nav>
                     <div className="wrapper-bg">
                         <h1 className="generic-bg anim-enter">TTT GALAXY</h1>
-                        {/* <h1 className="generic-bg anim-enter-abstract-left">Thanh Tai Tran</h1>
-                        <h1 className="generic-bg anim-enter-abstract-right">Thanh Tai Tran</h1> */}
                     </div>
                 </section>
 
                 <section id="articles-pagination">
+                    <h1 className="generic-bg anim-enter">Tru Tiên Tiểu Phàm trùng sinh</h1>
                     <div id="articles">
-                        <article>
-                            <h2 className="uppercase">This is the title</h2>
-                            <span className="uppercase">December 19th, 2019</span>
-                            <p className="article-preview">Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trendwatching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand.</p>
-                            <button type="button" name="button" className="generic-bg">Read Full</button>
-                        </article>
-                        <article>
-                            <h2 className="uppercase">This is the title</h2>
-                            <span className="uppercase">December 19th, 2019</span>
-                            <p className="article-preview">Alpha launch party social proof early adopters marketing direct mailing churn rate advisor disruptive handshake burn rate innovator creative supply chain. Infrastructure supply chain mass market. Entrepreneur technology stock social media metrics social proof beta client leverage seed round rockstar lean startup. Niche market seed money partner network business model canvas innovator social media learning curve beta technology bootstrapping product management network effects MVP market.</p>
-                            <button type="button" name="button" className="generic-bg">Read Full</button>
-                        </article>
-                        <article>
-                            <h2 className="uppercase">This is the title</h2>
-                            <span className="uppercase">December 19th, 2019</span>
-                            <p className="article-preview">Buyer infrastructure user experience seed round innovator conversion long tail gen-z accelerator holy grail termsheet supply chain. Hackathon metrics monetization founders value proposition freemium learning curve lean startup low hanging fruit buyer business-to-business first mover advantage. Lean startup handshake termsheet release ramen direct mailing virality niche market investor business model canvas. Churn rate launch party buzz success strategy customer deployment.</p>
-                            <button type="button" name="button" className="generic-bg">Read Full</button>
-                        </article>
-                        <article>
-                            <h2 className="uppercase">This is the title</h2>
-                            <span className="uppercase">December 19th, 2019</span>
-                            <p className="article-preview">Responsive web design long tail angel investor niche market startup hypotheses. Advisor business-to-consumer scrum project backing iPhone focus founders monetization. Mass market pitch entrepreneur release gamification infographic. User experience alpha infographic advisor backing traction buzz value proposition stealth partner network early adopters innovator product management incubator.</p>
-                            <button type="button" name="button" className="generic-bg">Read Full</button>
-                        </article>
+                        {((novel) => {
+                            return novel.map((nov) => {
+                                return (<article>
+                                    <h2 className="uppercase">{`Chương ${nov.chapterNumber} - ${nov.chapterTitle}`}</h2>
+                                    <span className="uppercase">{nov.publishDate}</span>
+                                    <p className="article-preview">{nov.content}</p>
+                                    <button type="button" name="button" className="generic-bg">Read Full</button>
+                                </article>)
+                            })
+                        })(novelData)}
                     </div>
 
                     <div id="pagination" className="uppercase big-text">
@@ -115,8 +124,8 @@ class Blog extends PureComponent {
 
                     <div id="search">
                         <form>
-                            <input type="text" placeholder="Search my blog" className="uppercase generic-bg" />
-                            <label className="small-text uppercase">Just hit enter!</label>
+                            <input type="text" defaultValue='Để chơi thôi mấy bạn :)' placeholder="Search my blog" className="uppercase generic-bg" />
+                            <label className="small-text uppercase">Có gì đâu mà tìm.</label>
                         </form>
                         <img src="./images/search.png" alt="" />
                     </div>
