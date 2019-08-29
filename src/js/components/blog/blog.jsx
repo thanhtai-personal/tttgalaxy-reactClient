@@ -7,9 +7,9 @@ import Sound from 'react-sound'
 
 
 class Blog extends PureComponent {
-    // constructor (props) {
-    //   super(props)
-    // }
+    constructor(props) {
+        super(props)
+    }
 
     componentDidMount() {
         $('body').css({
@@ -32,29 +32,6 @@ class Blog extends PureComponent {
 
 
     render() {
-        // const { props: { novelData } } = this
-        const novelData = [
-            {
-                chapterNumber: 1,
-                publishDate: '29/08/2019',
-                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
-            },
-            {
-                chapterNumber: 2,
-                publishDate: '29/08/2019',
-                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
-            },
-            {
-                chapterNumber: 3,
-                publishDate: '29/08/2019',
-                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
-            },
-            {
-                chapterNumber: 4,
-                publishDate: '29/08/2019',
-                content: 'Industry limited phenomenon hippie item textile motif cut innovation garment jewelry. Swag inexpensive one-of-a-kind high heels effect Haute-couture jeans cheap price celebrities clothing. Necessity identity apron sleeveless. Signature jersey trend watching brand industry imagination Haute-couture runway. Sleeveless pret-a-porter look original casual skirt one-of-a-kind limited. Accessory stitching couture model stylish. Stylish contemporary etiquette halter shawl jumper bodice artificial embroidery trade outlet piece brand'
-            }
-        ]
         return (
             <React.Fragment>
                 <section id="top" className="uppercase">
@@ -72,18 +49,13 @@ class Blog extends PureComponent {
                 </section>
 
                 <section id="articles-pagination">
-                    <h1 className="generic-bg anim-enter">Tru Tiên Tiểu Phàm trùng sinh</h1>
                     <div id="articles">
-                        {((novel) => {
-                            return novel.map((nov) => {
-                                return (<article>
-                                    <h2 className="uppercase">{`Chương ${nov.chapterNumber} - ${nov.chapterTitle}`}</h2>
-                                    <span className="uppercase">{nov.publishDate}</span>
-                                    <p className="article-preview">{nov.content}</p>
-                                    <button type="button" name="button" className="generic-bg">Read Full</button>
-                                </article>)
-                            })
-                        })(novelData)}
+                        <article>
+                            <h2 className="uppercase">Cái tiêu để thôi mà</h2>
+                            <span className="uppercase">29/08/2019</span>
+                            <p className="article-preview">test cái content chơi</p>
+                            <button type="button" name="button" className="generic-bg">Đọc đầy đủ</button>
+                        </article>
                     </div>
 
                     <div id="pagination" className="uppercase big-text">
