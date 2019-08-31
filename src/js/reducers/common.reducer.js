@@ -1,20 +1,25 @@
 import {
   UPDATE_REDIRECT_DATA,
   RESET_ALL_STATE,
-  VERIFY_TOKEN_FAILED
+  VERIFY_TOKEN_FAILED,
+  UPDATE_LANGUAGE
 } from "../constants/action-types";
+
+import vi from './../language/vi'
 
 const initialState = {
   redirectData: {
     isRedirect: false,
     to: '#',
     from: ''
-  }
+  },
+  language: vi
 };
 
 function commonReducer (state = initialState, action) {
   switch (action.type) {
     case UPDATE_REDIRECT_DATA:
+    case UPDATE_LANGUAGE:
       return { ...state, redirectData: { ...state.redirectData, ...action.payload } }
     case VERIFY_TOKEN_FAILED:
       return {redirectData: {

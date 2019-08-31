@@ -38,37 +38,37 @@ class Login extends PureComponent {
 
   render () {
     const {
-      props: { email, password, loginLoading },
+      props: { email, password, loginLoading, language },
       updateDataPassword,
       updateDataEmail,
-      handleSubmit
+      handleSubmit,
     } = this
     return (
       <form className="login-form">
         <div className="form-group">
-          <big id="title" className="form-text title">Welcome to TTT Galaxy!</big>
+          <big id="title" className="form-text title">{language.welcomeToTTTGalaxy}</big>
         </div>
         <div className="form-group">
-          <label htmlFor="email-input">Email address</label>
+          <label htmlFor="email-input">{language.emailAddress}</label>
           <input
             onChange={updateDataEmail}
             type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder="Enter email" defaultValue={email} />
-          <small id="email-help" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="email-help" className="form-text text-muted">{language.neverShareEmail}</small>
         </div>
         <div className="form-group">
-          <label htmlFor="password-input">Password</label>
+          <label htmlFor="password-input">{language.password}</label>
           <input
             onChange={updateDataPassword}
-            type="password" className="form-control" id="password-input" placeholder="Password" defaultValue={password} />
+            type="password" className="form-control" id="password-input" placeholder={language.password} defaultValue={password} />
         </div>
         <div className="button-wrapper center">
           <button
             onClick={handleSubmit}
             disabled={loginLoading}
-            type="submit" className={`btn btn-primary btn-login ${loginLoading ? "btn-disable" : ""}`}>Login</button>
+            type="submit" className={`btn btn-primary btn-login ${loginLoading ? "btn-disable" : ""}`}>{language.login}</button>
         </div>
         <small id="register-help" className="form-text text-muted center">
-          <a href={`${this.location.origin}/register`}>If not register here!</a>
+          <a href={`${this.location.origin}/register`}>{language.ifNotRegisterHere}</a>
         </small>
       </form>
     )

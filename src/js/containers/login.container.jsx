@@ -6,13 +6,13 @@ import ActionService from './../actions'
 
 class LoginContainer extends Component {
 
-  componentWillMount () {
-    if(window.localStorage.getItem('jwtToken')) {
+  componentWillMount() {
+    if (window.localStorage.getItem('jwtToken')) {
       this.props.history.push('/home')
     }
   }
 
-  render () {
+  render() {
     const {
       email,
       password,
@@ -21,7 +21,8 @@ class LoginContainer extends Component {
       loginLoading,
       redirectData,
       updateRedirectData,
-      history
+      history,
+      language
     } = this.props
     return (
       <div className="container" id="login-comp">
@@ -34,18 +35,20 @@ class LoginContainer extends Component {
           redirectData={redirectData}
           updateRedirectData={updateRedirectData}
           history={history}
+          language={language}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps ({ login: { email, password, loginLoading }, common: { redirectData } }) {
+function mapStateToProps({ login: { email, password, loginLoading }, common: { redirectData, language } }) {
   return {
     email: email,
     password: password,
     loginLoading: loginLoading,
-    redirectData: redirectData
+    redirectData: redirectData,
+    language: language.login
   };
 }
 

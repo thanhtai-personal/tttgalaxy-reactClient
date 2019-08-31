@@ -43,41 +43,41 @@ class SignUp extends PureComponent {
 
   render () {
     const {
-      props: { email, password, passwordConfirm, loadingSubmit },
+      props: { email, password, passwordConfirm, loadingSubmit, language },
       handleChangeEmail,
       handleChangePassword,
       handleChangePasswordConfirm,
-      onSubmitSignUp
+      onSubmitSignUp,
     } = this
     return (
       <form className="login-form">
         <div className="form-group">
-          <big id="title" className="form-text title">Let me know who are you</big>
+          <big id="title" className="form-text title">{language.letMeKnowWhoAreYou}</big>
         </div>
         <div className="form-group">
-          <label htmlFor="email-input">Email address</label>
+          <label htmlFor="email-input">{language.emailAddress}</label>
           <input
             onChange={handleChangeEmail}
-            type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder="Enter email" defaultValue={email} />
-          <small id="email-help" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder={language.enterEmail} defaultValue={email} />
+          <small id="email-help" className="form-text text-muted">{language.neverShareEmail}</small>
         </div>
         <div className="form-group">
-          <label htmlFor="password-input">Password</label>
+          <label htmlFor="password-input">{language.password}</label>
           <input
             onChange={handleChangePassword}
-            type="password" className="form-control" id="password-input" placeholder="Password" defaultValue={password} />
+            type="password" className="form-control" id="password-input" placeholder={language.password} defaultValue={password} />
         </div>
         <div className="form-group">
-          <label htmlFor="password-input">Password confirm</label>
+          <label htmlFor="password-input">{language.confirmPassword}</label>
           <input
             onChange={handleChangePasswordConfirm}
-            type="password" className="form-control" id="password-input" placeholder="Confirm password" defaultValue={passwordConfirm} />
+            type="password" className="form-control" id="password-input" placeholder={language.confirmPassword} defaultValue={passwordConfirm} />
         </div>
         <div className="button-wrapper center">
           <button
             onClick={onSubmitSignUp} 
             disabled={loadingSubmit}
-            type="submit" className={`btn btn-primary btn-signup ${loadingSubmit ? 'btn-disable': ''}`}>Register</button>
+            type="submit" className={`btn btn-primary btn-signup ${loadingSubmit ? 'btn-disable': ''}`}>{language.register}</button>
         </div>
       </form>
     )

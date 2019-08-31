@@ -3,7 +3,6 @@ import React, { PureComponent } from "react";
 import './blog.scss'
 import $ from 'jquery'
 
-import Sound from 'react-sound'
 
 
 class Blog extends PureComponent {

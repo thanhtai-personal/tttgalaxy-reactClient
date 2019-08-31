@@ -6,7 +6,7 @@ import ActionService from './../actions/'
 import SignUp from "../components/signup";
 
 class SignUpContainer extends Component {
-  render () {
+  render() {
     const {
       email,
       password,
@@ -15,7 +15,8 @@ class SignUpContainer extends Component {
       loadingSubmit,
       redirectData,
       history,
-      updateRedirectData
+      updateRedirectData,
+      language
     } = this.props
     return (
       <div className="container" id="login-comp">
@@ -28,19 +29,21 @@ class SignUpContainer extends Component {
           redirectData={redirectData}
           updateRedirectData={updateRedirectData}
           history={history}
+          language={language}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps ({ signup: { email, password, passwordConfirm, loadingSubmit }, common: { redirectData } }) {
+function mapStateToProps({ signup: { email, password, passwordConfirm, loadingSubmit }, common: { redirectData, language } }) {
   return {
     email: email,
     password: password,
     passwordConfirm: passwordConfirm,
     loadingSubmit: loadingSubmit,
-    redirectData: redirectData
+    redirectData: redirectData,
+    language: language.register
   };
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
-import { RequireAuth, UserLayout } from './js/middleware'
+import { RequireAuth, UserLayout, Localization } from './js/middleware'
 
 import GameList from './js/containers/games/gameList.container'
 import GamePlay from './js/containers/games/singleGamePlay.container'
@@ -89,13 +89,13 @@ const privateRoute = [
 
 const renderPublicRoute = () => {
   return publicRoute.map((route) =>
-    <Route key={route.path} path={route.path} exact={route.isExact} component={route.layout ? UserLayout(route.layout, route.component) : route.component} />
+    <Route key={route.path} path={route.path} exact={route.isExact} component={Localization(route.layout ? UserLayout(route.layout, route.component) : route.component)} />
   )
 }
 
 const renderPrivateRoute = () => {
   return privateRoute.map((route) =>
-    <Route key={route.path} path={route.path} exact={route.isExact} component={RequireAuth(route.layout ? UserLayout(route.layout, route.component) : route.component)} />
+    <Route key={route.path} path={route.path} exact={route.isExact} component={Localization(RequireAuth(route.layout ? UserLayout(route.layout, route.component) : route.component))} />
   )
 }
 
