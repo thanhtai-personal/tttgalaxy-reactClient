@@ -86,12 +86,18 @@ export const Localization = (ComposedComponent) => {
       this.handleChangeLanguage = this.handleChangeLanguage.bind(this)
     }
 
+    componentWillMount() {
+      this.handleChangeLanguage(window.localStorage.getItem('language') || 'vi')
+    }
+
     handleChangeLanguage(languageKey) {
       switch (languageKey) {
         case 'vi':
+          window.localStorage.setItem('language', 'vi')
           store.dispatch({ type: UPDATE_LANGUAGE, payload: { language: vi } })
           break
         case 'en':
+          window.localStorage.setItem('language', 'en')
           store.dispatch({ type: UPDATE_LANGUAGE, payload: { language: eng } })
             break
         default:
