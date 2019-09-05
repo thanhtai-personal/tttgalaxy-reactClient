@@ -8,7 +8,7 @@ export default {
     ifNotRegisterHere: 'Chọn để đăng ký mới.',
   },
   register: {
-    letMeKnowHowAreYou: 'Thôn tin của bạn',
+    letMeKnowHowAreYou: 'Thông tin của bạn',
     emailAddress: 'Email',
     enterEmail: 'nhập email',
     neverShareEmail: "Chúng tôi sẽ không share email của bạn!",
