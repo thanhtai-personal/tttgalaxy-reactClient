@@ -6,6 +6,7 @@ export default {
     password: 'Password',
     login: 'Login',
     ifNotRegisterHere: 'If not register here!',
+    enterEmail: 'Enter email'
   },
   register: {
     letMeKnowHowAreYou: 'Let me know who are you',

@@ -30,9 +30,7 @@ export const logout = () => {
 }
 
 export const getAuthData = () => {
-  store.dispatch({
-    type: GET_AUTH_DATA, payload: { }
-  })
+  return { type: GET_AUTH_DATA, payload: {} }
 }
 
 export const resetRedirectData = () => {

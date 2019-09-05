@@ -52,7 +52,7 @@ class Login extends PureComponent {
           <label htmlFor="email-input">{language.emailAddress}</label>
           <input
             onChange={updateDataEmail}
-            type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder="Enter email" defaultValue={email} />
+            type="email" className="form-control" id="email-input" aria-describedby="email-help" placeholder={language.enterEmail} defaultValue={email} />
           <small id="email-help" className="form-text text-muted">{language.neverShareEmail}</small>
         </div>
         <div className="form-group">

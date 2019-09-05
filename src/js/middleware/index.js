@@ -1,7 +1,8 @@
 
 import React from 'react'
+import { connect } from "react-redux";
 import _ from 'lodash'
-import actionService from './../actions'
+import ActionService from './../actions'
 import eng from './../language/eng'
 import vi from './../language/vi'
 import store from './../store'
@@ -30,14 +31,14 @@ export const RequireAuth = (ComposedComponent) => {
       if (_.isNil(this.getToken())) {
         this.props.history.push('/login')
       } else {
-        actionService.getAuthData()
+        this.props.getAuthData()
       }
     }
 
     componentDidUpdate() {
-      let { redirectData: { isRedirect, from, to } } = this.props
-      if (isRedirect && from === 'token_failed') {
-        actionService.resetRedirectData()
+      let { isRedirect, from, to, updateRedirectData } = this.props
+      if (isRedirect && from === window.location.pathname) {
+        updateRedirectData()
         this.props.history.push(to)
       }
     }
@@ -56,7 +57,13 @@ export const RequireAuth = (ComposedComponent) => {
 
   }
 
-  return RequireAuthComponent
+  function mapStateToProps({ common: { redirectData: { isRedirect, from, to } } }) {
+    return {
+      isRedirect, from, to
+    };
+  }
+  
+  return connect(mapStateToProps, { updateRedirectData: ActionService.updateRedirectData, getAuthData: ActionService.getAuthData })(RequireAuthComponent)
 
 }
 

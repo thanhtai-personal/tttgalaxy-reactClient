@@ -6,6 +6,7 @@ export default {
     password: 'Mật khẩu',
     login: 'Đăng nhập',
     ifNotRegisterHere: 'Chọn để đăng ký mới.',
+    enterEmail: 'nhập email'
   },
   register: {
     letMeKnowHowAreYou: 'Thông tin của bạn',
