@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
-import { connect } from "react-redux";
 import Phaser from 'phaser'
+import _ from 'lodash'
 
 import { getParamFromUrl } from './utils'
 import GameFactory from './gameData'
@@ -11,8 +11,7 @@ export class PhaserHelloWorld extends PureComponent {
   
   constructor(props) {
     super(props)
-    
-    const gameConfig = GameFactor.getGameConfig() 
+    const gameConfig = !_.isNil(GameFactor) ? GameFactor.getGameConfig() : {}
     this.config = {
       type: Phaser.CANVAS,
       width: props.gameWidth || gameConfig.width || 800,
@@ -26,7 +25,8 @@ export class PhaserHelloWorld extends PureComponent {
       parent: props.parent || gameConfig.parent || 'phaser-game',
       scene: {
         preload: this.preload,
-        create: this.create
+        create: this.create,
+        update: this.update
       }
     }
   }
@@ -36,31 +36,22 @@ export class PhaserHelloWorld extends PureComponent {
   }
 
   preload () {
-    const { baseUrl, images } = GameFactor.getGameData()
-    this.load.setBaseURL(baseUrl || 'http://labs.phaser.io');
-    images.forEach((img) => {
+    if(_.isNil(GameFactor)) return
+    const gameData = GameFactor.getGameData()
+    this.load.setBaseURL(gameData.baseUrl || 'http://labs.phaser.io');
+    gameData.images.forEach((img) => {
       this.load.image(img.name, img.path);
     })
   }
 
   create () {
-    this.add.image(400, 300, 'sky')
+    if(_.isNil(GameFactor)) return
+    GameFactor.create(this)
+  }
 
-    var particles = this.add.particles('red')
-
-    var emitter = particles.createEmitter({
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: 'ADD'
-    });
-
-    var logo = this.physics.add.image(400, 100, 'logo')
-
-    logo.setVelocity(100, 200)
-    logo.setBounce(1, 1)
-    logo.setCollideWorldBounds(true)
-
-    emitter.startFollow(logo)
+  update () {
+    if(_.isNil(GameFactor)) return
+    GameFactor.update(this)
   }
 
   render() {
@@ -68,14 +59,4 @@ export class PhaserHelloWorld extends PureComponent {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  {  }
-)(PhaserHelloWorld);
+export default PhaserHelloWorld

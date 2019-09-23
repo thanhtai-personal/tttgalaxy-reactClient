@@ -1,32 +1,35 @@
-import helloWorld from './data/helloWorld.json'
+import gameIndentityData from './types' 
+import _ from 'lodash'
 
 const GameFactory = (gameId) => {
 
+  let gameData = gameIndentityData.find((gm) => gm.id === gameId)
+  if (_.isNil(gameData)) {
+    return null
+  }
+
   const getGameConfig = () => {
-    console.log('gameData', helloWorld)
-    switch (gameId) {
-      default:
-        return helloWorld.config
-    }
+    return gameData.config 
   }
 
   const getGameData = () => {
-    console.log('gameData', helloWorld)
-    switch (gameId) {
-      default:
-        return helloWorld.data
-    }
+    return gameData.data 
   }
 
-  const create = () => {
-    
+  const create = (self) => {
+    if (typeof gameData.events.create === 'function') gameData.events.create(self)
   }
+
+  const update = (self) => {
+    if (typeof gameData.events.update === 'function') gameData.events.update(self)
+  }
+
 
   return {
-    id: gameId,
     getGameConfig: getGameConfig,
     getGameData: getGameData,
-    create: create
+    create: create,
+    update: update
   }
 }
 
