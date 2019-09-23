@@ -43,7 +43,7 @@ const publicRoute = [
     layout: { header: Header, footer: Footer }
   },
   {
-    path: '/game/:id',
+    path: '/gameplay',
     component: GamePlay,
     isExact: false,
     layout: { header: Header, footer: Footer }

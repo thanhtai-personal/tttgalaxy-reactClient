@@ -12,7 +12,7 @@ class GameList extends PureComponent {
   // }
 
   onClickGame (gameId) {
-    window.open(`${window.location.origin}/game/${gameId}`, `game-${gameId}`)
+    window.open(`${window.location.origin}/gameplay?id=${gameId}`, `game-${gameId}`)
   }
 
 

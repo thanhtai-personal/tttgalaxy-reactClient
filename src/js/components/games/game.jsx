@@ -1,41 +1,52 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import Phaser from 'phaser'
 
+import { getParamFromUrl } from './utils'
+import GameFactory from './gameData'
 
-export class PhaserHelloWorld extends Component {
+const GameFactor = GameFactory(getParamFromUrl('id', window.location.search))
 
-  componentDidMount() {
-    var config = {
+export class PhaserHelloWorld extends PureComponent {
+  
+  constructor(props) {
+    super(props)
+    
+    const gameConfig = GameFactor.getGameConfig() 
+    this.config = {
       type: Phaser.CANVAS,
-      width: 800,
-      height: 600,
-      physics: {
+      width: props.gameWidth || gameConfig.width || 800,
+      height: props.gameHeight || gameConfig.height || 600,
+      physics: props.physics || gameConfig.physics || {
         default: 'arcade',
         arcade: {
           gravity: { y: 200 }
         }
       },
-      parent: 'phaser-game',
+      parent: props.parent || gameConfig.parent || 'phaser-game',
       scene: {
         preload: this.preload,
         create: this.create
       }
     }
-    new Phaser.Game(config)
+  }
+
+  componentDidMount() {
+    new Phaser.Game(this.config)
   }
 
   preload () {
-    this.load.setBaseURL('http://labs.phaser.io');
-    this.load.image('sky', 'assets/skies/space3.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');
+    const { baseUrl, images } = GameFactor.getGameData()
+    this.load.setBaseURL(baseUrl || 'http://labs.phaser.io');
+    images.forEach((img) => {
+      this.load.image(img.name, img.path);
+    })
   }
 
   create () {
-    this.add.image(400, 300, 'sky');
+    this.add.image(400, 300, 'sky')
 
-    var particles = this.add.particles('red');
+    var particles = this.add.particles('red')
 
     var emitter = particles.createEmitter({
       speed: 100,
@@ -43,17 +54,13 @@ export class PhaserHelloWorld extends Component {
       blendMode: 'ADD'
     });
 
-    var logo = this.physics.add.image(400, 100, 'logo');
+    var logo = this.physics.add.image(400, 100, 'logo')
 
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
+    logo.setVelocity(100, 200)
+    logo.setBounce(1, 1)
+    logo.setCollideWorldBounds(true)
 
-    emitter.startFollow(logo);
-  }
-
-  shouldComponentUpdate() {
-    return false
+    emitter.startFollow(logo)
   }
 
   render() {

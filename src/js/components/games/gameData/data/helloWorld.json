@@ -1,0 +1,31 @@
+{
+  "config": {
+    "width": 800,
+    "height": 600,
+    "physics": {
+      "default": "arcade",
+      "arcade": {
+        "gravity": { 
+          "y": 200
+        }
+      }
+    }
+  },
+  "data": {
+    "baseUrl": "http://labs.phaser.io",
+    "images": [
+      {
+        "path": "assets/skies/space3.png",
+        "name": "sky"
+      },
+      {
+        "path": "assets/sprites/phaser3-logo.png",
+        "name": "logo"
+      },
+      {
+        "path": "assets/particles/red.png",
+        "name": "red"
+      }
+    ]
+  }
+}
