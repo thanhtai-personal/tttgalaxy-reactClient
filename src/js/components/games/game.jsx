@@ -11,18 +11,13 @@ export class PhaserHelloWorld extends PureComponent {
   
   constructor(props) {
     super(props)
-    const gameConfig = !_.isNil(GameFactor) ? GameFactor.getGameConfig() : {}
+    this.gameConfig = !_.isNil(GameFactor) ? GameFactor.getGameConfig() : {}
     this.config = {
       type: Phaser.CANVAS,
-      width: props.gameWidth || gameConfig.width || 800,
-      height: props.gameHeight || gameConfig.height || 600,
-      physics: props.physics || gameConfig.physics || {
-        default: 'arcade',
-        arcade: {
-          gravity: { y: 200 }
-        }
-      },
-      parent: props.parent || gameConfig.parent || 'phaser-game',
+      width: props.gameWidth || this.gameConfig.width,
+      height: props.gameHeight || this.gameConfig.height,
+      physics: props.physics || this.gameConfig.physics,
+      parent: props.parent || this.gameConfig.parent || 'phaser-game',
       scene: {
         preload: this.preload,
         create: this.create,
@@ -38,7 +33,7 @@ export class PhaserHelloWorld extends PureComponent {
   preload () {
     if(_.isNil(GameFactor)) return
     const gameData = GameFactor.getGameData()
-    this.load.setBaseURL(gameData.baseUrl || 'http://labs.phaser.io');
+    this.load.setBaseURL(gameData.baseUrl);
     gameData.images.forEach((img) => {
       this.load.image(img.name, img.path);
     })
@@ -55,7 +50,7 @@ export class PhaserHelloWorld extends PureComponent {
   }
 
   render() {
-    return (<div id="phaser-game" />)
+    return (<div id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)
   }
 }
 

@@ -1,30 +1,23 @@
-import helloWorldData from './data/helloWorld.json'
-import helloWorldEvent from './cycle/helloWorld'
+import helloWorld from './helloWorld/'
 
 const gameIndentityData = [
   {
     id: 'helloWorld',
-    data: helloWorldData.data,
-    config: helloWorldData.config,
-    events: {
-      create: helloWorldEvent.create
-    }
+    data: helloWorld.data,
+    config: helloWorld.config,
+    events: helloWorld.events
   },
   {
     id: 'helloWorld2',
-    data: helloWorldData.data,
-    config: helloWorldData.config,
-    events: {
-      create: helloWorldEvent.create
-    }
+    data: helloWorld.data,
+    config: helloWorld.config,
+    events: helloWorld.events
   },
   {
     id: 'helloWorld3',
-    data: helloWorldData.data,
-    config: helloWorldData.config,
-    events: {
-      create: helloWorldEvent.create
-    }
+    data: helloWorld.data,
+    config: helloWorld.config,
+    events: helloWorld.events
   },
 ]
 

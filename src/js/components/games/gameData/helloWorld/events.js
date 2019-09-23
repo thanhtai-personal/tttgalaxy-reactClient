@@ -1,4 +1,4 @@
-const gameCycle = {
+const GameEvents = {
   create: (self) => {
     self.add.image(400, 300, 'sky')
 
@@ -20,4 +20,4 @@ const gameCycle = {
   }
 }
 
-export default gameCycle
+export default GameEvents

@@ -5,61 +5,61 @@ import {
 const initialState = {
   games: [
     {
-      id: 1,
+      id: 'helloWorld',
       name: 'game 1',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 1'
     },
     {
-      id: 2,
+      id: 'helloWorld',
       name: 'game 2',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 2'
     },
     {
-      id: 3,
+      id: 'helloWorld',
       name: 'game 3',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 3'
     },
     {
-      id: 4,
+      id: 'helloWorld',
       name: 'game 4',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 4'
     },
     {
-      id: 5,
+      id: 'helloWorld',
       name: 'game 5',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 5'
     },
     {
-      id: 6,
+      id: 'helloWorld',
       name: 'game 6',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 6'
     },
     {
-      id: 10,
+      id: 'helloWorld',
       name: 'game 10',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 10'
     },
     {
-      id: 7,
+      id: 'helloWorld',
       name: 'game 7',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 7'
     },
     {
-      id: 8,
+      id: 'helloWorld',
       name: 'game 8',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 8'
     },
     {
-      id: 9,
+      id: 'helloWorld',
       name: 'game 9',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 9'
