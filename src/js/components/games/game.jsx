@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 import _ from 'lodash'
 
 import { getParamFromUrl } from './utils'
-import GameFactory from './gameData'
+import GameFactory from './settings'
 
 const GameFactor = GameFactory(getParamFromUrl('id', window.location.search))
 

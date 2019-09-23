@@ -1,3 +1,6 @@
+
+// import Phaser from 'phaser' 
+
 const GameScenes = {
   create: (self) => {
     self.add.image(400, 300, 'sky')

@@ -1,4 +1,4 @@
-import gameIdentityData from './types' 
+import gameIdentityData from './types'
 import _ from 'lodash'
 
 const GameFactory = (gameId) => {
