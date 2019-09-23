@@ -1,10 +1,10 @@
 import helloWorldData from './data.json'
-import helloWorldEvent from './events'
+import helloWorldScenes from './scenes'
 
 const helloWorld = {
   data: helloWorldData.data,
   config: helloWorldData.config,
-  events: helloWorldEvent
+  scenes: helloWorldScenes
 }
 
 export default helloWorld

@@ -1,11 +1,11 @@
-import gameIndentityData from './types' 
+import gameIdentityData from './types' 
 import _ from 'lodash'
 
 const GameFactory = (gameId) => {
 
-  let gameData = gameIndentityData.find((gm) => gm.id === gameId)
+  let gameData = gameIdentityData.find((gm) => gm.id === gameId)
   if (_.isNil(gameData)) {
-    return null
+    gameData = gameIdentityData.find((gm) => gm.id === 'helloWorld')
   }
 
   const getGameConfig = () => {
@@ -16,20 +16,16 @@ const GameFactory = (gameId) => {
     return gameData.data 
   }
 
-  const create = (self) => {
-    if (typeof gameData.events.create === 'function') gameData.events.create(self)
-  }
-
-  const update = (self) => {
-    if (typeof gameData.events.update === 'function') gameData.events.update(self)
+  const sceneFunction = (self, key) => {
+    if (typeof gameData.scenes[key] === 'function') gameData.scenes[key](self.game.scene.scenes[0]) //need retest with multi-scenes
   }
 
 
   return {
     getGameConfig: getGameConfig,
     getGameData: getGameData,
-    create: create,
-    update: update
+    scenes: ['create', 'update'],
+    sceneFunction: sceneFunction
   }
 }
 

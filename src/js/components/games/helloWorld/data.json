@@ -13,18 +13,18 @@
   },
   "data": {
     "baseUrl": "http://labs.phaser.io",
-    "images": [
+    "image": [
       {
-        "path": "assets/skies/space3.png",
-        "name": "sky"
+        "url": "assets/skies/space3.png",
+        "key": "sky"
       },
       {
-        "path": "assets/sprites/phaser3-logo.png",
-        "name": "logo"
+        "url": "assets/sprites/phaser3-logo.png",
+        "key": "logo"
       },
       {
-        "path": "assets/particles/red.png",
-        "name": "red"
+        "url": "assets/particles/red.png",
+        "key": "red"
       }
     ]
   }

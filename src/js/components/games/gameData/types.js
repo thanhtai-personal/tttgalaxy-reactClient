@@ -1,24 +1,24 @@
-import helloWorld from './helloWorld/'
+import helloWorld from '../helloWorld/'
 
-const gameIndentityData = [
+const gameIdentityData = [
   {
     id: 'helloWorld',
     data: helloWorld.data,
     config: helloWorld.config,
-    events: helloWorld.events
+    scenes: helloWorld.scenes
   },
   {
     id: 'helloWorld2',
     data: helloWorld.data,
     config: helloWorld.config,
-    events: helloWorld.events
+    scenes: helloWorld.scenes
   },
   {
     id: 'helloWorld3',
     data: helloWorld.data,
     config: helloWorld.config,
-    events: helloWorld.events
+    scenes: helloWorld.scenes
   },
 ]
 
-export default gameIndentityData
+export default gameIdentityData
