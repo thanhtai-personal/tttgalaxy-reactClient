@@ -1,0 +1,14 @@
+.phaser-game {
+  position: fixed;
+  margin-top: 30px;
+  padding-top: 20px;
+  &.small {
+    margin-left: calc((100vw - 800px) / 2)
+  }
+  &.full {
+    margin-left: 0px
+  }
+  &.medium {
+    margin-left: calc((100vw - 1024px) / 2)
+  }
+}

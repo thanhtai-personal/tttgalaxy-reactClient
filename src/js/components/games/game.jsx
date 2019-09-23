@@ -5,6 +5,8 @@ import _ from 'lodash'
 import { getParamFromUrl } from './utils'
 import GameFactory from './settings'
 
+import './game.scss'
+
 const GameFactor = GameFactory(getParamFromUrl('id', window.location.search))
 
 export class PhaserGameComponent extends PureComponent {
@@ -114,6 +116,9 @@ export class PhaserGameComponent extends PureComponent {
         scenes: GameFactor.scenes,
         ...props.scene
       }
+    }
+    this.state = {
+      size: 'small' //'medium' , 'full'
     }
   }
 
@@ -276,7 +281,7 @@ export class PhaserGameComponent extends PureComponent {
   }
 
   render() {
-    return (<div id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)
+    return (<div className={`phaser-game ${this.state.size}`} id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)
   }
 }
 
