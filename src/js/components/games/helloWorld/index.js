@@ -1,4 +1,3 @@
-import helloWorldData from './data.json'
 import helloWorldScenes from './scenes'
 
 const helloWorld = {

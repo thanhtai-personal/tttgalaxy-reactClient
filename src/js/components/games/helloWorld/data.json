@@ -1,31 +1,64 @@
 {
-  "config": {
-    "width": 800,
-    "height": 600,
-    "physics": {
-      "default": "arcade",
-      "arcade": {
-        "gravity": { 
-          "y": 200
+  "loader": {
+    "config": {
+      "width": 800,
+      "height": 600,
+      "physics": {
+        "default": "arcade",
+        "arcade": {
+          "gravity": {
+            "y": 200
+          }
         }
       }
+    },
+    "data": {
+      "baseUrl": "http://labs.phaser.io",
+      "image": [
+        {
+          "url": "assets/skies/space3.png",
+          "key": "sky"
+        },
+        {
+          "url": "assets/sprites/phaser3-logo.png",
+          "key": "logo"
+        },
+        {
+          "url": "assets/particles/red.png",
+          "key": "red"
+        }
+      ]
     }
   },
-  "data": {
-    "baseUrl": "http://labs.phaser.io",
-    "image": [
-      {
-        "url": "assets/skies/space3.png",
-        "key": "sky"
-      },
-      {
-        "url": "assets/sprites/phaser3-logo.png",
-        "key": "logo"
-      },
-      {
-        "url": "assets/particles/red.png",
-        "key": "red"
+  "demoScene": {
+    "config": {
+      "width": 800,
+      "height": 600,
+      "physics": {
+        "default": "arcade",
+        "arcade": {
+          "gravity": {
+            "y": 200
+          }
+        }
       }
-    ]
+    },
+    "data": {
+      "baseUrl": "http://labs.phaser.io",
+      "image": [
+        {
+          "url": "assets/skies/space3.png",
+          "key": "sky"
+        },
+        {
+          "url": "assets/sprites/phaser3-logo.png",
+          "key": "logo"
+        },
+        {
+          "url": "assets/particles/red.png",
+          "key": "red"
+        }
+      ]
+    }
   }
 }
