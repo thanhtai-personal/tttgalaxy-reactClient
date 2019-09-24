@@ -3,17 +3,17 @@ import Phaser from 'phaser'
 import _ from 'lodash'
 
 import { getParamFromUrl } from './utils'
-import GameFactory from './settings'
+import { getGameFactorInstance, setGameToFactory } from './utils'
 
 import './game.scss'
 
-const GameFactor = GameFactory(getParamFromUrl('id', window.location.search))
 
 export class PhaserGameComponent extends PureComponent {
   
   constructor(props) {
     super(props)
-    this.gameConfig = !_.isNil(GameFactor) ? GameFactor.getGameConfig() : {}
+    this.gameFactor = getGameFactorInstance(getParamFromUrl('id', window.location.search))
+    this.gameConfig = this.gameFactor.getGameConfig()
     this.config = {
       type: props.gameType || this.gameConfig.type || Phaser.CANVAS,
       width: props.gameWidth || this.gameConfig.width,
@@ -111,7 +111,13 @@ export class PhaserGameComponent extends PureComponent {
             '#000000'
           ]
         },
-        scene: GameFactor.getScenes()
+        scene: {
+          key: 'bootScene',
+          preload: () => {},
+          update: () => {}
+        }
+        // scene: this.gameFactor.getScenes()[0].sceneConfig.scene
+        //scene: GameFactor.getScenes(),
     }
     this.state = {
       size: 'small' //'medium' , 'full'
@@ -120,6 +126,15 @@ export class PhaserGameComponent extends PureComponent {
 
   componentDidMount() {
     this.game = new Phaser.Game(this.config)
+    this.gameFactor = setGameToFactory(this.gameFactor, this.game)
+    this.gameFactor.getEvents().forEach((ev) => {
+      this.game.events.on(ev.key, (time, delta) => { ev.eventFunction(this.game, time, delta) }, this.props.scope || this.gameConfig.scope)
+    })
+    // this.gameFactor.getScenes().forEach((scn) => {
+    //   console.log("ADD SCENE---- ", scn.key)
+    //   this.game.scene.add(scn.key, scn.sceneConfig, scn.autoStart, scn.data);
+    // })
+    // this.game.scene.launch(this.gameFactor.getStartScene().key, this.gameFactor.getStartScene().data);
   }
 
   render() {

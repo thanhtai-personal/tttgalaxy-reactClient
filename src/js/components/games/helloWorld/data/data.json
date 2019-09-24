@@ -15,17 +15,21 @@
     "scenes": [
       {
         "key": "HelloScene",
+        "autoStart": true,
         "config": {
-          "physics": {
-            "default": "arcade",
-            "arcade": {
-              "gravity": {
-                "y": 200
-              }
-            }
-          }
+          "active": false,
+          "visible": true,
+          "pack": false,
+          "cameras": null,
+          "map": {},
+          "physics": {},
+          "loader": {},
+          "plugins": false,
+          "input": {}
         },
         "data": {
+          "key": "HelloScene",
+          "active": true,
           "baseUrl": "http://labs.phaser.io",
           "image": [
             {
@@ -46,17 +50,21 @@
       {
         "demoScene": {
           "key": "DemoScene",
+          "autoStart": false,
           "config": {
-            "physics": {
-              "default": "arcade",
-              "arcade": {
-                "gravity": {
-                  "y": 200
-                }
-              }
-            }
+            "active": false,
+            "visible": true,
+            "pack": false,
+            "cameras": null,
+            "map": {},
+            "physics": {},
+            "loader": {},
+            "plugins": false,
+            "input": {}
           },
           "data": {
+            "key": "DemoScene",
+            "active": false,
             "baseUrl": "http://labs.phaser.io",
             "image": [
               {

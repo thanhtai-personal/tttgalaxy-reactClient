@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import GameFactory from './settings'
 
 export const getParamFromUrl = (path, url) => {
   let paramsStrings = url.split('?')[1]? url.split('?')[1].split('&') : []
@@ -144,4 +145,25 @@ export const preloadFunction = (self, gameData) => {
       self.load.pack(p.key, p.url, p.dataKey)
     })
   }
+}
+
+export const getGameFactorInstance = (gameId) => {
+  let instanceGame = GameFactory().getInstance()
+  if (instanceGame.isNullInstant) {
+    instanceGame.setGameId(gameId)
+    getGameFactorInstance(gameId)
+  } else if (instanceGame.isNoGameId) {
+    instanceGame.setGameId(gameId)
+    return instanceGame
+  } else {
+    return instanceGame
+  }
+}
+
+export const setGameToFactory = (factor, game) => {
+  factor.setGameInstant(game)
+  if (factor.isNoGame) {
+    factor = GameFactory().getInstance
+  }
+  return factor
 }
