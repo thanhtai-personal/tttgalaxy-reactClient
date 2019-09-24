@@ -113,8 +113,8 @@ export class PhaserGameComponent extends PureComponent {
         },
         scene: {
           key: 'bootScene',
-          preload: () => {},
-          update: () => {}
+          preload: this.preload,
+          create: this.create
         }
         // scene: this.gameFactor.getScenes()[0].sceneConfig.scene
         //scene: GameFactor.getScenes(),
@@ -124,16 +124,44 @@ export class PhaserGameComponent extends PureComponent {
     }
   }
 
+  preload () {
+    this.load.setBaseURL('http://labs.phaser.io');
+    this.load.image('sky', 'assets/skies/space3.png');
+    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+    this.load.image('red', 'assets/particles/red.png');
+  }
+
+  create () {
+    this.add.image(400, 300, 'sky');
+
+    var particles = this.add.particles('red');
+
+    var emitter = particles.createEmitter({
+      speed: 100,
+      scale: { start: 1, end: 0 },
+      blendMode: 'ADD'
+    });
+
+    var logo = this.physics.add.image(400, 100, 'logo');
+
+    logo.setVelocity(100, 200);
+    logo.setBounce(1, 1);
+    logo.setCollideWorldBounds(true);
+
+    emitter.startFollow(logo);
+  }
+
   componentDidMount() {
     this.game = new Phaser.Game(this.config)
     this.gameFactor = setGameToFactory(this.gameFactor, this.game)
     this.gameFactor.getEvents().forEach((ev) => {
       this.game.events.on(ev.key, (time, delta) => { ev.eventFunction(this.game, time, delta) }, this.props.scope || this.gameConfig.scope)
     })
-    // this.gameFactor.getScenes().forEach((scn) => {
-    //   console.log("ADD SCENE---- ", scn.key)
-    //   this.game.scene.add(scn.key, scn.sceneConfig, scn.autoStart, scn.data);
-    // })
+    this.gameFactor.getScenes().forEach((scn) => {
+      console.log("ADD SCENE---- ", scn.key)
+      this.game.scene.add(scn.key, scn.sceneConfig, scn.autoStart, scn.data);
+    })
+    this.game.scene.start(this.gameFactor.getStartScene().key)
     // this.game.scene.launch(this.gameFactor.getStartScene().key, this.gameFactor.getStartScene().data);
   }
 

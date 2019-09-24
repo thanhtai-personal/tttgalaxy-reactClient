@@ -151,6 +151,7 @@ export const getGameFactorInstance = (gameId) => {
   let instanceGame = GameFactory().getInstance()
   if (instanceGame.isNullInstant) {
     instanceGame.setGameId(gameId)
+    debugger
     getGameFactorInstance(gameId)
   } else if (instanceGame.isNoGameId) {
     instanceGame.setGameId(gameId)

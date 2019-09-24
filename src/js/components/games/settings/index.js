@@ -10,6 +10,9 @@ const GameFactory = () => {
     if (_.isNil(instance)) instance = {}
     instance.gameId = _gameId
     instance.gameData = gameIdentityData.find((gm) => gm.id === _gameId)
+    if (_.isNil(instance.gameData)) {
+      instance.gameData = gameIdentityData.find((gm) => gm.id === GameId.helloWorld)
+    }
   }
 
   const setGameInstant = (game, _gameId) => {
@@ -29,37 +32,34 @@ const GameFactory = () => {
     }
   }
 
-  if (_.isNil(gameData)) {
-    gameData = gameIdentityData.find((gm) => gm.id === GameId.helloWorld)
-  }
 
   const getGameConfig = () => {
-    return gameData.config 
+    return instance.gameData.config 
   }
 
   const getGameData = () => {
-    return gameData.data
+    return instance.gameData.data
   }
 
   const getScenes = () => {
-    return gameData.scenes.map((scn) => {
-      let data = gameData.data.scenes.find((dt) => dt.key === scn.key)
+    return instance.gameData.scenes.map((scn) => {
+      let data = instance.gameData.data.scenes.find((dt) => dt.key === scn.key)
       return scn.functionComponent(data)
     })
   }
 
   const getScene = (key) => {
-    return gameData.scenes.filter((scn) => scn.key === key)
+    return instance.gameData.scenes.filter((scn) => scn.key === key)
   }
 
   const getEvents = () => {
-    return gameData.gameEvents
+    return instance.gameData.gameEvents
   }
 
   const getStartScene = () => {
     return {
-      key: gameData.startScene,
-      data: getScene(gameData.startScene).data
+      key: instance.gameData.startScene,
+      data: getScene(instance.gameData.startScene).data
     }
   }
 
