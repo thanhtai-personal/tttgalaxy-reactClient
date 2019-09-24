@@ -111,7 +111,7 @@ export class PhaserGameComponent extends PureComponent {
             '#000000'
           ]
         },
-        scene: GameFactor.scene
+        scene: GameFactor.getScenes()
     }
     this.state = {
       size: 'small' //'medium' , 'full'

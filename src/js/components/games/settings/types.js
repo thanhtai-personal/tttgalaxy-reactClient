@@ -1,24 +1,13 @@
 import helloWorld from '../helloWorld/'
+import { GameId } from './enum'
 
 const gameIdentityData = [
   {
-    id: 'helloWorld',
+    id: GameId.helloWorld,
     data: helloWorld.data,
     config: helloWorld.config,
     scenes: helloWorld.scenes
-  },
-  {
-    id: 'helloWorld2',
-    data: helloWorld.data,
-    config: helloWorld.config,
-    scenes: helloWorld.scenes
-  },
-  {
-    id: 'helloWorld3',
-    data: helloWorld.data,
-    config: helloWorld.config,
-    scenes: helloWorld.scenes
-  },
+  }
 ]
 
 export default gameIdentityData

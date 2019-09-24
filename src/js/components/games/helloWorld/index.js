@@ -1,9 +1,10 @@
-import helloWorldScenes from './scenes'
+import scenes from './scenes'
+import data from './data'
 
 const helloWorld = {
-  data: helloWorldData.data,
-  config: helloWorldData.config,
-  scenes: helloWorldScenes
+  data: data.data,
+  config: data.config,
+  scenes: scenes
 }
 
 export default helloWorld
