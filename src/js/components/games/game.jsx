@@ -110,7 +110,7 @@ export class PhaserGameComponent extends PureComponent {
             '#000000'
           ]
         },
-      scene: this.gameFactor.getScenes()[0]
+      scene: this.gameFactor.getScenes()
     }
     this.state = {
       size: 'small' //'medium' , 'full'
@@ -120,6 +120,7 @@ export class PhaserGameComponent extends PureComponent {
   componentDidMount() {
     this.game = new Phaser.Game(this.config)
     console.log('game started!!', this.game)
+    // this.game.scene.start('testScene')
   }
 
   render() {

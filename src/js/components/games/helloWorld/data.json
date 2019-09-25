@@ -33,6 +33,27 @@
             }
           ]
         }
+      },
+      {
+        "key": "testScene",
+        "config": {},
+        "data": {
+          "baseUrl": "http://labs.phaser.io",
+          "image": [
+            {
+              "url": "tile.png",
+              "key": "tile"
+            },
+            {
+              "url": "gun.png",
+              "key": "gun"
+            },
+            {
+              "url": "fireline.png",
+              "key": "fireline"
+            }
+          ]
+        }
       }
     ]
   }

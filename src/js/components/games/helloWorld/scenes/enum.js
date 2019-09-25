@@ -1,3 +1,4 @@
 export const SceneKey = {
-  helloScene: 'helloScene'
+  helloScene: 'helloScene',
+  testScene: 'testScene'
 }

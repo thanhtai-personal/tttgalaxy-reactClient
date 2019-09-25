@@ -4,9 +4,7 @@ import helloWorldScenes from './scenes'
 const helloWorld = {
   gameData: helloWorldData.data,
   gameConfig: helloWorldData.config,
-  scenes: [ 
-    helloWorldScenes
-  ],
+  scenes: helloWorldScenes,
   startScene: helloWorldScenes[0].key
 }
 
