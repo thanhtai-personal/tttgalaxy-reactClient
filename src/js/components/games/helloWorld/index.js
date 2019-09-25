@@ -2,9 +2,12 @@ import helloWorldData from './data.json'
 import helloWorldScenes from './scenes'
 
 const helloWorld = {
-  data: helloWorldData.data,
-  config: helloWorldData.config,
-  scenes: helloWorldScenes
+  gameData: helloWorldData.data,
+  gameConfig: helloWorldData.config,
+  scenes: [ 
+    helloWorldScenes
+  ],
+  startScene: helloWorldScenes[0].key
 }
 
 export default helloWorld
