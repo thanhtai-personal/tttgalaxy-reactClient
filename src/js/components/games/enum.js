@@ -1,3 +1,4 @@
 export const GameId = {
-  helloWorld: 'helloWorld'
+  helloWorld: 'helloWorld',
+  towerDefense: 'towerDefense'
 }

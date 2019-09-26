@@ -1,5 +1,4 @@
 {
-  "startScene": "helloScene",
   "config": {
     "width": 800,
     "height": 600,
@@ -12,10 +11,11 @@
       }
     }
   },
+  "startScene": "loading",
   "data": {
     "scenes": [
       {
-        "key": "helloScene",
+        "key": "loading",
         "config": {},
         "data": {
           "baseUrl": "http://labs.phaser.io",
@@ -31,27 +31,6 @@
             {
               "url": "assets/particles/red.png",
               "key": "red"
-            }
-          ]
-        }
-      },
-      {
-        "key": "testScene",
-        "config": {},
-        "data": {
-          "baseUrl": "http://labs.phaser.io",
-          "image": [
-            {
-              "url": "tile.png",
-              "key": "tile"
-            },
-            {
-              "url": "gun.png",
-              "key": "gun"
-            },
-            {
-              "url": "fireline.png",
-              "key": "fireline"
             }
           ]
         }
