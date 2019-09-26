@@ -8,7 +8,6 @@ const GameFactory = (gameId) => {
   if (_.isNil(gameData)) {
     gameData = gameIdentityData.find((gm) => gm.id === GameId.helloWorld)
   }
-  console.log('GAME DATA------', gameData)
 
   const getGameConfig = () => {
     return gameData.gameConfig 
