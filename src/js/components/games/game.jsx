@@ -5,7 +5,23 @@ import _ from 'lodash'
 import { getParamFromUrl } from './utils'
 import GameFactory from './factory'
 
-import './game.scss'
+import styled from 'styled-components'
+
+const GameWrapper = styled.div`position: fixed;
+margin-top: 30px;
+padding-top: 20px;`
+
+const GameWrapperSmall = styled(GameWrapper)`
+  margin-left: calc((100vw - 800px) / 2);
+`
+const GameWrapperMedium = styled(GameWrapper)`
+  margin-left: 0px;
+`
+const GameWrapperFull = styled(GameWrapper)`
+  margin-left: calc((100vw - 1024px) / 2);
+`
+
+// import './game.scss'
 
 export class PhaserGameComponent extends PureComponent {
   
@@ -123,8 +139,10 @@ export class PhaserGameComponent extends PureComponent {
     // this.game.scene.start('testScene')
   }
 
+
   render() {
-    return (<div className={`phaser-game ${this.state.size}`} id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)
+    // return (<div className={`phaser-game ${this.state.size}`} id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)
+    return <GameWrapperSmall id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />
   }
 }
 

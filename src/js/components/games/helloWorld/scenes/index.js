@@ -1,9 +1,9 @@
 import helloScene from './helloScene'
-// import testScene from './testScene'
+import testScene from './testScene'
 
 const scenes = [
   helloScene,
-  // testScene
+  testScene
 ]
 
 export default scenes
