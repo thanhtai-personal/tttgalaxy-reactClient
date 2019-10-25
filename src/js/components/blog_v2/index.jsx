@@ -34,6 +34,11 @@ componentWillUnmount() {
       <div id='blog-page'>
         <styled.SideNavWrapper>
           <styled.Title>TTTGALAXY</styled.Title>
+          <styled.ImageWrapper
+            alt="avartar"
+            title="Click to view full"
+            src="https://cv.trungquandev.com/img/trungquandev-avatar.jpg"
+          />
         </styled.SideNavWrapper>
         <styled.MainWrapper>
           Main content

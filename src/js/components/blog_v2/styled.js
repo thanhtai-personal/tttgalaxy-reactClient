@@ -29,8 +29,18 @@ const Title = styled.div`
   }
 `
 
+const ImageWrapper = styled.image`
+  max-width: 11rem;
+  max-height: 11rem;
+  border: 0.5rem solid rgba(255, 255, 255, 0.4);
+  vertical-align: middle;
+  width: 200px;
+  height: 100px;
+`
+
 export default {
   SideNavWrapper,
   MainWrapper,
-  Title
+  Title,
+  ImageWrapper
 }
