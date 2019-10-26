@@ -208,12 +208,15 @@ const About = styled.div`
   }
 `
 const Experience = styled.div`
+  .organization-data {
+    float: left;
+    padding-top: 3rem;
+    width: 70%;
+  }
   .organization-name {
     text-transform: uppercase;
     font-size: 2rem;
     color: ${color.fullName};
-    float: left;
-    padding-top: 3rem;
   }
   .organization-time {
     float: right;
@@ -221,13 +224,35 @@ const Experience = styled.div`
     text-decoration-line: overline underline;
     padding-top: 3rem;
   }
+  .organization-pos {
+    font-size: 1rem;
+  }
   .organization-des {
-    padding-top: 1rem;
+    padding-top: 2rem;
+    .list-inline {
+      list-style: none;
+      max-width: 70%;
+    }
+    .dev-icons {
+      font-size: 3rem;
+      cursor: pointer;
+    }
+    .list-inline-item:not(:last-child) {
+      margin-right: .5rem;
+    }
+    .list-inline-item {
+    }
+    i:hover {
+      background-color: ${color.backgroundHover}
+    }
   }
 `
 
 const ButtonGroup = styled.div`
   cursor: pointer;
+  &:hover {
+    color: ${color.textMenuHover}
+  }
   .left {
     float: left
     padding-right: 2rem;
@@ -235,6 +260,20 @@ const ButtonGroup = styled.div`
   .right {
     float: right;
     padding-left: 2rem;
+  }
+`
+
+const ImageShow = styled.img`
+  max-width: 20rem;
+  max-height: 20rem;
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  &:hover {
+    transform: scale(1.3);
   }
 `
 
@@ -249,5 +288,6 @@ export default {
   TabContent,
   About,
   Experience,
-  ButtonGroup
+  ButtonGroup,
+  ImageShow
 }
