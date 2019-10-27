@@ -185,7 +185,6 @@ const TabContent = styled.div`
   background-color: ${color.tabContentBackground};
   opacity: 0.7;
   box-shadow: 20px 20px 20px ${color.shadowColor};
-  over-flow: scroll;
 `
 
 const About = styled.div`
