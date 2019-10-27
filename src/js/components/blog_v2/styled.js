@@ -75,7 +75,6 @@ const SideNavWrapper = styled.div`
 const MainWrapper = styled.div`
   ${!isMobile && 'padding-left: 10vw;'}
   padding-top: 20px;
-  overflow-y: scroll;
 `
 
 const Title = styled.div`
