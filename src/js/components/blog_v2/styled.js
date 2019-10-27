@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components'
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
 
 const color = {
   backgroundHover: '#FFEE58',
@@ -59,10 +60,10 @@ const tabHover = keyframes`
 
 const SideNavWrapper = styled.div`
   height: 100vh; 
-  width: 20vw;
+  width: ${isMobile ? '100vw':'20vw'};
   min-width: 200px;
-  max-width: 300px;
-  position: fixed;
+  ${isMobile && 'max-width:300px;'}
+  position: ${isMobile ? 'static':'fixed'};
   z-index: 25; 
   top: 0; 
   left: 0;
@@ -72,7 +73,7 @@ const SideNavWrapper = styled.div`
 `
 
 const MainWrapper = styled.div`
-  padding-left: 10vw; 
+  ${isMobile && 'padding-left: 10vw;'}
   padding-top: 20px;
 `
 
