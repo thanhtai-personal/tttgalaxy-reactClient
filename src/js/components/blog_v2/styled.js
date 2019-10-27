@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+const mobileFont = 'times new roman'
 
 const color = {
   backgroundHover: '#FFEE58',
@@ -70,11 +71,13 @@ const SideNavWrapper = styled.div`
   background-color: ${color.SideNavBackground};
   overflow-x: hidden;
   padding-top: 20px;
+  ${isMobile && `font-family: ${mobileFont};`}
 `
 
 const MainWrapper = styled.div`
   ${!isMobile && 'padding-left: 10vw;'}
   padding-top: 20px;
+  ${isMobile && `font-family: ${mobileFont};`}
 `
 
 const Title = styled.div`
