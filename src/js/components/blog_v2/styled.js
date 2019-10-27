@@ -62,7 +62,7 @@ const SideNavWrapper = styled.div`
   height: 100vh; 
   width: ${isMobile ? '100vw':'20vw'};
   min-width: 200px;
-  ${isMobile && 'max-width:300px;'}
+  ${!isMobile && 'max-width:300px;'}
   position: ${isMobile ? 'static':'fixed'};
   z-index: 25; 
   top: 0; 
@@ -73,8 +73,9 @@ const SideNavWrapper = styled.div`
 `
 
 const MainWrapper = styled.div`
-  ${isMobile && 'padding-left: 10vw;'}
+  ${!isMobile && 'padding-left: 10vw;'}
   padding-top: 20px;
+  overflow-y: scroll;
 `
 
 const Title = styled.div`
@@ -181,7 +182,6 @@ const TabContent = styled.div`
   min-width: 60vw;
   max-width: 100vw;
   min-height: 85vh;
-  max-height: 100vh;
   background-color: ${color.tabContentBackground};
   opacity: 0.7;
   box-shadow: 20px 20px 20px ${color.shadowColor};

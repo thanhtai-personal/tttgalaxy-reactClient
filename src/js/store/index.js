@@ -10,13 +10,13 @@ const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function logger({ getState }) {
   return next => action => {
-    if (!window.isEnvProduction) {
+    if (!process.env.isEnvProduction) {
       console.log('will dispatch', action)
     }
 
     // Call the next dispatch method in the middleware chain.
     const returnValue = next(action)
-    if (!window.isEnvProduction) {
+    if (!process.env.isEnvProductionn) {
       console.log('state after dispatch', getState())
     }
 
