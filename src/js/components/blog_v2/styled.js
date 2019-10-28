@@ -16,7 +16,8 @@ const color = {
   tabBorder: '#FFEE58',
   shadowColor: '#666',
   tabContentBackground: 'white',
-  fullName: '#2ECC71'
+  fullName: '#2ECC71',
+  hoverTabColor: '#ffbf00',
 }
 
 const scaleHover = keyframes`
@@ -178,7 +179,13 @@ const Tab = styled.div`
     background-color: ${color.tabActiveBackground}
     color: ${color.backgroundHover}
     box-shadow: 20px 20px 20px ${color.shadowColor};
-  }
+  };
+  .redirect-button {
+    :hover {
+      background-color: ${color.hoverTabColor};
+      color: red;
+    };
+  };
 `
 
 const TabContent = styled.div`

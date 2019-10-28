@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import styled from './styled'
 import $ from 'jquery'
 import _ from 'lodash'
+import { TabManagerWrapper } from 'window-tabs-management'
 
 const avatarUrls = [
   './images/stock-photo.jpg',
@@ -116,6 +117,10 @@ class Blog extends PureComponent {
     this.renderSkills = this.renderSkills.bind(this)
     this.renderEnd = this.renderEnd.bind(this)
     this.renderInterest = this.renderInterest.bind(this)
+
+    this.tabManager = props.tabManager
+    this.tabManager.setManagerData([{ key: 'isRedirect', value: false }])
+    this.handleRedirectApp = this.handleRedirectApp.bind(this)
   }
 
   componentDidMount() {
@@ -125,6 +130,16 @@ class Blog extends PureComponent {
       backgroundImage: 'none',
       backgroundColor: '#B2EBF2'
     })
+    this.tabManager.addTabListener(() => {
+      if (this.tabManager.getData('isRedirect')) {
+        window.location.replace('/login')
+      }
+    })
+  }
+
+  handleRedirectApp () {
+    this.tabManager.emit('isRedirect', true) //emit to other tab redirect
+    window.location.replace('/login')
   }
 
   componentWillUnmount() {
@@ -181,13 +196,21 @@ class Blog extends PureComponent {
   }
 
   renderTab() {
-    return this.menus.map((menu) => {
+    let menusTabElement = this.menus.map((menu) => {
       return (
         <styled.Tab key={menu.id}>
           <div className={`title ${menu.isActive ? 'active-tab' : menu.isOnHover ? 'hover-tab' : 'test'}`}>{menu.text}</div>
         </styled.Tab>
       )
     })
+    menusTabElement.push(
+      <styled.Tab key='redirect-button'>
+        <div className='title redirect-button'
+          onClick={this.handleRedirectApp}
+        >Login my site</div>
+      </styled.Tab>
+    )
+    return menusTabElement
   }
 
   renderAbout () {
@@ -454,4 +477,4 @@ class Blog extends PureComponent {
   }
 }
 
-export default Blog
+export default TabManagerWrapper(Blog, 'blog-page', { isActive: false })
