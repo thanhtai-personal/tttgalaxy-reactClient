@@ -62,10 +62,10 @@ const tabHover = keyframes`
 
 const SideNavWrapper = styled.div`
   height: 100vh; 
-  width: ${isMobile ? '100vw':'20vw'};
+  width: 20vw;
   min-width: 200px;
-  ${!isMobile && 'max-width:300px;'}
-  position: ${isMobile ? 'static':'fixed'};
+  max-width:300px;
+  position: fixed;
   z-index: 25; 
   top: 0; 
   left: 0;
@@ -80,7 +80,7 @@ const SideNavWrapper = styled.div`
 `
 
 const MainWrapper = styled.div`
-  ${!isMobile  && 'padding-left: 10vw;'}
+  padding-left: 10vw;
   padding-top: 20px;
   ${isMobile && `font-family: ${mobileFont};`}
   @media (max-width: ${smallSize}px) {
