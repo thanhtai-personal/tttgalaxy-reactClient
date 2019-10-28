@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 const mobileFont = 'times new roman'
+const smallSize = 926
 
 const color = {
   backgroundHover: '#FFEE58',
@@ -72,12 +73,19 @@ const SideNavWrapper = styled.div`
   overflow-x: hidden;
   padding-top: 20px;
   ${isMobile && `font-family: ${mobileFont};`}
+  @media (max-width: ${smallSize}px) {
+    max-width:${smallSize};
+    position: static;
+  };
 `
 
 const MainWrapper = styled.div`
-  ${!isMobile && 'padding-left: 10vw;'}
+  ${!isMobile  && 'padding-left: 10vw;'}
   padding-top: 20px;
   ${isMobile && `font-family: ${mobileFont};`}
+  @media (max-width: ${smallSize}px) {
+    padding-left: 20px;
+  };
 `
 
 const Title = styled.div`
