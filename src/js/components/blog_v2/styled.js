@@ -151,6 +151,14 @@ const Menu = styled.ul`
       padding-top: 10px;
       padding-bottom: 10px;
     }
+    &.other-profile {
+      :hover {
+        background-color: ${color.hoverTabColor};
+        color: red;
+        border: solid 2px;
+        border-color: ${color.tabBorder}
+      };
+    }
   };
 `
 

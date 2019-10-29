@@ -191,6 +191,11 @@ class Blog extends PureComponent {
             }}
           >{menu.text}</li>
         ))}
+        <li className='other-profile' onClick={() => {
+          window.open('https://www.tttgalaxy.co.uk/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ', '_blank')
+        }}>
+            Other public CV
+        </li>
       </styled.Menu>
     )
   }
