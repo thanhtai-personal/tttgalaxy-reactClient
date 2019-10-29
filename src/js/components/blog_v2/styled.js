@@ -302,6 +302,27 @@ const ImageShow = styled.img`
   }
 `
 
+const OpenForm = styled.button`
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  margin-right: 11vw;
+`
+
+const MusicButton = styled.span`
+  cursor: pointer;
+  :hover {
+    background-color: ${color.backgroundHover}
+  }
+`
+
 export default {
   SideNavWrapper,
   MainWrapper,
@@ -314,5 +335,7 @@ export default {
   About,
   Experience,
   ButtonGroup,
-  ImageShow
+  ImageShow,
+  OpenForm,
+  MusicButton
 }

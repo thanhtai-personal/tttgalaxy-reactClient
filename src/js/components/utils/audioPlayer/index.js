@@ -22,6 +22,10 @@ const listEvents = [
   'suspend', 'timeupdate', 'volumechange', 'waiting'
 ]
 
+const listActions = [
+  'addTextTrack', 'canPlayType', 'load', 'play', 'pause'
+]
+
 const AudioPlayer = (props) => {
   let returnData = {
     connectionUrl: props.src || '',
@@ -43,13 +47,13 @@ const AudioPlayer = (props) => {
     }
   }
 
-  if (!connectionUrl) {
+  if (!returnData.connectionUrl) {
     returnData.error.message = errorMessage.connectionUrl
   } else {
     if (props.isVideo) {
       player = document.createElement("video");
-      player.setAttribute("src", connectionUrl);
-    } else player = new Audio(connectionUrl)
+      player.setAttribute("src", returnData.connectionUrl);
+    } else player = new Audio(returnData.connectionUrl)
     listPropertiesSet.forEach((key) => {
       if (props[key]) player[key] = props[key]
     })
@@ -59,11 +63,17 @@ const AudioPlayer = (props) => {
     returnData.renderedElement = player
   }
   
+  const runPlayer = (actionName) => {
+    if (listActions.includes(actionName)) {
+      typeof player[actionName] === 'function' && player[actionName]()
+    }
+  }
 
   return {
     ...returnData,
     getData: getPlayerData,
-    setData: setPlayerData
+    setData: setPlayerData,
+    run: runPlayer
   }
 }
 

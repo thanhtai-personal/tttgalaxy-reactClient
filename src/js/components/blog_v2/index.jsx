@@ -3,6 +3,8 @@ import styled from './styled'
 import $ from 'jquery'
 import _ from 'lodash'
 import { TabManagerWrapper } from 'window-tabs-management'
+import AudioPlayer from './../utils/audioPlayer'
+import PopUp from './../utils/popup/index.jsx'
 
 const avatarUrls = [
   './images/stock-photo.jpg',
@@ -101,7 +103,9 @@ class Blog extends PureComponent {
     super(props)
     this.avatarNumber = avatarUrls.length - 1
     this.state = {
-      avatarImageIndex: 0
+      avatarImageIndex: 0,
+      isOpenMusicBox: false,
+      backgroundMusicState: 'play'
     }
     this.menus = menus.map((menu, index) => ({ ...menu, id: `menu-item-${index}` }))
     this.menus[0].isActive = true
@@ -135,6 +139,8 @@ class Blog extends PureComponent {
         window.location.replace('/login')
       }
     })
+    this.audio = AudioPlayer({src: '/audio/ntdas.mp3', isVideo: false})
+    this.audio.run('play')
   }
 
   handleRedirectApp () {
@@ -476,7 +482,37 @@ class Blog extends PureComponent {
         <styled.MainWrapper>
           {this.renderTab()}
           {this.renderTabContent()}
+          <div onClick={() => {
+            this.setState({
+              isOpenMusicBox: !this.state.isOpenMusicBox
+            })
+          }}>
+            <styled.OpenForm>Music Box</styled.OpenForm>
+          </div>
         </styled.MainWrapper>
+        <PopUp 
+          id='music-box'
+          open={this.state.isOpenMusicBox}
+          header={(<div>___Music Box___</div>)}
+          content={(<div>
+            <br /> Music state: {this.state.backgroundMusicState}<br /><br />
+            <styled.MusicButton onClick={() => {
+              this.setState({backgroundMusicState: 'play'}, () => {
+                this.audio.run('play')
+              })
+            }}>Play</styled.MusicButton><br />
+            <styled.MusicButton onClick={() => {
+              this.setState({backgroundMusicState: 'pause'}, () => {
+                this.audio.run('pause')
+              })
+            }}>Pause</styled.MusicButton><br />
+            <styled.MusicButton onClick={() => {
+              this.setState({backgroundMusicState: 'stop'}, () => {
+                this.audio.run('stop')
+              })
+            }}>Stop</styled.MusicButton>
+          </div>)}
+        />
       </div>
     )
   }
