@@ -331,11 +331,62 @@ const MusicButton = styled.span`
   }
 `
 
+const cloudMoving = keyframes`
+  {
+    0% {
+      margin-bottom: 0px
+    }
+    10% {
+      margin-bottom: 90px
+    }
+    15% {
+      margin-bottom: 45px
+    }
+    25% {
+      margin-bottom: 135px
+    }
+    30% {
+      margin-bottom: 90px
+    }
+    40% {
+      margin-bottom: 180px
+    }
+    45% {
+      margin-bottom: 135px
+    }
+    50% {
+      margin-bottom: 180px
+    }
+    55% {
+      margin-bottom: 135px
+    }
+    60% {
+      margin-bottom: 180px
+    }
+    70% {
+      margin-bottom: 90px
+    }
+    75% {
+      margin-bottom: 135px
+    }
+    85% {
+      margin-bottom: 45px
+    }
+    90% {
+      margin-bottom: 90px
+    }
+    100% {
+      margin-bottom: 0px
+    }
+  }
+`
+
 const MusicBox = styled.div`
   .music-box {
     max-width: 15vw;
-    max-height: 40vh;
+    height: auto;
     text-align: center;
+    animation: ${cloudMoving} 20s linear infinite;
   }
 `
 

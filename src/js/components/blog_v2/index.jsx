@@ -123,12 +123,30 @@ class Blog extends PureComponent {
     this.renderSkills = this.renderSkills.bind(this)
     this.renderEnd = this.renderEnd.bind(this)
     this.renderInterest = this.renderInterest.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
 
     this.tabManager = props.tabManager
     this.tabData = props.tabData
     this.tabManager.setManagerData([{ key: 'isRedirect', value: false }])
     this.handleRedirectApp = this.handleRedirectApp.bind(this)
     this.setMusicState = this.setMusicState.bind(this)
+  }
+
+  handleKeyDown (event) {
+    if (event.altKey) {
+      switch (event.keyCode) {
+        case 80:
+        case '80':
+          this.setMusicState(this.state.backgroundMusicState === 'play' ? 'pause' : 'play')
+          break;
+        case 83:
+        case '83':
+          this.setMusicState('stop')
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   componentDidMount() {
@@ -154,6 +172,7 @@ class Blog extends PureComponent {
     setTimeout(() => {
       this.setMusicState('play')
     }, 7000)
+    document.addEventListener('keydown', this.handleKeyDown)
     
   }
 
@@ -169,6 +188,7 @@ class Blog extends PureComponent {
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'fixed'
     })
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   handleClickAvatar() {
@@ -530,13 +550,13 @@ class Blog extends PureComponent {
             <br /> Music state: {this.state.backgroundMusicState}<br /><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('play')
-            }}>Play</styled.MusicButton><br />
+            }}>Play (alt + P)</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('pause')
-            }}>Pause</styled.MusicButton><br />
+            }}>Pause (alt + P)</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('stop')
-            }}>Stop</styled.MusicButton>
+            }}>Stop (alt + S)</styled.MusicButton>
           </div>)}
         /></styled.MusicBox>
       </div>

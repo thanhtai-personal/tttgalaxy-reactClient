@@ -12,6 +12,8 @@ const form = styled.div`
     bottom: 0;
     right: 15px;
     border: 3px solid #f1f1f1;
+    border-bottom: 15px solid #b3ff66;
+    border-bottom-image: url(border.png) 30 round;
     z-index: 99999;
   }
   .form-container {
