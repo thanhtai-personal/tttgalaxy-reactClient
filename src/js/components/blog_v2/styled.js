@@ -162,6 +162,13 @@ const Menu = styled.ul`
   };
 `
 
+const TabList = styled.div`
+  display: inline-block;
+  min-width: 70vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+`
+
 const Tab = styled.div`
   opacity: 0.7;
   width: 100%;
@@ -316,10 +323,19 @@ const OpenForm = styled.button`
   margin-right: 11vw;
 `
 
+
 const MusicButton = styled.span`
   cursor: pointer;
   :hover {
     background-color: ${color.backgroundHover}
+  }
+`
+
+const MusicBox = styled.div`
+  .music-box {
+    max-width: 15vw;
+    max-height: 40vh;
+    text-align: center;
   }
 `
 
@@ -337,5 +353,7 @@ export default {
   ButtonGroup,
   ImageShow,
   OpenForm,
-  MusicButton
+  MusicButton,
+  TabList,
+  MusicBox
 }

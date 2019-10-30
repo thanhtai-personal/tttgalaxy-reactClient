@@ -123,8 +123,10 @@ class Blog extends PureComponent {
     this.renderInterest = this.renderInterest.bind(this)
 
     this.tabManager = props.tabManager
+    this.tabData = props.tabData
     this.tabManager.setManagerData([{ key: 'isRedirect', value: false }])
     this.handleRedirectApp = this.handleRedirectApp.bind(this)
+    this.setMusicState = this.setMusicState.bind(this)
   }
 
   componentDidMount() {
@@ -134,13 +136,20 @@ class Blog extends PureComponent {
       backgroundImage: 'none',
       backgroundColor: '#B2EBF2'
     })
-    this.tabManager.addTabListener(() => {
+    this.tabManager.addTabListener((event) => {
+      if (event.key) {
+        let oldData = event.oldValue ? JSON.parse(event.oldValue) : {}
+        let newData = event.newValue ? JSON.parse(event.newValue) : {}
+        if (oldData.musicStartedTime != newData.musicStartedTime) {
+          this.setMusicState('stop')
+        }
+      }
       if (this.tabManager.getData('isRedirect')) {
         window.location.replace('/login')
       }
     })
     this.audio = AudioPlayer({src: '/audio/ntdas.mp3', isVideo: false})
-    this.audio.run('play')
+    this.setMusicState('play')
   }
 
   handleRedirectApp () {
@@ -221,7 +230,7 @@ class Blog extends PureComponent {
         >Login my site</div>
       </styled.Tab>
     )
-    return menusTabElement
+    return <styled.TabList>{menusTabElement}</styled.TabList>
   }
 
   renderAbout () {
@@ -462,6 +471,22 @@ class Blog extends PureComponent {
     return contentElement
   }
 
+  setMusicState (key) {
+    if (key === 'play') {
+      this.tabData = this.tabManager.setTab(this.tabData.id, { isOpenMusic: true }) || this.tabData
+      this.tabData = this.tabManager.getTab(this.tabData.id)
+      this.tabManager.setManagerData([{ key: 'musicStartedTime', value: new Date() }])
+    }
+    this.setState({ backgroundMusicState: key }, () => {
+      if (key === 'stop') {
+        this.audio.run('pause')
+        this.audio.setData('currentTime', 0)
+      } else {
+        this.audio.run(key)
+      }
+    })
+  }
+
   render() {
     return (
       <div id='blog-page'>
@@ -490,29 +515,25 @@ class Blog extends PureComponent {
             <styled.OpenForm>Music Box</styled.OpenForm>
           </div>
         </styled.MainWrapper>
+        <styled.MusicBox>
         <PopUp 
           id='music-box'
+          className='music-box'
           open={this.state.isOpenMusicBox}
           header={(<div>___Music Box___</div>)}
           content={(<div>
             <br /> Music state: {this.state.backgroundMusicState}<br /><br />
             <styled.MusicButton onClick={() => {
-              this.setState({backgroundMusicState: 'play'}, () => {
-                this.audio.run('play')
-              })
+              this.setMusicState('play')
             }}>Play</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
-              this.setState({backgroundMusicState: 'pause'}, () => {
-                this.audio.run('pause')
-              })
+              this.setMusicState('pause')
             }}>Pause</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
-              this.setState({backgroundMusicState: 'stop'}, () => {
-                this.audio.run('stop')
-              })
+              this.setMusicState('stop')
             }}>Stop</styled.MusicButton>
           </div>)}
-        />
+        /></styled.MusicBox>
       </div>
     )
   }

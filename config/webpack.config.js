@@ -316,7 +316,7 @@ module.exports = function(webpackEnv) {
           include: paths.appSrc,
         },
         {
-          test: [/\.mp3$/, /\.mp4$/],
+          test: [/\.mp3$/, /\.OGG$/, /\.wav$/, /\.mp4$/, /\.flv$/],
           include: path.publicPath,
           loader: 'file-loader'
         },
