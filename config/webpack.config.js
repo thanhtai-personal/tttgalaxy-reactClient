@@ -335,7 +335,6 @@ module.exports = function(webpackEnv) {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.mp3$/, /\.OGG$/, /\.wav$/, /\.mp4$/, /\.flv$/],
               loader: require.resolve('url-loader'),
               options: {
-                limit: 10000,
                 name: 'static/media/[name].[hash:8].[ext]',
               },
             },
