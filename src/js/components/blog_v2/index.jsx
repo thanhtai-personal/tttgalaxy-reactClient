@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { TabManagerWrapper } from 'window-tabs-management'
 import AudioPlayer from './../utils/audioPlayer'
 import PopUp from './../utils/popup/index.jsx'
-import music from './resource/ntdas.mp3'
+import music from './resource/background.mp3'
 
 
 const avatarUrls = [
