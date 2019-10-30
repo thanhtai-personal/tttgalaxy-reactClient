@@ -5,6 +5,8 @@ import _ from 'lodash'
 import { TabManagerWrapper } from 'window-tabs-management'
 import AudioPlayer from './../utils/audioPlayer'
 import PopUp from './../utils/popup/index.jsx'
+import music from './resource/ntdas.mp3'
+
 
 const avatarUrls = [
   './images/stock-photo.jpg',
@@ -148,8 +150,11 @@ class Blog extends PureComponent {
         window.location.replace('/login')
       }
     })
-    this.audio = AudioPlayer({src: '/audio/ntdas.mp3', isVideo: false})
-    this.setMusicState('play')
+    this.audio = AudioPlayer({src: music, isVideo: false})
+    setTimeout(() => {
+      this.setMusicState('play')
+    }, 3000)
+    
   }
 
   handleRedirectApp () {

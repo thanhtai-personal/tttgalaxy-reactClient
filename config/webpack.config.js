@@ -315,11 +315,14 @@ module.exports = function(webpackEnv) {
           ],
           include: paths.appSrc,
         },
-        {
-          test: [/\.mp3$/, /\.OGG$/, /\.wav$/, /\.mp4$/, /\.flv$/],
-          include: path.publicPath,
-          loader: 'file-loader'
-        },
+        // {
+        //   test: [/\.mp3$/, /\.OGG$/, /\.wav$/, /\.mp4$/, /\.flv$/],
+        //   include: path.publicPath,
+        //   loader: 'file-loader',
+        //   options: {
+        //     outputPath: path.publicPath,
+        //   }
+        // },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -329,7 +332,7 @@ module.exports = function(webpackEnv) {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.mp3$/, /\.OGG$/, /\.wav$/, /\.mp4$/, /\.flv$/],
               loader: require.resolve('url-loader'),
               options: {
                 limit: 10000,

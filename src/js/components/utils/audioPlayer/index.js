@@ -38,6 +38,9 @@ const AudioPlayer = (props) => {
     if (listPropertiesGet.includes(key)) {
       return player[key]
     }
+    if (listPropertiesSet.includes(key)) {
+      return player[key]
+    }
     return ''
   }
 
@@ -46,7 +49,6 @@ const AudioPlayer = (props) => {
       player[key] = value
     }
   }
-
   if (!returnData.connectionUrl) {
     returnData.error.message = errorMessage.connectionUrl
   } else {
