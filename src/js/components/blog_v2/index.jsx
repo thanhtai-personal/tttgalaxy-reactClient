@@ -153,7 +153,7 @@ class Blog extends PureComponent {
     this.audio = AudioPlayer({src: music, isVideo: false})
     setTimeout(() => {
       this.setMusicState('play')
-    }, 3000)
+    }, 7000)
     
   }
 
