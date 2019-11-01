@@ -401,6 +401,7 @@ const strokeOffset = keyframes`
 }
 `
 const colors = ['#360745', '#D61C59', '#E7D84B', '#EFEAC5', '#1B8798']
+// const colors = ['white', 'white', 'white', 'white', 'white']
 
 const ElasticStroke = styled.svg`
 font-family: times new roman;
@@ -412,11 +413,29 @@ text-align: center;
   stroke: white;
   stroke-dasharray: ${strokeStep} ${strokeStep * (max - 1)};
   stroke-width: 1px;
-  animation: ${strokeOffset} 12s infinite linear;
+  animation: ${strokeOffset} 6s infinite linear;
 }
 :hover {
   background-color: ${color.hoverTabColor};
   color: ${color.textHover};
+  .text-copy-1 {
+    stroke: white;
+  }
+  .text-copy-2 {
+    stroke: white;
+  }
+  .text-copy-3 {
+    stroke: white;
+  }
+  .text-copy-4 {
+    stroke: white;
+  }
+  .text-copy-5 {
+    stroke: white;
+  }
+  .text-copy {
+    animation: unset;
+  }
 }
 .text-copy-1 {
   stroke: ${colors[0]};

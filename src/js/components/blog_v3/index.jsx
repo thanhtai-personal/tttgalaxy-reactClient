@@ -21,11 +21,11 @@ const avatarUrls = [
 
 const menuKeys = {
   about: 'about',
-  experience: 'experience', 
-  education: 'education', 
-  skills: 'skills', 
+  experience: 'experience',
+  education: 'education',
+  skills: 'skills',
   projects: 'projects',
-  interests: 'interests', 
+  interests: 'interests',
   the_end: 'the_end',
 }
 
@@ -40,7 +40,7 @@ const menus = [
 ]
 
 class Blog extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.avatarNumber = avatarUrls.length - 1
     this.tabManager = props.tabManager
@@ -60,44 +60,62 @@ class Blog extends PureComponent {
     this.menus[0].isActive = true
     this.handleClickAvatar = this.handleClickAvatar.bind(this)
     this.renderMenu = this.renderMenu.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+  }
+
+  handleKeyDown (event) {
+    if (event.altKey) {
+      switch (event.keyCode) {
+        case 71:
+        case '71':
+          this.setState({ isMagical: false }, () => {
+            this.tabManager.setManagerData([{ key: 'isMagical', value: false }])
+          })
+          break;
+        default:
+          break;
+      }
+    }
   }
 
 
-  componentDidMount() {
+  componentDidMount () {
     $('body').css({
       fontFamily: '"Permanent Marker", cursive',
       backgroundImage: 'none',
       backgroundColor: '#B2EBF2'
     })
-    document.addEventListener('onbeforeunload', () => {
+    document.addEventListener('beforeunload', () => {
       let listTab = this.tabManager.getTabList()
       if (!listTab || (listTab && _.isEmpty(listTab)) || (listTab && listTab.length === 1)) {
-        this.tabManager.setManagerData([{ key: 'isMagical', value: false }])
+        this.tabManager.setManagerData([{ key: 'isMagical', value: true }])
       }
     })
+    this.tabManager.addTabListener((event) => {
+      if (!this.tabManager.getData('isMagical') && this.state.isMagical) {
+        this.setState({ isMagical: false })
+      }
+    })
+    document.addEventListener('keydown', this.handleKeyDown)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     $('body').css({
       background: 'url(https://res.cloudinary.com/di6vua0hr/image/upload/v1562129381/web_images/background_jath9x.png) center center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'fixed'
     })
-    document.removeEventListener('onbeforeunload', () => {
+    document.removeEventListener('beforeunload', () => {
       let listTab = this.tabManager.getTabList()
       if (!listTab || (listTab && _.isEmpty(listTab)) || (listTab && listTab.length === 1)) {
-        this.tabManager.setManagerData([{ key: 'isMagical', value: false }])
+        this.tabManager.setManagerData([{ key: 'isMagical', value: true }])
       }
     })
-    this.tabManager.addTabListener(() => {
-      if (!this.tabManager.getData('isMagical') && this.state.isMagical) {
-        this.setState({ isMagical: false })
-      }
-    })
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
-  handleClickAvatar() {
+  handleClickAvatar () {
     if (this.state.avatarImageIndex < this.avatarNumber) {
       let newImg = this.state.avatarImageIndex + 1
       this.setState({ avatarImageIndex: newImg })
@@ -106,14 +124,7 @@ class Blog extends PureComponent {
     }
   }
 
-  renderMenu() {
-    if (this.state.isMagical) {
-      return (
-        <styled.MagicalPanel>
-
-        </styled.MagicalPanel>
-      )
-    }
+  renderMenu () {
     return (
       <styled.Menu>
         {this.menus.map((menu) => (
@@ -147,13 +158,41 @@ class Blog extends PureComponent {
         <li className='other-profile' onClick={() => {
           window.open('https://www.tttgalaxy.co.uk/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ', '_blank')
         }}>
-            Other public CV
+          Other public CV
         </li>
       </styled.Menu>
     )
   }
 
-  render() {
+  render () {
+    if (this.state.isMagical) {
+      return (
+        <styled.MagicalPanel>
+          <styled.ElasticStrokeFree>
+            <symbol id="s-text">
+              <text textAnchor="middle"
+                x="45%"
+                y="60%"
+              >
+                __,``._,``-ooOOO_TTTGALAXY_OOOoo-``,_.``,__
+              </text>
+            </symbol>
+            <g className="g-ants">
+              <use xlinkHref="#s-text"
+                className="text-copy text-copy-1"></use>
+              <use xlinkHref="#s-text"
+                className="text-copy text-copy-2"></use>
+              <use xlinkHref="#s-text"
+                className="text-copy text-copy-3"></use>
+              <use xlinkHref="#s-text"
+                className="text-copy text-copy-4"></use>
+              <use xlinkHref="#s-text"
+                className="text-copy text-copy-5"></use>
+            </g>
+          </styled.ElasticStrokeFree>
+        </styled.MagicalPanel>
+      )
+    }
     return (
       <div id='blog-page'>
         <styled.SideNavWrapper>

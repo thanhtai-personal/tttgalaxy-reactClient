@@ -160,7 +160,8 @@ const strokeOffset = keyframes`
   stroke-dasharray: 0 ${strokeStep * max * 2.5};
 }
 `
-const colors = ['#360745', '#D61C59', '#E7D84B', '#EFEAC5', '#1B8798']
+// const colors = ['#360745', '#D61C59', '#E7D84B', '#EFEAC5', '#1B8798']
+const colors = ['yellow', 'yellow', 'yellow', 'yellow', 'yellow']
 
 const ElasticStroke = styled.svg`
 font-family: times new roman;
@@ -205,7 +206,43 @@ const MagicalPanel = styled.div`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background-color: black;
+  background: url('images/wallpaper-10.jpg') no-repeat center center;
+  background-size: cover;
+`
+
+const ElasticStrokeFree = styled.svg`
+font-family: times new roman;
+font-size: 2em;
+width: 100vw;
+height: 80px;
+text-align: center;
+.text-copy {
+  fill: none;
+  stroke: yellow;
+  stroke-dasharray: ${strokeStep} ${strokeStep * (max - 1)};
+  stroke-width: 1px;
+  animation: ${strokeOffset} 12s infinite linear;
+}
+.text-copy-1 {
+  stroke: yellow;
+  stroke-dashoffset: ${strokeStep * 1};
+}
+.text-copy-2 {
+  stroke: yellow;
+  stroke-dashoffset: ${strokeStep * 2};
+}
+.text-copy-3 {
+  stroke: yellow;
+  stroke-dashoffset: ${strokeStep * 3};
+}
+.text-copy-4 {
+  stroke: yellow;
+  stroke-dashoffset: ${strokeStep * 4};
+}
+.text-copy-5 {
+  stroke: yellow;
+  stroke-dashoffset: ${strokeStep * 5};
+}
 `
 
 export default {
@@ -216,5 +253,6 @@ export default {
   ImageAvatar,
   Menu,
   ElasticStroke,
-  MagicalPanel
+  MagicalPanel,
+  ElasticStrokeFree
 }
