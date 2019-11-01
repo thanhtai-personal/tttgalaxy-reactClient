@@ -517,10 +517,10 @@ class Blog extends PureComponent {
       <div id='blog-page'>
         <styled.SideNavWrapper>
           <styled.Title>TTTGALAXY</styled.Title>
-          <styled.ElasticStroke viewBox="0 0 25vw 80">
+          <styled.ElasticStroke viewBox="0 0 25vw 40">
             <symbol id="s-text">
               <text text-anchor="middle"
-                x="45%"
+                x="35%"
                 y="60%"
               >
                 Tài Trần

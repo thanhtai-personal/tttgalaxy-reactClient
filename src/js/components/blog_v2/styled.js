@@ -417,7 +417,6 @@ text-align: center;
 :hover {
   background-color: ${color.hoverTabColor};
   color: ${color.textHover};
-  animation-state: paused;
 }
 .text-copy-1 {
   stroke: ${colors[0]};
