@@ -43,10 +43,18 @@ class Blog extends PureComponent {
   constructor(props) {
     super(props)
     this.avatarNumber = avatarUrls.length - 1
+    this.tabManager = props.tabManager
+    this.tabData = props.tabData
+    let listTab = this.tabManager.getTabList()
+    let isFirstTab = !listTab || (listTab && _.isEmpty(listTab)) || (listTab && listTab.length === 1)
+    if (isFirstTab) {
+      this.tabManager.setManagerData([{ key: 'isMagical', value: true }])
+    }
     this.state = {
       avatarImageIndex: 0,
       isOpenMusicBox: false,
-      backgroundMusicState: 'play'
+      backgroundMusicState: 'play',
+      isMagical: isFirstTab ? true : this.tabManager.getData('isMagical')
     }
     this.menus = menus.map((menu, index) => ({ ...menu, id: `menu-item-${index}` }))
     this.menus[0].isActive = true
@@ -58,9 +66,14 @@ class Blog extends PureComponent {
   componentDidMount() {
     $('body').css({
       fontFamily: '"Permanent Marker", cursive',
-      margin: '18px 12vw 34px',
       backgroundImage: 'none',
       backgroundColor: '#B2EBF2'
+    })
+    document.addEventListener('onbeforeunload', () => {
+      let listTab = this.tabManager.getTabList()
+      if (!listTab || (listTab && _.isEmpty(listTab)) || (listTab && listTab.length === 1)) {
+        this.tabManager.setManagerData([{ key: 'isMagical', value: false }])
+      }
     })
   }
 
@@ -70,6 +83,17 @@ class Blog extends PureComponent {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'fixed'
+    })
+    document.removeEventListener('onbeforeunload', () => {
+      let listTab = this.tabManager.getTabList()
+      if (!listTab || (listTab && _.isEmpty(listTab)) || (listTab && listTab.length === 1)) {
+        this.tabManager.setManagerData([{ key: 'isMagical', value: false }])
+      }
+    })
+    this.tabManager.addTabListener(() => {
+      if (!this.tabManager.getData('isMagical') && this.state.isMagical) {
+        this.setState({ isMagical: false })
+      }
     })
   }
 
@@ -83,6 +107,13 @@ class Blog extends PureComponent {
   }
 
   renderMenu() {
+    if (this.state.isMagical) {
+      return (
+        <styled.MagicalPanel>
+
+        </styled.MagicalPanel>
+      )
+    }
     return (
       <styled.Menu>
         {this.menus.map((menu) => (
@@ -127,26 +158,26 @@ class Blog extends PureComponent {
       <div id='blog-page'>
         <styled.SideNavWrapper>
           <styled.Title>TTTGALAXY</styled.Title>
-          <styled.ElasticStroke viewBox="0 0 25vw 80">
+          <styled.ElasticStroke>
             <symbol id="s-text">
-              <text text-anchor="middle"
+              <text textAnchor="middle"
                 x="45%"
                 y="60%"
               >
                 Tài Trần
               </text>
             </symbol>
-            <g class="g-ants">
+            <g className="g-ants">
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-1"></use>
+                className="text-copy text-copy-1"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-2"></use>
+                className="text-copy text-copy-2"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-3"></use>
+                className="text-copy text-copy-3"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-4"></use>
+                className="text-copy text-copy-4"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-5"></use>
+                className="text-copy text-copy-5"></use>
             </g>
           </styled.ElasticStroke>
           <styled.CenterWrapper>

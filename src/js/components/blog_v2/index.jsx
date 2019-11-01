@@ -304,12 +304,12 @@ class Blog extends PureComponent {
         experienceElement = (<styled.Experience>
           <div className='organization-data'>
             <span className='organization-name'>{data.name}</span>
-            {data.position && <div class="organization-pos">{data.position}</div>}
+            {data.position && <div className="organization-pos">{data.position}</div>}
             <div className='organization-des'>{data.description}</div>
-            {data.projects && <div class="organization-des">Projects: {data.projects}</div>}
-            {data.references && <div class="organization-ref">
+            {data.projects && <div className="organization-des">Projects: {data.projects}</div>}
+            {data.references && <div className="organization-ref">
               {data.references.map((ref) => (
-                  <div class="organization">{ref.name}: 
+                  <div className="organization">{ref.name}: 
                   <a href={ref.url} target='_blank'> {ref.url}</a>
                   </div>
               ))}
@@ -517,26 +517,26 @@ class Blog extends PureComponent {
       <div id='blog-page'>
         <styled.SideNavWrapper>
           <styled.Title>TTTGALAXY</styled.Title>
-          <styled.ElasticStroke viewBox="0 0 25vw 40">
+          <styled.ElasticStroke >
             <symbol id="s-text">
-              <text text-anchor="middle"
+              <text textAnchor="middle"
                 x="35%"
                 y="60%"
               >
                 Tài Trần
               </text>
             </symbol>
-            <g class="g-ants">
+            <g className="g-ants">
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-1"></use>
+                className="text-copy text-copy-1"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-2"></use>
+                className="text-copy text-copy-2"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-3"></use>
+                className="text-copy text-copy-3"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-4"></use>
+                className="text-copy text-copy-4"></use>
               <use xlinkHref="#s-text"
-                class="text-copy text-copy-5"></use>
+                className="text-copy text-copy-5"></use>
             </g>
           </styled.ElasticStroke>
           <styled.CenterWrapper>

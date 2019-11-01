@@ -201,6 +201,13 @@ text-align: center;
 }
 `
 
+const MagicalPanel = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: black;
+`
+
 export default {
   SideNavWrapper,
   MainWrapper,
@@ -208,5 +215,6 @@ export default {
   CenterWrapper,
   ImageAvatar,
   Menu,
-  ElasticStroke
+  ElasticStroke,
+  MagicalPanel
 }
