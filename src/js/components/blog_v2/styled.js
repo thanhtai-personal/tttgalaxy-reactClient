@@ -390,6 +390,57 @@ const MusicBox = styled.div`
   }
 `
 
+
+const max = 5;
+const strokeStep = 7
+
+const strokeOffset = keyframes`
+50% {
+  stroke-dashoffset: ${strokeStep * max};  
+  stroke-dasharray: 0 ${strokeStep * max * 2.5};
+}
+`
+const colors = ['#360745', '#D61C59', '#E7D84B', '#EFEAC5', '#1B8798']
+
+const ElasticStroke = styled.svg`
+font-family: times new roman;
+font-size: 2em;
+height: 80px;
+text-align: center;
+.text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: ${strokeStep} ${strokeStep * (max - 1)};
+  stroke-width: 1px;
+  animation: ${strokeOffset} 12s infinite linear;
+}
+:hover {
+  background-color: ${color.hoverTabColor};
+  color: ${color.textHover};
+  animation-state: paused;
+}
+.text-copy-1 {
+  stroke: ${colors[0]};
+  stroke-dashoffset: ${strokeStep * 1};
+}
+.text-copy-2 {
+  stroke: ${colors[1]};
+  stroke-dashoffset: ${strokeStep * 2};
+}
+.text-copy-3 {
+  stroke: ${colors[2]};
+  stroke-dashoffset: ${strokeStep * 3};
+}
+.text-copy-4 {
+  stroke: ${colors[3]};
+  stroke-dashoffset: ${strokeStep * 4};
+}
+.text-copy-5 {
+  stroke: ${colors[4]};
+  stroke-dashoffset: ${strokeStep * 5};
+}
+`
+
 export default {
   SideNavWrapper,
   MainWrapper,
@@ -406,5 +457,6 @@ export default {
   OpenForm,
   MusicButton,
   TabList,
-  MusicBox
+  MusicBox,
+  ElasticStroke
 }

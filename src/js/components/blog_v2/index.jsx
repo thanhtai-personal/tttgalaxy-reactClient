@@ -517,6 +517,28 @@ class Blog extends PureComponent {
       <div id='blog-page'>
         <styled.SideNavWrapper>
           <styled.Title>TTTGALAXY</styled.Title>
+          <styled.ElasticStroke viewBox="0 0 25vw 80">
+            <symbol id="s-text">
+              <text text-anchor="middle"
+                x="45%"
+                y="60%"
+              >
+                Tài Trần
+              </text>
+            </symbol>
+            <g class="g-ants">
+              <use xlinkHref="#s-text"
+                class="text-copy text-copy-1"></use>
+              <use xlinkHref="#s-text"
+                class="text-copy text-copy-2"></use>
+              <use xlinkHref="#s-text"
+                class="text-copy text-copy-3"></use>
+              <use xlinkHref="#s-text"
+                class="text-copy text-copy-4"></use>
+              <use xlinkHref="#s-text"
+                class="text-copy text-copy-5"></use>
+            </g>
+          </styled.ElasticStroke>
           <styled.CenterWrapper>
             <styled.ImageAvatar
               alt="avatar"
