@@ -65,7 +65,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "set NODE_OPTIONS= --max-old-space-size=4096 && set buildmode=production && node scripts/build.js ",
+    "build": "set buildmode=production && node  --max-old-space-size=8182 scripts/build.js ",
     "test": "node scripts/test.js",
     "client": "node scripts/start.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
