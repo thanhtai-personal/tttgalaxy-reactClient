@@ -1,3 +1,4 @@
+import _ from 'lodash'
 
 const errorMessage = {
   connectionUrl: 'null connection url'
@@ -12,7 +13,7 @@ const listPropertiesGet = [
 const listPropertiesSet = [
   'autoplay', 'controls', 'crossOrigin', 'currentTime', 'defaultMuted',
   'defaultPlaybackRate', 'loop', 'mediaGroup', 'muted', 'playbackRate',
-  'preload', 'src', 'volume'
+  'preload', 'volume'
 ]
 
 const listEvents = [
@@ -30,9 +31,48 @@ const AudioPlayer = (props) => {
   let returnData = {
     connectionUrl: props.src || '',
     error: {},
-    isVideo: props.isVideo
+    isVideo: props.isVideo,
+    isList: false
   },
   player = {}
+
+  returnData.addSound = (data) => {
+    const addData = (_data, isList) => {
+      if (!returnData.soundListPlayer) {
+        if (!returnData.isList) {
+          returnData.isList = true
+          returnData.soundListPlayer.push({
+            key: `sound-1`,
+            src: returnData.src
+          })
+        }
+      }
+      if (isList) {
+        data.forEach ((snd) => {
+          returnData.soundListPlayer.push({
+            src: snd,
+            isPlaying: false
+          })
+        })
+      } else {
+        returnData.soundListPlayer.push({
+          src: data,
+          isPlaying: false
+        })
+      }
+      let currentPlay = returnData.soundListPlayer.findIndex((snd) => snd.isPlaying)
+      returnData.soundListPlayer = returnData.soundListPlayer.map((snd, index) => ({
+        ...snd,
+        key: `sound-${index + 1}`,
+        isPlaying: index === 0 && currentPlay === -1 ? true : snd.isPlaying
+      }))   
+    }
+    if (typeof data === 'string') {
+      addData(data, false)
+    } else if (data && !_.isEmpty(data)) {
+      addData(data, true)
+    }
+  }
 
   const getPlayerData = (key) => {
     if (listPropertiesGet.includes(key)) {
@@ -45,31 +85,82 @@ const AudioPlayer = (props) => {
   }
 
   const setPlayerData = (key, value) => {
-    if (listPropertiesGet.includes(key)) {
+    if (listPropertiesSet.includes(key)) {
       player[key] = value
     }
-  }
-  if (!returnData.connectionUrl) {
-    returnData.error.message = errorMessage.connectionUrl
-  } else {
-    if (props.isVideo) {
-      player = document.createElement("video");
-      player.setAttribute("src", returnData.connectionUrl);
-    } else player = new Audio(returnData.connectionUrl)
-    listPropertiesSet.forEach((key) => {
-      if (props[key]) player[key] = props[key]
-    })
-    listEvents.forEach((key) => {
-      if (props[key] && typeof props[key] === 'function') player.addEventListener(key, props[key])
-    })
-    returnData.renderedElement = player
   }
   
   const runPlayer = (actionName) => {
     if (listActions.includes(actionName)) {
-      typeof player[actionName] === 'function' && player[actionName]()
+      switch(actionName) {
+        default:
+          typeof player[actionName] === 'function' && player[actionName]()
+          break
+      }
     }
   }
+
+  const playCurrentSound = (isPlay, customSound) => {
+    let _sound = customSound || returnData.soundListPlayer.find((s) => s.key === `sound-${returnData.currentSound + 1}`)
+    console.log('_sound', _sound)
+    if (_sound.isVideo) {
+      player = document.createElement("video")
+      player.setAttribute("src", _sound.src)
+    } else if (typeof player.setAttribute === 'function') {
+      player.pause()
+      player.setAttribute("src", _sound.src)
+    } else player = new Audio(_sound.src)
+    if (isPlay) {
+      player.pause()
+      player.load()
+      player.play()
+    } 
+  }
+
+  if (props.src && _.isArray(props.src)) {
+    returnData.soundListPlayer = props.src.map((s, index) => ({
+      key: `sound-${index + 1}`,
+      src: s,
+      isVideo: props.isVideo,
+      isPlaying: index === 0 ? true : false
+    }))
+    returnData.isList = true
+    returnData.currentSound = 0
+    returnData.next = () => {
+      returnData.currentSound = returnData.currentSound === returnData.soundListPlayer.length - 1 ? 0 : returnData.currentSound + 1
+      playCurrentSound(true)
+    }
+    returnData.prev = () => {
+      returnData.currentSound = returnData.currentSound === 0 ? 0 : returnData.currentSound - 1
+      playCurrentSound(true)
+    }
+    returnData.getCurrentSoundData = () => {
+      return returnData.soundListPlayer.find((s) => s.key === `sound-${returnData.currentSound + 1}`)
+    }
+  } else {
+    if (!returnData.connectionUrl) {
+      returnData.error.message = errorMessage.connectionUrl
+    } else {
+      let cSound = {
+        src: returnData.connectionUrl,
+        isVideo: props.isVideo
+      }
+      playCurrentSound(false, cSound)
+    }
+  }
+
+  listPropertiesSet.forEach((key) => {
+    if (props[key]) player[key] = props[key]
+  })
+  listEvents.forEach((key) => {
+    if (props[key] && typeof props[key] === 'function') player.addEventListener(key, props[key])
+  })
+  playCurrentSound(false)
+  if (returnData.isList) {
+    player.addEventListener('ended', returnData.next)
+  }
+  returnData.renderedElement = player
+  
 
   return {
     ...returnData,

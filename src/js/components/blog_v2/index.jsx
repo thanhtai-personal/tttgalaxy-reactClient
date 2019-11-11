@@ -5,7 +5,15 @@ import _ from 'lodash'
 import { TabManagerWrapper } from 'window-tabs-management'
 import AudioPlayer from './../utils/audioPlayer'
 import PopUp from './../utils/popup/index.jsx'
-import music from './resource/background.mp3'
+
+// import music from './resource/background.mp3'
+import tae from './resource/tinh_anh_em.mp3'
+import hongnhan from './resource/Hong-Nhan-Piano-Version-Jack-Liam.mp3'
+import nguoi_theo_duoi_anh_sang from './resource/nguoi_theo_duoi_anh_sang.mp3'
+import hkda from './resource/Hao-Khi-Dong-A-Doan-CMN-Sao-Bien-Phu-Yen.mp3'
+import playing_mot_khuc_hong_tran from './resource/playing_mot_khuc_hong_tran.mp3'
+import hkvn from './resource/Hao-Khi-Viet-Nam-Phan-Dinh-Tung.mp3'
+import muon_ca_the_gian_biet_ta_yeu_nguoi from './resource/muon_ca_the_gian_biet_ta_yeu_nguoi.mp3'
 
 
 const avatarUrls = [
@@ -18,6 +26,15 @@ const avatarUrls = [
   './images/avatar6.jpg',
   './images/avatar7.jpg',
   './images/avatar8.jpg',
+]
+const backgroundAudioList = [
+  tae,
+  hongnhan,
+  hkda,
+  nguoi_theo_duoi_anh_sang,
+  playing_mot_khuc_hong_tran,
+  muon_ca_the_gian_biet_ta_yeu_nguoi,
+  hkvn,
 ]
 
 
@@ -143,6 +160,17 @@ class Blog extends PureComponent {
         case '83':
           this.setMusicState('stop')
           break;
+        case 78:
+        case '78':
+          if (event.shiftKey) 
+            this.setMusicState('play', () => {
+              this.audio.prev()
+            })
+          else
+            this.setMusicState('play', () => {
+              this.audio.next()
+            })
+          break;
         default:
           break;
       }
@@ -160,7 +188,7 @@ class Blog extends PureComponent {
       if (event.key) {
         let oldData = event.oldValue ? JSON.parse(event.oldValue) : {}
         let newData = event.newValue ? JSON.parse(event.newValue) : {}
-        if (oldData.musicStartedTime != newData.musicStartedTime) {
+        if (oldData.musicStartedTime !== newData.musicStartedTime) {
           this.setMusicState('stop')
         }
       }
@@ -168,7 +196,7 @@ class Blog extends PureComponent {
         window.location.replace('/login')
       }
     })
-    this.audio = AudioPlayer({src: music, isVideo: false})
+    this.audio = AudioPlayer({src: backgroundAudioList, isVideo: false})
     setTimeout(() => {
       this.setMusicState('play')
     }, 7000)
@@ -496,19 +524,21 @@ class Blog extends PureComponent {
     return contentElement
   }
 
-  setMusicState (key) {
+  setMusicState (key, cb) {
     if (key === 'play') {
       this.tabData = this.tabManager.setTab(this.tabData.id, { isOpenMusic: true }) || this.tabData
       this.tabData = this.tabManager.getTab(this.tabData.id)
       this.tabManager.setManagerData([{ key: 'musicStartedTime', value: new Date() }])
     }
     this.setState({ backgroundMusicState: key }, () => {
-      if (key === 'stop') {
+      if (cb && typeof cb === 'function') cb()
+      else if (key === 'stop') {
         this.audio.run('pause')
         this.audio.setData('currentTime', 0)
       } else {
         this.audio.run(key)
       }
+      
     })
   }
 
@@ -572,13 +602,23 @@ class Blog extends PureComponent {
             <br /> Music state: {this.state.backgroundMusicState}<br /><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('play')
-            }}>Play (alt + P)</styled.MusicButton><br />
+            }}>Play (Alt + P)</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('pause')
-            }}>Pause (alt + P)</styled.MusicButton><br />
+            }}>Pause (Alt + P)</styled.MusicButton><br />
             <styled.MusicButton onClick={() => {
               this.setMusicState('stop')
-            }}>Stop (alt + S)</styled.MusicButton>
+            }}>Stop (Alt + S)</styled.MusicButton><br />
+            <styled.MusicButton onClick={() => {
+              this.setMusicState('play', () => {
+                this.audio.next()
+              })
+            }}>Next (Alt + N)</styled.MusicButton><br />
+            <styled.MusicButton onClick={() => {
+              this.setMusicState('play', () => {
+                this.audio.prev()
+              })
+            }}>Prev (Alt + Shift + N)</styled.MusicButton>
           </div>)}
         /></styled.MusicBox>
       </div>
