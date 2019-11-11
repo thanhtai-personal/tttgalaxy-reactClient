@@ -17,12 +17,12 @@ import muon_ca_the_gian_biet_ta_yeu_nguoi from './resource/muon_ca_the_gian_biet
 
 
 const avatarUrls = [
+  './images/avatar5.jpg',
   './images/stock-photo.jpg',
-  './images/avatar.jpg',
   './images/avatar2.jpg',
   './images/avatar3.jpg',
   './images/avatar4.jpg',
-  './images/avatar5.jpg',
+  './images/avatar.jpg',
   './images/avatar6.jpg',
   './images/avatar7.jpg',
 ]
