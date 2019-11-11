@@ -25,7 +25,6 @@ const avatarUrls = [
   './images/avatar5.jpg',
   './images/avatar6.jpg',
   './images/avatar7.jpg',
-  './images/avatar8.jpg',
 ]
 const backgroundAudioList = [
   {
