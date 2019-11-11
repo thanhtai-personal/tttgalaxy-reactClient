@@ -28,13 +28,34 @@ const avatarUrls = [
   './images/avatar8.jpg',
 ]
 const backgroundAudioList = [
-  tae,
-  hongnhan,
-  hkda,
-  nguoi_theo_duoi_anh_sang,
-  playing_mot_khuc_hong_tran,
-  muon_ca_the_gian_biet_ta_yeu_nguoi,
-  hkvn,
+  {
+    name: 'tình anh em',
+    src: tae
+  },
+  {
+    name: 'Hồng nhan',
+    src: hongnhan
+  },
+  {
+    name: 'Người theo đuổi ánh sáng',
+    src: nguoi_theo_duoi_anh_sang
+  },
+  {
+    name: 'Một khúc hồng trần',
+    src: playing_mot_khuc_hong_tran
+  },
+  {
+    name: 'Muốn cả thế giới biết ta yêu người',
+    src: muon_ca_the_gian_biet_ta_yeu_nguoi
+  },
+  {
+    name: 'Hào khí Việt Nam',
+    src: hkvn
+  },
+  {
+    name: 'Hào khí Đông A',
+    src: hkda
+  }
 ]
 
 
@@ -196,7 +217,7 @@ class Blog extends PureComponent {
         window.location.replace('/login')
       }
     })
-    this.audio = AudioPlayer({src: backgroundAudioList, isVideo: false})
+    this.audio = AudioPlayer({ src: backgroundAudioList, isVideo: false })
     setTimeout(() => {
       this.setMusicState('play')
     }, 7000)
@@ -597,7 +618,7 @@ class Blog extends PureComponent {
           id='music-box'
           className='music-box'
           open={this.state.isOpenMusicBox}
-          header={(<div>___Music Box___</div>)}
+          header={(<div>{this.audio ? this.audio.getCurrentSoundData().name : 'Music box'}</div>)}
           content={(<div>
             <br /> Music state: {this.state.backgroundMusicState}<br /><br />
             <styled.MusicButton onClick={() => {

@@ -43,14 +43,14 @@ const AudioPlayer = (props) => {
           returnData.isList = true
           returnData.soundListPlayer.push({
             key: `sound-1`,
-            src: returnData.src
+            src: typeof returnData.src === 'string' ? returnData.src : ''
           })
         }
       }
       if (isList) {
         data.forEach ((snd) => {
           returnData.soundListPlayer.push({
-            src: snd,
+            ...snd,
             isPlaying: false
           })
         })
@@ -102,7 +102,6 @@ const AudioPlayer = (props) => {
 
   const playCurrentSound = (isPlay, customSound) => {
     let _sound = customSound || returnData.soundListPlayer.find((s) => s.key === `sound-${returnData.currentSound + 1}`)
-    console.log('_sound', _sound)
     if (_sound.isVideo) {
       player = document.createElement("video")
       player.setAttribute("src", _sound.src)
@@ -117,21 +116,31 @@ const AudioPlayer = (props) => {
     } 
   }
 
+  const getCurrentSoundData = () => {
+    if (!returnData.isList) return
+    return returnData.soundListPlayer[returnData.currentSound]
+  }
+
   if (props.src && _.isArray(props.src)) {
     returnData.soundListPlayer = props.src.map((s, index) => ({
       key: `sound-${index + 1}`,
-      src: s,
+      src: typeof s === 'string' ? s : s.src,
+      name: typeof s === 'string' ? 'unknow' : s.name,
       isVideo: props.isVideo,
       isPlaying: index === 0 ? true : false
     }))
     returnData.isList = true
     returnData.currentSound = 0
     returnData.next = () => {
+      returnData.soundListPlayer[returnData.currentSound].isPlaying = false
       returnData.currentSound = returnData.currentSound === returnData.soundListPlayer.length - 1 ? 0 : returnData.currentSound + 1
+      returnData.soundListPlayer[returnData.currentSound].isPlaying = true
       playCurrentSound(true)
     }
     returnData.prev = () => {
+      returnData.soundListPlayer[returnData.currentSound].isPlaying = false
       returnData.currentSound = returnData.currentSound === 0 ? 0 : returnData.currentSound - 1
+      returnData.soundListPlayer[returnData.currentSound].isPlaying = true
       playCurrentSound(true)
     }
     returnData.getCurrentSoundData = () => {
@@ -166,6 +175,7 @@ const AudioPlayer = (props) => {
     ...returnData,
     getData: getPlayerData,
     setData: setPlayerData,
+    getCurrentSound: getCurrentSoundData,
     run: runPlayer
   }
 }
