@@ -546,7 +546,7 @@ class Blog extends PureComponent {
 
   setMusicState (key, cb) {
     if (key === 'play') {
-      this.tabData = this.tabManager.setTab(this.tabData.id, { isOpenMusic: true }) || this.tabData
+      this.tabData = this.tabManager.setTab(this.tabData.id, [{ key: 'isOpenMusic', value: true }]) || this.tabData
       this.tabData = this.tabManager.getTab(this.tabData.id)
       this.tabManager.setManagerData([{ key: 'musicStartedTime', value: new Date() }])
     }
