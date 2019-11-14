@@ -206,8 +206,15 @@ class Blog extends PureComponent {
     })
     this.tabManager.addTabListener((event) => {
       if (event.key) {
-        let oldData = event.oldValue ? JSON.parse(event.oldValue) : {}
-        let newData = event.newValue ? JSON.parse(event.newValue) : {}
+        let oldData = {}, newData = {}
+        try {
+          oldData = event.oldValue ? JSON.parse(event.oldValue) : {}
+          newData = event.newValue ? JSON.parse(event.newValue) : {}
+        } catch (error) {
+          oldData = event.oldValue
+          newData = event.newValue
+        }
+        
         if (oldData.musicStartedTime !== newData.musicStartedTime) {
           this.setMusicState('stop')
         }
