@@ -217,6 +217,7 @@ class Blog extends PureComponent {
         
         if (oldData.musicStartedTime !== newData.musicStartedTime) {
           this.setMusicState('stop')
+          this.tabManager.setTab(this.tabData.id, [{ key: 'isOpenMusic', value: false }])
         }
       }
       if (this.tabManager.getData('isRedirect')) {
