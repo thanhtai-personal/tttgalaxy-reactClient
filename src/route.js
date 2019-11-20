@@ -15,6 +15,7 @@ import Novals from './js/containers/novals/novals.container'
 import Header from './js/components/partials/header'
 import Footer from './js/components/partials/footer'
 import Blog from './js/containers/blog/blog.container'
+import BlogEditor from './js/containers/blogCreator/blogCreator.container'
 
 
 const publicRoute = [
@@ -70,6 +71,11 @@ const publicRoute = [
     component: Blog,
     isExact: false
   },
+  {
+    path: '/blogEditor',
+    component: BlogEditor,
+    isExact: false
+  }
 ]
 
 const privateRoute = [
@@ -82,6 +88,11 @@ const privateRoute = [
   {
     path: '/portfolio',
     component: Portfolio,
+    isExact: false
+  },
+  {
+    path: '/blogEditor-wait',
+    component: BlogEditor,
     isExact: false
   }
 ]
