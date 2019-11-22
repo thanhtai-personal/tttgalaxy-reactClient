@@ -9,26 +9,40 @@ import CKEditor from 'ckeditor4-react'
 class BlogCreator extends PureComponent {
   constructor (props) {
     super(props)
+    this.lang = props.language.blogCreator
   }
 
   render () {
+    const { writerData, setWriterData, submitBlog } = this.props
     return (
-      <CKEditor
-        data="<p>Hello from CKEditor</p>"
-        onInit={editor => {
-          // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor);
-        }}
-        onChange={(event, editor) => {
-          console.log({ event, editor });
-        }}
-        onBlur={(event, editor) => {
-          console.log('Blur.', editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log('Focus.', editor);
-        }}
-      />
+      <styled.editorWrapper>
+        <div className="right-bar">
+          <button onClick={() => {submitBlog(writerData)}}>{this.lang.submit}</button>
+          <button onClick={() => { }}>{this.lang.preview}</button>
+        </div>
+        <div className="content-wrapper">
+          <CKEditor
+            data={writerData}
+            onInit={editor => {
+              // You can store the "editor" and use when it is needed.
+              console.log('Editor is ready to use!', editor);
+            }}
+            onChange={(event) => {
+              let data = event.editor.getData()
+              setWriterData(data)
+            }}
+            onBlur={(event) => {
+              console.log('Blur.', event);
+            }}
+            onFocus={(event) => {
+              console.log('Focus.', event);
+            }}
+            config={{
+              height: '80vh'
+            }}
+          />
+        </div>
+      </styled.editorWrapper>
     )
   }
 }

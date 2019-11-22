@@ -27,6 +27,7 @@ class Header extends React.PureComponent {
         <ul className="navbar-nav">
           <li className="nav-item home active"><Link to="/home">{language.home}</Link></li>
           <li className="nav-item portfolio"><Link to="/portfolio">{language.makeYourPortfolio}</Link></li>
+          <li className="nav-item blogEditor"><Link to="/blogEditor">{language.blogEditor}</Link></li>
           {/* <li className="nav-item games"><Link to="/games">{language.game}</Link></li> */}
           {/* <li className="nav-item shopping"><Link to="/novals">language.novel</Link></li> */}
           {/* <li className="nav-item shopping"><Link to="/mpthaotrang">PV Thao Trang shopping</Link></li> */}
@@ -36,8 +37,8 @@ class Header extends React.PureComponent {
             {language.language}
           </button>
           <div className="dropdown-menu">
-            <div className="dropdown-item"><span className="cursor-pointer" onClick={() => { setLanguage('en') }}>English</span></div>
-            <div className="dropdown-item"><span className="cursor-pointer" onClick={() => { setLanguage('vi') }}>Vietnamese</span></div>
+            <div className="dropdown-item language-dropdown-item"><span className="cursor-pointer" onClick={() => { setLanguage('en') }}>English</span></div>
+            <div className="dropdown-item language-dropdown-item"><span className="cursor-pointer" onClick={() => { setLanguage('vi') }}>Vietnamese</span></div>
           </div>
         </div>
         {checkToken() &&

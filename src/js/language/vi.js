@@ -24,9 +24,14 @@ export default {
     logout: 'Thoát',
     game: 'Trò chơi',
     novel: 'Tiểu thuyết',
-    language: 'Ngôn ngữ'
+    language: 'Ngôn ngữ',
+    blogEditor: 'Viết Blog'
   },
   blog: {
 
+  },
+  blogCreator: {
+    submit: 'Đăng bài',
+    preview: 'Xem trước'
   }
 }

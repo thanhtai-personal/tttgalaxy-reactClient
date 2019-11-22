@@ -74,7 +74,8 @@ const publicRoute = [
   {
     path: '/blogEditor',
     component: BlogEditor,
-    isExact: false
+    isExact: false,
+    layout: { header: Header }
   }
 ]
 

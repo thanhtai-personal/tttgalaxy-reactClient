@@ -30,3 +30,11 @@
     float: right;
   }
 }
+
+.nav-item {
+  a { color: yellow; }
+}
+
+.dropdown-item:hover {
+  background-color: yellow;
+}
