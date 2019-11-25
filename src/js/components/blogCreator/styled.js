@@ -33,7 +33,31 @@ const editorWrapper = styled.div`
   }
 `
 
+const input = styled.input`
+  width: 90%;
+  float: right;
+`
+const label = styled.label`
+  width: 10%;
+  background-color: ${commonStyle.color.gray}
+  padding-left: 50px;
+  height: 30px;
+  margin: 0;
+`
+
+const viewWrapper = styled.div`
+  background-color: ${commonStyle.color.white}
+  width: 100%;
+  height: 100%;
+  .main-content {
+    height: 80vh;
+  }
+`
+
 
 export default {
-  editorWrapper
+  editorWrapper,
+  input,
+  label,
+  viewWrapper
 }

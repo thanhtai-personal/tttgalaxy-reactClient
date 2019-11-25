@@ -12,9 +12,13 @@ import apiInstant from '../../api'
 
 //======================================================================
 function* submitBlog() {
-  let dataSubmit = store.getState().blogCreator.writerData
+  let data = store.getState().blogCreator
+  const dataSubmit = {
+    htmlContent: data.writerData,
+    title: data.title
+  }
   try {
-    let dataResponse = yield apiInstant.post('blog-edittor/submit', { writerData: dataSubmit }, { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
+    let dataResponse = yield apiInstant.post('blog/submit-blog', dataSubmit, { headers: { 'x-access-token': window.localStorage.getItem('jwtToken') } })
       .then(response => response)
     yield put({ type: SUBMIT_BLOG_SUCCESS, payload: dataResponse });
   } catch (error) {

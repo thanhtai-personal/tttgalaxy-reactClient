@@ -32,6 +32,14 @@ export default {
   },
   blogCreator: {
     submit: 'Đăng bài',
-    preview: 'Xem trước'
+    preview: 'Xem trước',
+    title: 'Tiêu đề',
+    edit: 'Chỉnh Sữa'
+  },
+  blogView: {
+
+  },
+  blogList: {
+    
   }
 }

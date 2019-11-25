@@ -9,25 +9,28 @@ class BlogCreatorContainer extends Component {
     const {
       language,
       setWriterData,
+      setTitle,
       submitBlog,
       writerData,
-      submitedSuccess
+      submittedSuccess
     } = this.props
     return (<BlogCreator 
       language={language}
       setWriterData={setWriterData}
       writerData={writerData}
       submitBlog={submitBlog}
-      submitedSuccess={submitedSuccess}
+      submittedSuccess={submittedSuccess}
+      setTitle={setTitle}
     />)
   }
 }
 
-function mapStateToProps ({ blogCreator: { writerData, submitedSuccess }, common: { language } }) {
+function mapStateToProps ({ blogCreator: { writerData, submittedSuccess, title }, common: { language } }) {
   return {
     language,
     writerData,
-    submitedSuccess
+    submittedSuccess,
+    title
   };
 }
 
@@ -35,6 +38,7 @@ export default connect(
   mapStateToProps,
   {
     setWriterData: action.setWriterData,
-    submitBlog: action.submitBlog
+    submitBlog: action.submitBlog,
+    setTitle: action.setTitle
   }
 )(BlogCreatorContainer);

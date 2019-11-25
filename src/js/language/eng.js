@@ -34,6 +34,14 @@ export default {
   },
   blogCreator: {
     submit: 'Submit',
-    preview: 'Preview'
+    preview: 'Preview',
+    title: 'Title',
+    edit: 'Edit'
+  },
+  blogView: {
+
+  },
+  blogList: {
+
   }
 }

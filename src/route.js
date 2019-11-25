@@ -17,7 +17,6 @@ import Footer from './js/components/partials/footer'
 import Blog from './js/containers/blog/blog.container'
 import BlogEditor from './js/containers/blogCreator/blogCreator.container'
 
-
 const publicRoute = [
   {
     path: '/login',
@@ -70,12 +69,6 @@ const publicRoute = [
     path: '/blog',
     component: Blog,
     isExact: false
-  },
-  {
-    path: '/blogEditor',
-    component: BlogEditor,
-    isExact: false,
-    layout: { header: Header }
   }
 ]
 
@@ -92,9 +85,10 @@ const privateRoute = [
     isExact: false
   },
   {
-    path: '/blogEditor-wait',
+    path: '/blogEditor',
     component: BlogEditor,
-    isExact: false
+    isExact: false,
+    layout: { header: Header }
   }
 ]
 
