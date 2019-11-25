@@ -12,7 +12,8 @@ class BlogCreatorContainer extends Component {
       setTitle,
       submitBlog,
       writerData,
-      submittedSuccess
+      submittedSuccess,
+      title
     } = this.props
     return (<BlogCreator 
       language={language}
@@ -21,6 +22,7 @@ class BlogCreatorContainer extends Component {
       submitBlog={submitBlog}
       submittedSuccess={submittedSuccess}
       setTitle={setTitle}
+      title={title}
     />)
   }
 }

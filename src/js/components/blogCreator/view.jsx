@@ -2,8 +2,6 @@ import React, { PureComponent } from "react";
 import styled from './styled'
 import $ from 'jquery'
 import _ from 'lodash'
-import { TabManagerWrapper } from 'window-tabs-management'
-import CKEditor from 'ckeditor4-react'
 
 
 class BlogView extends PureComponent {
@@ -14,8 +12,8 @@ class BlogView extends PureComponent {
   }
 
   componentWillMount () {
-    if (this.params && this.params.id) {
-      this.props.getBlogData(this.params.id)
+    if (this.params && this.params.blogId) {
+      this.props.getBlogData(this.params.blogId)
     }
   }
 

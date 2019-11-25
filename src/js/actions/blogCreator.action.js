@@ -4,7 +4,9 @@
 import {
   SET_WRITER_DATA,
   SUBMIT_BLOG,
-  SET_TITLE
+  SET_TITLE,
+  GET_BLOG,
+  GET_BLOGS
 } from "../constants/action-types";
 
 export const setWriterData = (data) => {
@@ -17,5 +19,13 @@ export const setTitle = (title) => {
 
 export const submitBlog = () => {
   return { type: SUBMIT_BLOG, payload: {} }
+}
+
+export const getBlog = (data) => {
+  return { type: GET_BLOG, payload: data }
+}
+
+export const getBlogs = (data) => {
+  return { type: GET_BLOGS, payload: data }
 }
 

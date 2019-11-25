@@ -16,6 +16,8 @@ import Header from './js/components/partials/header'
 import Footer from './js/components/partials/footer'
 import Blog from './js/containers/blog/blog.container'
 import BlogEditor from './js/containers/blogCreator/blogCreator.container'
+import BlogView from './js/containers/blogCreator/blogView.container'
+import BlogsView from './js/containers/blogCreator/blogsView.container'
 
 const publicRoute = [
   {
@@ -68,6 +70,16 @@ const publicRoute = [
   {
     path: '/blog',
     component: Blog,
+    isExact: false
+  },
+  {
+    path: '/blog/:blogId',
+    component: BlogView,
+    isExact: false
+  },
+  {
+    path: '/blogs/:userId',
+    component: BlogsView,
     isExact: false
   }
 ]
