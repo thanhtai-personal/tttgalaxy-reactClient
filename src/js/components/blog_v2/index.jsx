@@ -168,7 +168,6 @@ class Blog extends PureComponent {
     this.renderEnd = this.renderEnd.bind(this)
     this.renderInterest = this.renderInterest.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
-
     this.tabManager = props.tabManager
     this.tabData = props.tabData
     this.tabManager.setManagerData([{ key: 'isRedirect', value: false }])
@@ -498,6 +497,9 @@ class Blog extends PureComponent {
         </div>
         <div className="organization-des">
           You're a flower on earth, let's make your life beautiful and meaningful (◕‿↼)
+        </div>
+        <div className="organization-des">
+          "Có ai cả cuộc đời giữ được một sơ tâm. Có ai cả đời chẵng thay đổi..."
         </div>
       </styled.Experience>
     )
