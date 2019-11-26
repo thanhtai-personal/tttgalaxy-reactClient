@@ -386,7 +386,7 @@ const MusicBox = styled.div`
     max-width: 15vw;
     height: auto;
     text-align: center;
-    animation: ${cloudMoving} 20s linear infinite;
+    animation: ${isMobile ? '' : `${cloudMoving} 20s linear infinite`};
   }
 `
 
