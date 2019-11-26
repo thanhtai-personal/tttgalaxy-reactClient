@@ -19,7 +19,7 @@ import cho_toi_xin_mot_ve_di_tuoi_tho_beat from './resource/cho_toi_xin_mot_ve_d
 import co_gai_den_tu_hom_qua from './resource/co_gai_den_tu_hom_qua.mp3'
 import co_gai_den_tu_hom_qua_beat from './resource/co_gai_den_tu_hom_qua_beat.mp3'
 import ngay_hom_qua from './resource/ngay_hom_qua.mp3'
-import yen_binh from './resource/yen_binh'
+import yen_binh from './resource/yen_binh.mp3'
 import diep_khuc_tuoi_tho from './resource/diep_khuc_tuoi_tho.mp3'
 
 
