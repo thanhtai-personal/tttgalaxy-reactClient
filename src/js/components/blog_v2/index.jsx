@@ -7,13 +7,20 @@ import AudioPlayer from './../utils/audioPlayer'
 import PopUp from './../utils/popup/index.jsx'
 
 // import music from './resource/background.mp3'
-import tae from './resource/tinh_anh_em.mp3'
-import hongnhan from './resource/Hong-Nhan-Piano-Version-Jack-Liam.mp3'
-import nguoi_theo_duoi_anh_sang from './resource/nguoi_theo_duoi_anh_sang.mp3'
-import hkda from './resource/Hao-Khi-Dong-A-Doan-CMN-Sao-Bien-Phu-Yen.mp3'
-import playing_mot_khuc_hong_tran from './resource/playing_mot_khuc_hong_tran.mp3'
-import hkvn from './resource/Hao-Khi-Viet-Nam-Phan-Dinh-Tung.mp3'
-import muon_ca_the_gian_biet_ta_yeu_nguoi from './resource/muon_ca_the_gian_biet_ta_yeu_nguoi.mp3'
+// import tae from './resource/tinh_anh_em.mp3'
+// import hongnhan from './resource/Hong-Nhan-Piano-Version-Jack-Liam.mp3'
+// import nguoi_theo_duoi_anh_sang from './resource/nguoi_theo_duoi_anh_sang.mp3'
+// import hkda from './resource/Hao-Khi-Dong-A-Doan-CMN-Sao-Bien-Phu-Yen.mp3'
+// import playing_mot_khuc_hong_tran from './resource/playing_mot_khuc_hong_tran.mp3'
+// import hkvn from './resource/Hao-Khi-Viet-Nam-Phan-Dinh-Tung.mp3'
+// import muon_ca_the_gian_biet_ta_yeu_nguoi from './resource/muon_ca_the_gian_biet_ta_yeu_nguoi.mp3'
+import cho_toi_xin_mot_ve_di_tuoi_tho_beat from './resource/cho_toi_xin_mot_ve_di_tuoi_tho_beat.mp3'
+import cho_toi_xin_mot_ve_di_tuoi_tho_beat from './resource/cho_toi_xin_mot_ve_di_tuoi_tho_beat.mp3'
+import co_gai_den_tu_hom_qua from './resource/co_gai_den_tu_hom_qua.mp3'
+import co_gai_den_tu_hom_qua_beat from './resource/co_gai_den_tu_hom_qua_beat.mp3'
+import ngay_hom_qua from './resource/ngay_hom_qua.mp3'
+import yen_binh from './resource/yen_binh'
+import diep_khuc_tuoi_tho from './resource/diep_khuc_tuoi_tho.mp3'
 
 
 const avatarUrls = [
@@ -28,32 +35,32 @@ const avatarUrls = [
 ]
 const backgroundAudioList = [
   {
-    name: 'tình anh em',
-    src: tae
+    name: 'Cho tôi xin một vé đi tuổi thơ',
+    src: cho_toi_xin_mot_ve_di_tuoi_tho
   },
   {
-    name: 'Hồng nhan',
-    src: hongnhan
+    name: 'Điệp khúc tuổi thơ',
+    src: diep_khuc_tuoi_tho
   },
   {
-    name: 'Người theo đuổi ánh sáng',
-    src: nguoi_theo_duoi_anh_sang
+    name: 'Cô gái đến từ hôm qua',
+    src: co_gai_den_tu_hom_qua
   },
   {
-    name: 'Một khúc hồng trần',
-    src: playing_mot_khuc_hong_tran
+    name: 'Ngày hôm qua',
+    src: ngay_hom_qua
   },
   {
-    name: 'Muốn cả thế giới biết ta yêu người',
-    src: muon_ca_the_gian_biet_ta_yeu_nguoi
+    name: 'Cô gái đến từ hôm qua beat',
+    src: co_gai_den_tu_hom_qua_beat
   },
   {
-    name: 'Hào khí Việt Nam',
-    src: hkvn
+    name: 'Cho tôi xin một vé đi tuổi thơ beat',
+    src: cho_toi_xin_mot_ve_di_tuoi_tho_beat
   },
   {
-    name: 'Hào khí Đông A',
-    src: hkda
+    name: 'Yên Bình',
+    src: yen_binh
   }
 ]
 

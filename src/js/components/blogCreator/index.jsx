@@ -50,6 +50,7 @@ class BlogCreator extends PureComponent {
               <styled.input type="text" value={title} onChange={this.handleChangeTitle}></styled.input>
               <CKEditor
                 data={writerData}
+                onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
                 onInit={editor => {
                   // You can store the "editor" and use when it is needed.
                   console.log('Editor is ready to use!', editor);
