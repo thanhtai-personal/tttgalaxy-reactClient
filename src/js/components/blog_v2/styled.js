@@ -331,7 +331,7 @@ const MusicButton = styled.span`
   }
 `
 
-const cloudMoving = keyframes`
+const cloudMoving = isMobile ? '' : keyframes`
   {
     0% {
       margin-bottom: 0px
@@ -386,7 +386,7 @@ const MusicBox = styled.div`
     max-width: 15vw;
     height: auto;
     text-align: center;
-    animation: ${isMobile ? '' : `${cloudMoving} 20s linear infinite`};
+    animation: ${cloudMoving} 20s linear infinite;
   }
 `
 
