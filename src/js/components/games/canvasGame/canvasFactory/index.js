@@ -4,8 +4,8 @@ import { gameName } from './../../enum'
 let listGames = {}
 listGames[gameName.helloCanvas] = helloCanvas
 
-const start = (context, gameImportedName) => {
-  listGames[gameImportedName] ? listGames[gameImportedName].start(context) : helloCanvas.start(context)
+const start = (canvas, context, gameImportedName) => {
+  listGames[gameImportedName] ? listGames[gameImportedName].start(canvas, context) : helloCanvas.start(canvas, context)
 }
 
 export default {

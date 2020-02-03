@@ -32,7 +32,7 @@ export class CanvasGameComponent extends PureComponent {
   componentDidMount () {
     this.canvas = document.getElementById('game-canvas-element')
     let context = this.canvas.getContext('2d')
-    canvasGameFactor.start(context, this.props.data.importedName)
+    canvasGameFactor.start(this.canvas, context, this.props.data.importedName)
   }
 
   componentWillUnmount() {
@@ -41,7 +41,7 @@ export class CanvasGameComponent extends PureComponent {
 
 
   render () {
-    return <GameWrapperSmall id='game-canvas-element' />
+    return <GameWrapperSmall id='game-canvas-element' width="800px" height="600px" />
   }
 }
 
