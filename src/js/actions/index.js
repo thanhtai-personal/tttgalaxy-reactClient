@@ -1,16 +1,18 @@
 
-import * as loginAction from './login.action'
-import * as signupAction from './signUp.action'
-import * as commonAction from './common.action'
-import * as portfolioAction from './portfolio.action'
-import * as blogEdittorAction from './blogCreator.action'
+import * as loginActions from './login.action'
+import * as signupActions from './signUp.action'
+import * as commonActions from './common.action'
+import * as portfolioActions from './portfolio.action'
+import * as blogEdittorActions from './blogCreator.action'
+import * as gameActions from './game.action'
 
 const ActionService = {
-  ...loginAction,
-  ...signupAction,
-  ...commonAction,
-  ...portfolioAction,
-  ...blogEdittorAction
+  ...loginActions,
+  ...signupActions,
+  ...commonActions,
+  ...portfolioActions,
+  ...blogEdittorActions,
+  ...gameActions
 }
 
 export default ActionService

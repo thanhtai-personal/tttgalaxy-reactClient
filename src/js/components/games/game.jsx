@@ -139,6 +139,10 @@ export class PhaserGameComponent extends PureComponent {
     // this.game.scene.start('testScene')
   }
 
+  componentWillUnmount() {
+    this.game.destroy(true)
+  }
+
 
   render() {
     // return (<div className={`phaser-game ${this.state.size}`} id={this.props.parent || this.gameConfig.parent || 'phaser-game'} />)

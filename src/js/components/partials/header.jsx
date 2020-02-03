@@ -28,7 +28,7 @@ class Header extends React.PureComponent {
           <li className="nav-item home active"><Link to="/home">{language.home}</Link></li>
           <li className="nav-item portfolio"><Link to="/portfolio">{language.makeYourPortfolio}</Link></li>
           <li className="nav-item blogEditor"><Link to="/blogEditor">{language.blogEditor}</Link></li>
-          {/* <li className="nav-item games"><Link to="/games">{language.game}</Link></li> */}
+          <li className="nav-item games"><Link to="/games">{language.game}</Link></li>
           {/* <li className="nav-item shopping"><Link to="/novals">language.novel</Link></li> */}
           {/* <li className="nav-item shopping"><Link to="/mpthaotrang">PV Thao Trang shopping</Link></li> */}
         </ul>
