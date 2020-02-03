@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PhaserGame from './game'
-import CanvasGame from './canvasGame'
+import CanvasGame from './canvasGame/index'
 import { gameType } from './enum'
 
 export class PhaserGameComponent extends PureComponent {

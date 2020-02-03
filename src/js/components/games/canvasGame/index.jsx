@@ -1,10 +1,17 @@
 import React, { PureComponent } from "react";
 import _ from 'lodash'
+import $ from 'jquery'
 import styled from 'styled-components'
+import canvasGameFactor from './canvasFactory'
 
-const GameWrapper = styled.div`position: fixed;
+const GameWrapper = styled.canvas`position: fixed;
 margin-top: 30px;
-padding-top: 20px;`
+padding-top: 20px;
+width: 800px;
+height: 600px;
+background: #eee;
+display: block;
+`
 
 const GameWrapperSmall = styled(GameWrapper)`
   margin-left: calc((100vw - 800px) / 2);
@@ -23,11 +30,18 @@ export class CanvasGameComponent extends PureComponent {
   }
 
   componentDidMount () {
+    this.canvas = document.getElementById('game-canvas-element')
+    let context = this.canvas.getContext('2d')
+    canvasGameFactor.start(context, this.props.data.importedName)
+  }
+
+  componentWillUnmount() {
+    $(this.canvas).remove()
   }
 
 
   render () {
-    return <GameWrapperSmall id={this.props.data.id || 'canvas-game-default'} />
+    return <GameWrapperSmall id='game-canvas-element' />
   }
 }
 

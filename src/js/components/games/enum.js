@@ -7,3 +7,7 @@ export const gameType = {
   PHASER: 'phaser',
   CANVAS: 'canvas'
 }
+
+export const gameName = {
+  helloCanvas: 'helloCanvas'
+}

@@ -5,7 +5,7 @@ import {
   RESET_ALL_STATE
 } from "../constants/action-types";
 
-import { gameType } from './../components/games/enum'
+import { gameType, gameName } from './../components/games/enum'
 
 const initialState = {
   games: [
@@ -14,7 +14,8 @@ const initialState = {
       name: 'game 1',
       imageUrl: 'https://sc01.alicdn.com/kf/HTB13.GwIFXXXXcYXXXXq6xXFXXXT/223361048/HTB13.GwIFXXXXcYXXXXq6xXFXXXT.jpg',
       description: 'game description 1',
-      gameType: gameType.CANVAS
+      gameType: gameType.CANVAS,
+      importedName: gameName.helloCanvas
     },
     {
       id: 'helloWorld',
