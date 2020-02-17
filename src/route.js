@@ -18,6 +18,7 @@ import Blog from './js/containers/blog/blog.container'
 import BlogEditor from './js/containers/blogCreator/blogCreator.container'
 import BlogView from './js/containers/blogCreator/blogView.container'
 import BlogsView from './js/containers/blogCreator/blogsView.container'
+import UIMakeupContainer from './js/containers/UIMakeup'
 
 const publicRoute = [
   {
@@ -81,12 +82,22 @@ const publicRoute = [
     path: '/blogs/:userId',
     component: BlogsView,
     isExact: false
+  },
+  {
+    path: '/home',
+    component: UIMakeupContainer,
+    isExact: false
+  },
+  {
+    path: '/about',
+    component: Blog,
+    isExact: false
   }
 ]
 
 const privateRoute = [
   {
-    path: '/home',
+    path: '/homeprivate',
     component: Home,
     isExact: false,
     layout: { header: Header, footer: Footer }
@@ -121,7 +132,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={Blog} />
+      <Route path="/" exact component={UIMakeupContainer} />
       {renderPublicRoute()}
       {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />

@@ -626,7 +626,7 @@ class Blog extends PureComponent {
               isOpenMusicBox: !this.state.isOpenMusicBox
             })
           }}>
-            <styled.OpenForm>Music Box</styled.OpenForm>
+            {/* <styled.OpenForm>Music Box</styled.OpenForm> */}
           </div>
         </styled.MainWrapper>
         <styled.MusicBox>
