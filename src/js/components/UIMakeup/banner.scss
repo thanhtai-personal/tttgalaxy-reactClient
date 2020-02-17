@@ -54,7 +54,7 @@
       &.info {
         background-color: blue;
         height: auto;
-        width: 100vw;
+        width: 100%;
         box-shadow: inset 0px 10px 5px 0px yellow;
         padding-top: 15px;
         margin-top: 20px;
@@ -64,8 +64,10 @@
           text-align: center;
         }
         .info-content {
-          margin-left: 20px;
-          padding-bottom: 20px;
+          padding-left: 50px;
+          padding-right: 30px;
+          padding-bottom: 50px;
+          padding-top: 20px;
           color: white;
         }
         animation: info-animate 1s linear forwards;
@@ -73,7 +75,7 @@
       .img-container {
         position: relative;
         img {
-          width: 100vw;
+          width: 100%;
           max-height: 350px;
         }
         .slogan {

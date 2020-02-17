@@ -1,15 +1,41 @@
-#site-header {
-  &.transparent-header {
-    background-color: rgba(0,0,0,0.16);
+.loading {
+  width: 100%;
+  height: 100%;
+  h2 {
+    text-align: center;
+    top: 50%;
+    left: 50%;
   }
-  #site-navigation-wrap {
-    float: right;
-    position: relative;
-    right: -15px;
-    &.dropdown-menu {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+}
+
+.body-content {
+  margin-left: 100px;
+  margin-right: 100px;
+  width: calc(100vw - 200px);
+  @media (max-width: 800px) {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100vw - 20px);
+    .organization-name {
+      font-size: 14px;
+    }
+    .organization-des, .organization-pos, .organization-time {
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 400px) {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: calc(100vw - 10px);
+    .organization-name {
+      font-size: 10px;
+    }
+    .organization-des, .organization-pos, .organization-time {
+      font-size: 8px;
     }
   }
 }
