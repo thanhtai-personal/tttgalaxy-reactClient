@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import './footer.scss'
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 class SeaFooter extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      clientWidth: document.getElementById('root').offsetWidth
+    }
+    this.handleResize = this.handleResize.bind(this)
+    this.renderWeb = this.renderWeb.bind(this)
+    this.renderMobile = this.renderMobile.bind(this)
   }
 
-  render () {
+  handleResize (e) {
+    this.setState({ clientWidth: e.target.innerWidth })
+  }
+
+  componentDidMount () {
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  renderMobile () {
     return (
       <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
         x='0px' y='0px' width='100vw' height='150px' viewBox='0 0 800 350'
@@ -60,6 +80,26 @@ class SeaFooter extends Component {
       </g>
       </svg>
     );
+  }
+
+  renderWeb () {
+    return (
+      <div className="waveWrapper waveAnimation">
+        <div className="waveWrapperInner bgTop">
+          <div className="wave waveTop" style={{backgroundImage: `url('http://front-end-noobs.com/jecko/img/wave-top.png')`}}></div>
+        </div>
+        <div className="waveWrapperInner bgMiddle">
+          <div className="wave waveMiddle" style={{backgroundImage: `url('http://front-end-noobs.com/jecko/img/wave-mid.png')`}}></div>
+        </div>
+        <div className="waveWrapperInner bgBottom">
+          <div className="wave waveBottom" style={{backgroundImage: `url('http://front-end-noobs.com/jecko/img/wave-bot.png')`}}></div>
+        </div>
+      </div>
+    )
+  }
+
+  render () {
+    return isMobile || this.state.clientWidth < 600 ? this.renderMobile() : this.renderWeb()
   }
 }
 

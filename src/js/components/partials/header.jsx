@@ -9,10 +9,6 @@ import './header.scss'
 
 class Header extends React.PureComponent {
 
-  constructor(props) {
-    super(props)
-  }
-
   componentWillReceiveProps (nextProps) {
     console.error('next', nextProps)
   }

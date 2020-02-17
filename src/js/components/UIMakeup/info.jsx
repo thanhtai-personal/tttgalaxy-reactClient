@@ -9,19 +9,11 @@ class Info extends Component {
   }
 
   render () {
+    const { title, content } = this.props
     return (
       <section className="section1 info">
-        <h2> Personal Information <br /></h2>
-        <div className="info-content">
-          a  <br />
-          a  <br />
-          a  <br />
-          a  <br />
-          a  <br />
-          a  <br />
-          a  <br />
-          a  <br />
-        </div>
+        <h2>{title}</h2>
+        {content}
       </section>
     );
   }

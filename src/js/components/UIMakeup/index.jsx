@@ -67,7 +67,7 @@ const educationData = [
   }
 ]
 
-class BlogCreator extends PureComponent {
+class UIMakeUp extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -111,19 +111,19 @@ class BlogCreator extends PureComponent {
   renderExperience (listData) {
     return (
       <div className='info-content'>
-        {listData.map((data) => {
+        {listData.map((data, index) => {
           return (
-          <styled.ExperienceList>
-            <div className='organization-data'>
+          <styled.ExperienceList key={`info-content-${data.name}-${index}`}>
+            <div className='organization-data' key={`info-content-2-${data.name}-${index}`}>
               <div className='organization-name'>{data.name}</div>
               <div className='organization-time'>{data.time}</div>
               {data.position && <div className='organization-pos'>{data.position}</div>}
               <div className='organization-des'>{data.description}</div>
               {data.projects && <div className='organization-des'>Projects: {data.projects}</div>}
               {data.references && <div className='organization-ref'>
-                {data.references.map((ref) => (
-                    <div className='organization'>{ref.name}: 
-                    <a href={ref.url} target='_blank'> {ref.url}</a>
+                {data.references.map((ref, index) => (
+                    <div className='organization' key={`ref-${data.name}-${index}`}>{ref.name}: 
+                      <a href={ref.url} target='_blank'> {ref.url}</a>
                     </div>
                 ))}
               </div>}
@@ -174,4 +174,4 @@ class BlogCreator extends PureComponent {
   }
 }
 
-export default BlogCreator
+export default UIMakeUp
