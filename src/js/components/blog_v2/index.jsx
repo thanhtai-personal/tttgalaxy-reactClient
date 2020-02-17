@@ -14,13 +14,13 @@ import PopUp from './../utils/popup/index.jsx'
 // import playing_mot_khuc_hong_tran from './resource/playing_mot_khuc_hong_tran.mp3'
 // import hkvn from './resource/Hao-Khi-Viet-Nam-Phan-Dinh-Tung.mp3'
 // import muon_ca_the_gian_biet_ta_yeu_nguoi from './resource/muon_ca_the_gian_biet_ta_yeu_nguoi.mp3'
-import cho_toi_xin_mot_ve_di_tuoi_tho from './resource/cho_toi_xin_mot_ve_di_tuoi_tho.mp3'
-import cho_toi_xin_mot_ve_di_tuoi_tho_beat from './resource/cho_toi_xin_mot_ve_di_tuoi_tho_beat.mp3'
-import co_gai_den_tu_hom_qua from './resource/co_gai_den_tu_hom_qua.mp3'
+// import cho_toi_xin_mot_ve_di_tuoi_tho from './resource/cho_toi_xin_mot_ve_di_tuoi_tho.mp3'
+// import cho_toi_xin_mot_ve_di_tuoi_tho_beat from './resource/cho_toi_xin_mot_ve_di_tuoi_tho_beat.mp3'
+// import co_gai_den_tu_hom_qua from './resource/co_gai_den_tu_hom_qua.mp3'
 import co_gai_den_tu_hom_qua_beat from './resource/co_gai_den_tu_hom_qua_beat.mp3'
-import ngay_hom_qua from './resource/ngay_hom_qua.mp3'
-import yen_binh from './resource/yen_binh.mp3'
-import diep_khuc_tuoi_tho from './resource/diep_khuc_tuoi_tho.mp3'
+// import ngay_hom_qua from './resource/ngay_hom_qua.mp3'
+// import yen_binh from './resource/yen_binh.mp3'
+// import diep_khuc_tuoi_tho from './resource/diep_khuc_tuoi_tho.mp3'
 
 
 const avatarUrls = [
@@ -34,34 +34,34 @@ const avatarUrls = [
   './images/avatar7.jpg',
 ]
 const backgroundAudioList = [
-  {
-    name: 'Cho tôi xin một vé đi tuổi thơ',
-    src: cho_toi_xin_mot_ve_di_tuoi_tho
-  },
-  {
-    name: 'Điệp khúc tuổi thơ',
-    src: diep_khuc_tuoi_tho
-  },
-  {
-    name: 'Cô gái đến từ hôm qua',
-    src: co_gai_den_tu_hom_qua
-  },
-  {
-    name: 'Ngày hôm qua',
-    src: ngay_hom_qua
-  },
+  // {
+  //   name: 'Cho tôi xin một vé đi tuổi thơ',
+  //   src: cho_toi_xin_mot_ve_di_tuoi_tho
+  // },
+  // {
+  //   name: 'Điệp khúc tuổi thơ',
+  //   src: diep_khuc_tuoi_tho
+  // },
+  // {
+  //   name: 'Cô gái đến từ hôm qua',
+  //   src: co_gai_den_tu_hom_qua
+  // },
+  // {
+  //   name: 'Ngày hôm qua',
+  //   src: ngay_hom_qua
+  // },
   {
     name: 'Cô gái đến từ hôm qua beat',
     src: co_gai_den_tu_hom_qua_beat
   },
-  {
-    name: 'Cho tôi xin một vé đi tuổi thơ beat',
-    src: cho_toi_xin_mot_ve_di_tuoi_tho_beat
-  },
-  {
-    name: 'Yên Bình',
-    src: yen_binh
-  }
+  // {
+  //   name: 'Cho tôi xin một vé đi tuổi thơ beat',
+  //   src: cho_toi_xin_mot_ve_di_tuoi_tho_beat
+  // },
+  // {
+  //   name: 'Yên Bình',
+  //   src: yen_binh
+  // }
 ]
 
 
@@ -630,34 +630,35 @@ class Blog extends PureComponent {
           </div>
         </styled.MainWrapper>
         <styled.MusicBox>
-        <PopUp 
-          id='music-box'
-          className='music-box'
-          open={this.state.isOpenMusicBox}
-          header={(<div>{this.audio ? this.audio.getCurrentSoundData().name : 'Music box'}</div>)}
-          content={(<div>
-            <br /> Music state: {this.state.backgroundMusicState}<br /><br />
-            <styled.MusicButton onClick={() => {
-              this.setMusicState('play')
-            }}>Play (Alt + P)</styled.MusicButton><br />
-            <styled.MusicButton onClick={() => {
-              this.setMusicState('pause')
-            }}>Pause (Alt + P)</styled.MusicButton><br />
-            <styled.MusicButton onClick={() => {
-              this.setMusicState('stop')
-            }}>Stop (Alt + S)</styled.MusicButton><br />
-            <styled.MusicButton onClick={() => {
-              this.setMusicState('play', () => {
-                this.audio.next()
-              })
-            }}>Next (Alt + N)</styled.MusicButton><br />
-            <styled.MusicButton onClick={() => {
-              this.setMusicState('play', () => {
-                this.audio.prev()
-              })
-            }}>Prev (Alt + Shift + N)</styled.MusicButton>
-          </div>)}
-        /></styled.MusicBox>
+          {/* <PopUp 
+            id='music-box'
+            className='music-box'
+            open={this.state.isOpenMusicBox}
+            header={(<div>{this.audio ? this.audio.getCurrentSoundData().name : 'Music box'}</div>)}
+            content={(<div>
+              <br /> Music state: {this.state.backgroundMusicState}<br /><br />
+              <styled.MusicButton onClick={() => {
+                this.setMusicState('play')
+              }}>Play (Alt + P)</styled.MusicButton><br />
+              <styled.MusicButton onClick={() => {
+                this.setMusicState('pause')
+              }}>Pause (Alt + P)</styled.MusicButton><br />
+              <styled.MusicButton onClick={() => {
+                this.setMusicState('stop')
+              }}>Stop (Alt + S)</styled.MusicButton><br />
+              <styled.MusicButton onClick={() => {
+                this.setMusicState('play', () => {
+                  this.audio.next()
+                })
+              }}>Next (Alt + N)</styled.MusicButton><br />
+              <styled.MusicButton onClick={() => {
+                this.setMusicState('play', () => {
+                  this.audio.prev()
+                })
+              }}>Prev (Alt + Shift + N)</styled.MusicButton>
+            </div>)}
+          /> */}
+        </styled.MusicBox>
       </div>
     )
   }
