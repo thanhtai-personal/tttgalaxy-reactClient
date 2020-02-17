@@ -4,9 +4,9 @@ import $ from 'jquery'
 import _ from 'lodash'
 import Header from './header'
 // import Banner from './banner'
+import SeaFooter from './footer'
 const Banner = React.lazy(() => import('./banner'));
 const Info = React.lazy(() => import('./info'));
-
 
 class BlogCreator extends PureComponent {
   constructor (props) {
@@ -35,6 +35,9 @@ class BlogCreator extends PureComponent {
             </Suspense>
             <Suspense fallback={<div>Loading...</div>}>
               <Info />
+            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <SeaFooter />
             </Suspense>
           </div>
         </div>
