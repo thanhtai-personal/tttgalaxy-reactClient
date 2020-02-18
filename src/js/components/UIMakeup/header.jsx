@@ -26,7 +26,7 @@ class Header extends React.PureComponent {
     if (e.keyCode === 13) {
       Object.keys(EVENT_EMITTER_COMMAND).forEach((key) => {
         if (e.target.value === EVENT_EMITTER_COMMAND[key]) {
-          this.props.eventEmitter.emit('promp-action', e.target.value)
+          this.props.eventEmitter.emit('promp-action', e.target.value ? e.target.value.trim() : '')
         }
       })
     }

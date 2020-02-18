@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import _ from 'lodash'
 
-// import './space.scss'
-import { Space } from './spaceStyled'
+import './space.scss'
+// import { Space } from './spaceStyled'
 
 class SpaceEffect extends PureComponent {
 
@@ -21,7 +21,7 @@ class SpaceEffect extends PureComponent {
 
   render () {
     return (
-      <Space>
+      // <Space>
         <div className="container demo">
           <div className="content">
             <div id="large-header" className="large-header">
@@ -29,7 +29,7 @@ class SpaceEffect extends PureComponent {
             </div>
           </div>
         </div>
-      </Space>
+      // </Space>
     )
   }
 }

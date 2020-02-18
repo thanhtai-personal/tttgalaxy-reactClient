@@ -111,20 +111,26 @@ class UIMakeUp extends PureComponent {
           break;
         case EVENT_EMITTER_COMMAND.clearAll:
           this.setState({ showSpace: false,
+            showSpace: false,
             showOcean: false,
             showContent: false,
             showRain: false,
-            showSnow: false })
+            showSnow: false,
+            showTraveler: false,
+            showBanner: false, })
           break;
         case EVENT_EMITTER_COMMAND.show:
           this.setState({ ...showDefault })
           break;
         case EVENT_EMITTER_COMMAND.showAll:
           this.setState({ showSpace: true,
+            showSpace: true,
             showOcean: true,
             showContent: true,
             showRain: true,
-            showSnow: true })
+            showSnow: true,
+            showTraveler: true,
+            showBanner: true, })
           break;
         case EVENT_EMITTER_COMMAND.showOcean:
           this.setState({ showOcean: true })
