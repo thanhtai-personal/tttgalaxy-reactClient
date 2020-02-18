@@ -73,13 +73,13 @@ const educationData = [
 ]
 
 const showDefault = {
-  showSpace: false,
+  showSpace: true,
   showOcean: true,
   showContent: true,
   showRain: true,
   showSnow: false,
-  showTraveler: false,
-  showBanner: true,
+  showTraveler: true,
+  showBanner: false,
 }
 
 class UIMakeUp extends PureComponent {
@@ -221,17 +221,17 @@ class UIMakeUp extends PureComponent {
         <Suspense fallback={this.renderLoading()}>
           <RainEffect />
         </Suspense>}
-        {this.state.showTraveler &&
-          <Suspense fallback={this.renderLoading()}>
-            <TravellerEffect className='traveller' />
-          </Suspense>
-        }
         {this.state.showSpace && 
         <Suspense fallback={this.renderLoading()}>
           <SpaceEffect />
         </Suspense>
         }
         <Header />
+        {this.state.showTraveler &&
+          <Suspense fallback={this.renderLoading()}>
+            <TravellerEffect className='traveller' />
+          </Suspense>
+        }
         <div className='home-page-background-color'></div>
         <div className='home-page'>
           <div className='home-page-body'>
