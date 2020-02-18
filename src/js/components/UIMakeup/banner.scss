@@ -52,12 +52,13 @@
     .section1 {
       position: relative;
       &.info {
-        background-color: blue;
+        background-color: transparent;
         height: auto;
         width: 100%;
         box-shadow: inset 0px 10px 5px 0px yellow;
         padding-top: 15px;
-        margin-top: 20px;
+        margin-top: 0px;
+        margin-bottom: 20px;;
         border-bottom: yellow groove 10px;
         h2 {
           color: white;

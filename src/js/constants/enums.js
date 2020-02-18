@@ -18,5 +18,9 @@ export const EVENT_EMITTER_COMMAND = {
   showOcean: 'show ocean',
   showRain: 'show rain',
   showContent: 'show content',
-  showSpace: 'show space'
+  showSpace: 'show space',
+  showBanner: 'show banner',
+  clearBanner: 'clear banner',
+  showTraveler: 'show traveler',
+  clearTraveler: 'clear traveler'
 }

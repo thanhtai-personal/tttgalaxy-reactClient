@@ -12,6 +12,7 @@ const Banner = React.lazy(() => import('./banner'));
 const Info = React.lazy(() => import('./info'));
 const RainEffect = React.lazy(() => import('./../common/cssEffects/rain/rain'))
 const SpaceEffect = React.lazy(() => import('./../common/cssEffects/spacing/space'))
+const TravellerEffect = React.lazy(() => import('./../common/cssEffects/becomeTraveler/traveler'))
 
 const experienceData = [
   {
@@ -75,8 +76,10 @@ const showDefault = {
   showSpace: false,
   showOcean: true,
   showContent: true,
-  showRain: false,
-  showSnow: true
+  showRain: true,
+  showSnow: false,
+  showTraveler: false,
+  showBanner: true,
 }
 
 class UIMakeUp extends PureComponent {
@@ -134,6 +137,18 @@ class UIMakeUp extends PureComponent {
           break;
         case EVENT_EMITTER_COMMAND.showRain:
           this.setState({ showRain: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showBanner:
+          this.setState({ showBanner: true })
+          break;
+        case EVENT_EMITTER_COMMAND.clearBanner:
+          this.setState({ showBanner: false })
+          break;
+        case EVENT_EMITTER_COMMAND.showTraveler:
+          this.setState({ showTraveler: true })
+          break;
+        case EVENT_EMITTER_COMMAND.clearTraveler:
+          this.setState({ showTraveler: false })
           break;
       }
     })
@@ -206,19 +221,27 @@ class UIMakeUp extends PureComponent {
         <Suspense fallback={this.renderLoading()}>
           <RainEffect />
         </Suspense>}
+        {this.state.showTraveler &&
+          <Suspense fallback={this.renderLoading()}>
+            <TravellerEffect className='traveller' />
+          </Suspense>
+        }
         {this.state.showSpace && 
         <Suspense fallback={this.renderLoading()}>
           <SpaceEffect />
-        </Suspense>}
+        </Suspense>
+        }
         <Header />
         <div className='home-page-background-color'></div>
         <div className='home-page'>
           <div className='home-page-body'>
             {this.state.showContent &&
               <div className='body-content'>
+                {this.state.showBanner ?
                 <Suspense fallback={this.renderLoading()}>
                   <Banner />
-                </Suspense>
+                </Suspense> : <div style={{ backgroundColor: 'transparent', width: '100%', height: '150px'}}> </div>
+                }
                 <Suspense fallback={this.renderLoading()}>
                   <Info title='Personal Info' content={this.renderPersonalInfo()} />
                 </Suspense>
@@ -228,9 +251,6 @@ class UIMakeUp extends PureComponent {
                 <Suspense fallback={this.renderLoading()}>
                   <Info title='Education' content={this.renderExperience(educationData)} />
                 </Suspense>
-                {/* <Suspense fallback={this.renderLoading()}>
-                <MosaicGround />
-              </Suspense> */}
                 <Suspense fallback={this.renderLoading()}>
                   <Info title='' content={(<div><br /><br /><br /></div>)} />
                 </Suspense>
