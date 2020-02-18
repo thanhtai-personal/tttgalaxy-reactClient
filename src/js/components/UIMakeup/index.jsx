@@ -13,6 +13,7 @@ const Info = React.lazy(() => import('./info'));
 const RainEffect = React.lazy(() => import('./../common/cssEffects/rain/rain'))
 const SpaceEffect = React.lazy(() => import('./../common/cssEffects/spacing/space'))
 const TravellerEffect = React.lazy(() => import('./../common/cssEffects/becomeTraveler/traveler'))
+const CrossBuildingEffect = React.lazy(() => import('./../common/cssEffects/crossBuilding/crossBuilding'))
 
 const experienceData = [
   {
@@ -80,10 +81,11 @@ const showDefault = {
   showSnow: false,
   showTraveler: true,
   showBanner: false,
+  showBuilding: false
 }
 
 class UIMakeUp extends PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       ...showDefault
@@ -93,7 +95,7 @@ class UIMakeUp extends PureComponent {
     this.renderLoading = this.renderLoading.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     $('body').css({ margin: '0 0 0 0' })
     this.props.eventEmitter.on('promp-action', (message) => {
       switch (message) {
@@ -110,27 +112,31 @@ class UIMakeUp extends PureComponent {
           this.setState({ showSpace: false })
           break;
         case EVENT_EMITTER_COMMAND.clearAll:
-          this.setState({ showSpace: false,
+          this.setState({
+            showSpace: false,
             showSpace: false,
             showOcean: false,
             showContent: false,
             showRain: false,
             showSnow: false,
             showTraveler: false,
-            showBanner: false, })
+            showBanner: false,
+          })
           break;
         case EVENT_EMITTER_COMMAND.show:
           this.setState({ ...showDefault })
           break;
         case EVENT_EMITTER_COMMAND.showAll:
-          this.setState({ showSpace: true,
+          this.setState({
+            showSpace: true,
             showSpace: true,
             showOcean: true,
             showContent: true,
             showRain: true,
             showSnow: true,
             showTraveler: true,
-            showBanner: true, })
+            showBanner: true,
+          })
           break;
         case EVENT_EMITTER_COMMAND.showOcean:
           this.setState({ showOcean: true })
@@ -156,15 +162,21 @@ class UIMakeUp extends PureComponent {
         case EVENT_EMITTER_COMMAND.clearTraveler:
           this.setState({ showTraveler: false })
           break;
+        case EVENT_EMITTER_COMMAND.showBuilding:
+          this.setState({ showBuilding: true })
+          break;
+        case EVENT_EMITTER_COMMAND.clearBuilding:
+          this.setState({ showBuilding: false })
+          break;
       }
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     $('body').css({ margin: '18px 12vw 34px' })
   }
 
-  renderPersonalInfo () {
+  renderPersonalInfo() {
     return (
       <div className='info-content'>
         <h1>TRẦN THANH TÀI</h1>
@@ -187,7 +199,7 @@ class UIMakeUp extends PureComponent {
     )
   }
 
-  renderExperience (listData) {
+  renderExperience(listData) {
     return (
       <div className='info-content'>
         {listData.map((data, index) => {
@@ -214,23 +226,23 @@ class UIMakeUp extends PureComponent {
     )
   }
 
-  renderLoading () {
+  renderLoading() {
     return (
       <div className='loading'><h2>Loading...</h2></div>
     )
   }
 
-  render () {
+  render() {
     return (
       <React.Fragment>
-        {this.state.showRain && 
-        <Suspense fallback={this.renderLoading()}>
-          <RainEffect />
-        </Suspense>}
-        {this.state.showSpace && 
-        <Suspense fallback={this.renderLoading()}>
-          <SpaceEffect />
-        </Suspense>
+        {this.state.showRain &&
+          <Suspense fallback={this.renderLoading()}>
+            <RainEffect />
+          </Suspense>}
+        {this.state.showSpace &&
+          <Suspense fallback={this.renderLoading()}>
+            <SpaceEffect />
+          </Suspense>
         }
         <Header />
         {this.state.showTraveler &&
@@ -238,15 +250,20 @@ class UIMakeUp extends PureComponent {
             <TravellerEffect className='traveller' />
           </Suspense>
         }
+        {/* {this.state.showBuilding &&
+          <Suspense fallback={this.renderLoading()}>
+            <CrossBuildingEffect />
+          </Suspense>
+        } */}
         <div className='home-page-background-color'></div>
         <div className='home-page'>
           <div className='home-page-body'>
             {this.state.showContent &&
               <div className='body-content'>
                 {this.state.showBanner ?
-                <Suspense fallback={this.renderLoading()}>
-                  <Banner />
-                </Suspense> : <div style={{ backgroundColor: 'transparent', width: '100%', height: '150px'}}> </div>
+                  <Suspense fallback={this.renderLoading()}>
+                    <Banner />
+                  </Suspense> : <div style={{ backgroundColor: 'transparent', width: '100%', height: '150px' }}> </div>
                 }
                 <Suspense fallback={this.renderLoading()}>
                   <Info title='Personal Info' content={this.renderPersonalInfo()} />
@@ -263,9 +280,9 @@ class UIMakeUp extends PureComponent {
               </div>
             }
             {this.state.showOcean &&
-            <Suspense fallback={this.renderLoading()}>
-              <SeaFooter />
-            </Suspense>}
+              <Suspense fallback={this.renderLoading()}>
+                <SeaFooter />
+              </Suspense>}
           </div>
         </div>
       </React.Fragment>

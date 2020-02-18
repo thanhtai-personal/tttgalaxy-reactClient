@@ -822,10 +822,10 @@ class SakuraEffect extends PureComponent {
 
   render () {
     return (
-      <React.Fragment>
+      <div className={this.props.className || ''}>
         <canvas id='sakura'></canvas>
         <div className='btnbg'></div>
-      </React.Fragment>
+      </div>
     )
   }
 }

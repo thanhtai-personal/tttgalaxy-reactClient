@@ -7,13 +7,13 @@ import { Rain } from './rainStyled'
 
 class RainEffect extends PureComponent {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.excuteEffect = this.excuteEffect.bind(this)
     this.makeItRain = this.makeItRain.bind(this)
   }
 
-  makeItRain () {
+  makeItRain() {
     //clear out everything
     $('.rain').empty();
 
@@ -38,23 +38,25 @@ class RainEffect extends PureComponent {
     $('.rain.back-row').append(backDrops);
   }
 
-  excuteEffect () {
+  excuteEffect() {
     this.makeItRain()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.excuteEffect()
   }
 
-  render () {
+  render() {
     const { frontRow = true, backRow = true, single = false, className } = this.props
     return (
-      <Rain>
-        <div className={`back-row-toggle splat-toggle ${single ? 'single-toggle' : ''} ${className || ''}`}>
-          {frontRow && <div className='rain front-row'></div>}
-          {backRow && <div className='rain back-row'></div>}
-        </div>
-      </Rain>
+      <div className={this.props.className || ''}>
+        <Rain>
+          <div className={`back-row-toggle splat-toggle ${single ? 'single-toggle' : ''} ${className || ''}`}>
+            {frontRow && <div className='rain front-row'></div>}
+            {backRow && <div className='rain back-row'></div>}
+          </div>
+        </Rain>
+      </div>
     )
   }
 }

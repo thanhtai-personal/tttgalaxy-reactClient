@@ -21,12 +21,14 @@ class OceanEffect extends PureComponent {
 
   render () {
     return (
-      <Ocean>
-        <div className="ocean">
-          <div className="wave"></div>
-          <div className="wave"></div>
-        </div>
-      </Ocean>
+      <div className={this.props.className || ''}>
+        <Ocean>
+          <div className="ocean">
+            <div className="wave"></div>
+            <div className="wave"></div>
+          </div>
+        </Ocean>
+      </div>
     )
   }
 }

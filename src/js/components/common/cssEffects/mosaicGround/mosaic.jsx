@@ -7,42 +7,43 @@ import { Mosaic } from './mosaicStyled'
 
 class MosaicGround extends PureComponent {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.excuteEffect = this.excuteEffect.bind(this)
   }
 
-  excuteEffect () {
+  excuteEffect() {
     (function () {
       var Photo, addListeners, canvas, createGrid, ctx, gridItem, grids, height, img, imgInfo, imgSrc, imgs, init, magnet, mouse, populateCanvas, render, resizeCanvas, rotateAndPaintImage, updateMouse, useGrid, width;
-    
+
       canvas = document.getElementById('canvas');
-    
+
       ctx = canvas.getContext('2d');
-    
+
       width = canvas.width = window.innerWidth;
-    
+
       height = canvas.height = window.innerHeight;
-    
+
       imgSrc = canvas.dataset.image;
-    
+
       img = new Image();
-    
+
       useGrid = true;
-    
+
       imgInfo = {};
-    
+
       imgs = [];
-    
+
       grids = [];
-    
+
       magnet = 2000;
-    
+
       mouse = {
         x: 1,
-        y: 0 };
-    
-    
+        y: 0
+      };
+
+
       init = function () {
         addListeners();
         img.onload = function (e) {
@@ -60,23 +61,23 @@ class MosaicGround extends PureComponent {
         };
         return img.src = imgSrc;
       };
-    
+
       addListeners = function () {
         window.addEventListener('resize', resizeCanvas);
         window.addEventListener('mousemove', updateMouse);
         return window.addEventListener('touchmove', updateMouse);
       };
-    
+
       updateMouse = function (e) {
         mouse.x = e.clientX;
         return mouse.y = e.clientY;
       };
-    
+
       resizeCanvas = function () {
         width = canvas.width = window.innerWidth;
         return height = canvas.height = window.innerHeight;
       };
-    
+
       populateCanvas = function (nb) {
         var i, p, results;
         i = 0;
@@ -88,7 +89,7 @@ class MosaicGround extends PureComponent {
         }
         return results;
       };
-    
+
       createGrid = function () {
         var c, grid, i, imgScale, item, j, k, l, r, ref, ref1, ref2, results, x, y;
         imgScale = 0.5;
@@ -96,8 +97,9 @@ class MosaicGround extends PureComponent {
           row: Math.ceil(window.innerWidth / (imgInfo.width * imgScale)),
           cols: Math.ceil(window.innerHeight / (imgInfo.height * imgScale)),
           rowWidth: imgInfo.width * imgScale,
-          colHeight: imgInfo.height * imgScale };
-    
+          colHeight: imgInfo.height * imgScale
+        };
+
         for (r = j = 0, ref = grid.row; 0 <= ref ? j < ref : j > ref; r = 0 <= ref ? ++j : --j) {
           x = r * grid.rowWidth;
           for (c = k = 0, ref1 = grid.cols; 0 <= ref1 ? k < ref1 : k > ref1; c = 0 <= ref1 ? ++k : --k) {
@@ -112,13 +114,13 @@ class MosaicGround extends PureComponent {
         }
         return results;
       };
-    
+
       gridItem = function (x = 0, y = 0, w, h) {
         this.draw = function () {
           ctx.drawImage(img, x, y, w, h);
         };
       };
-    
+
       Photo = function () {
         var TO_RADIANS, finalX, finalY, forceX, forceY, h, r, seed, w, x, y;
         seed = Math.random() * (2.5 - 0.7) + 0.7;
@@ -153,7 +155,7 @@ class MosaicGround extends PureComponent {
           return rotateAndPaintImage(ctx, img, r * TO_RADIANS, x, y, w / 2, h / 2, w, h);
         };
       };
-    
+
       rotateAndPaintImage = function (context, image, angle, positionX, positionY, axisX, axisY, widthX, widthY) {
         context.translate(positionX, positionY);
         context.rotate(angle);
@@ -161,7 +163,7 @@ class MosaicGround extends PureComponent {
         context.rotate(-angle);
         return context.translate(-positionX, -positionY);
       };
-    
+
       render = function () {
         var x, y;
         x = 0;
@@ -178,23 +180,25 @@ class MosaicGround extends PureComponent {
         }
         return requestAnimationFrame(render);
       };
-    
+
       init();
-    
-    }).call(this); 
+
+    }).call(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.excuteEffect()
   }
 
-  render () {
+  render() {
     const { dataImage = 'http://unsplash.it/g/450/200/?random=1' } = this.props
     return (
-      <Mosaic>
-        <canvas id="canvas" data-image={dataImage}></canvas>
-        <div className="intro"></div>
-      </Mosaic>
+      <div className={this.props.className || ''}>
+        <Mosaic>
+          <canvas id="canvas" data-image={dataImage}></canvas>
+          <div className="intro"></div>
+        </Mosaic>
+      </div>
     )
   }
 }
