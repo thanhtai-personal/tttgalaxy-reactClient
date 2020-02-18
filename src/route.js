@@ -13,12 +13,15 @@ import Home from './js/containers/home.container'
 import Portfolio from './js/containers/portfolio.container'
 import Novals from './js/containers/novals/novals.container'
 import Header from './js/components/partials/header'
+import PortfolioV2Header from './js/components/partials/portfolioHeader'
+import PortfolioV2Footer from './js/components/partials/portfolioFooter'
 import Footer from './js/components/partials/footer'
 import Blog from './js/containers/blog/blog.container'
 import BlogEditor from './js/containers/blogCreator/blogCreator.container'
 import BlogView from './js/containers/blogCreator/blogView.container'
 import BlogsView from './js/containers/blogCreator/blogsView.container'
 import UIMakeupContainer from './js/containers/UIMakeup'
+import PortfolioV2 from './js/containers/portfolioV2'
 
 const publicRoute = [
   {
@@ -92,7 +95,13 @@ const publicRoute = [
     path: '/about',
     component: Blog,
     isExact: false
-  }
+  },
+  {
+    path: 'public/portfolio',
+    component: PortfolioV2,
+    isExact: false,
+    layout: { header: PortfolioV2Header, footer: PortfolioV2Footer }
+  },
 ]
 
 const privateRoute = [
@@ -132,7 +141,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={UIMakeupContainer} />
+      <Route path="/" exact component={UserLayout({ header: PortfolioV2Header, footer: PortfolioV2Footer }, PortfolioV2)} />
       {renderPublicRoute()}
       {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />
