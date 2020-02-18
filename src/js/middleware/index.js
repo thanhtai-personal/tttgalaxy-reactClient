@@ -6,10 +6,13 @@ import ActionService from './../actions'
 import eng from './../language/eng'
 import vi from './../language/vi'
 import store from './../store'
+import eventEmitter from 'event-emitter'
 import {
   UPDATE_LANGUAGE
 } from './../constants/action-types'
 // import apiInstant from './../api'
+
+const _eventEmitter = eventEmitter()
 
 export const logger = store => next => action => {
   // debugger
@@ -84,6 +87,18 @@ export const UserLayout = (Layout, ComposedComponent) => {
 
   return UseHeaderComponent
 
+}
+
+export const withEventEmitter = (ComposedComponent) => {
+  class WithEventComponent extends React.PureComponent {
+    render () {
+      return <ComposedComponent
+        eventEmitter={_eventEmitter}
+        {...this.props}
+    />
+    }
+  } 
+  return WithEventComponent
 }
 
 export const Localization = (ComposedComponent) => {

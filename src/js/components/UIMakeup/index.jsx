@@ -5,11 +5,13 @@ import _ from 'lodash'
 import './style.scss'
 import Header from './header'
 import SeaFooter from './footer'
+import { withEventEmitter } from '../../middleware';
+import { EVENT_EMITTER_COMMAND } from './../../constants/enums'
 
 const Banner = React.lazy(() => import('./banner'));
 const Info = React.lazy(() => import('./info'));
 const RainEffect = React.lazy(() => import('./../common/cssEffects/rain/rain'))
-const MosaicGround = React.lazy(() => import('./../common/cssEffects/mosaicGround/mosaic'))
+const SpaceEffect = React.lazy(() => import('./../common/cssEffects/spacing/space'))
 
 const experienceData = [
   {
@@ -69,10 +71,19 @@ const educationData = [
   }
 ]
 
+const showDefault = {
+  showSpace: false,
+  showOcean: true,
+  showContent: true,
+  showRain: false,
+  showSnow: true
+}
+
 class UIMakeUp extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
+      ...showDefault
     }
     this.renderPersonalInfo = this.renderPersonalInfo.bind(this)
     this.renderExperience = this.renderExperience.bind(this)
@@ -81,6 +92,51 @@ class UIMakeUp extends PureComponent {
 
   componentDidMount () {
     $('body').css({ margin: '0 0 0 0' })
+    this.props.eventEmitter.on('promp-action', (message) => {
+      switch (message) {
+        case EVENT_EMITTER_COMMAND.clearContent:
+          this.setState({ showContent: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearOcean:
+          this.setState({ showOcean: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearRain:
+          this.setState({ showRain: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearSpace:
+          this.setState({ showSpace: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearAll:
+          this.setState({ showSpace: false,
+            showOcean: false,
+            showContent: false,
+            showRain: false,
+            showSnow: false })
+          break;
+        case EVENT_EMITTER_COMMAND.show:
+          this.setState({ ...showDefault })
+          break;
+        case EVENT_EMITTER_COMMAND.showAll:
+          this.setState({ showSpace: true,
+            showOcean: true,
+            showContent: true,
+            showRain: true,
+            showSnow: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showOcean:
+          this.setState({ showOcean: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showContent:
+          this.setState({ showContent: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showSpace:
+          this.setState({ showSpace: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showRain:
+          this.setState({ showRain: true })
+          break;
+      }
+    })
   }
 
   componentWillUnmount () {
@@ -97,14 +153,14 @@ class UIMakeUp extends PureComponent {
         <p className=''>
           I am experienced in <strong>Javascript (ReactJS, Scala, ExpressJS), .NET Core, Java, Postgres, MS SQL Server,...etc</strong>. My
             current target are <strong>ReactJS, .NET core</strong>.
-            Have a little experience in using <strong>AWS Console of Amazon Web Services</strong>...<br/>
+            Have a little experience in using <strong>AWS Console of Amazon Web Services</strong>...<br />
           (｡◕‿‿◕｡)
         </p>
         <p className='account'>
           Accounts: <br />
-          @github: <a target='_blank' href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br/>
-          @npm: <a target='_blank' href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br/>
-          @linkedIn: <a target='_blank' href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br/>
+          @github: <a target='_blank' href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br />
+          @npm: <a target='_blank' href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br />
+          @linkedIn: <a target='_blank' href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br />
         </p>
       </div>
     )
@@ -115,23 +171,24 @@ class UIMakeUp extends PureComponent {
       <div className='info-content'>
         {listData.map((data, index) => {
           return (
-          <styled.ExperienceList key={`info-content-${data.name}-${index}`}>
-            <div className='organization-data' key={`info-content-2-${data.name}-${index}`}>
-              <div className='organization-name'>{data.name}</div>
-              <div className='organization-time'>{data.time}</div>
-              {data.position && <div className='organization-pos'>{data.position}</div>}
-              <div className='organization-des'>{data.description}</div>
-              {data.projects && <div className='organization-des'>Projects: {data.projects}</div>}
-              {data.references && <div className='organization-ref'>
-                {data.references.map((ref, index) => (
-                    <div className='organization' key={`ref-${data.name}-${index}`}>{ref.name}: 
+            <styled.ExperienceList key={`info-content-${data.name}-${index}`}>
+              <div className='organization-data' key={`info-content-2-${data.name}-${index}`}>
+                <div className='organization-name'>{data.name}</div>
+                <div className='organization-time'>{data.time}</div>
+                {data.position && <div className='organization-pos'>{data.position}</div>}
+                <div className='organization-des'>{data.description}</div>
+                {data.projects && <div className='organization-des'>Projects: {data.projects}</div>}
+                {data.references && <div className='organization-ref'>
+                  {data.references.map((ref, index) => (
+                    <div className='organization' key={`ref-${data.name}-${index}`}>{ref.name}:
                       <a href={ref.url} target='_blank'> {ref.url}</a>
                     </div>
-                ))}
-              </div>}
-            </div>
-          </styled.ExperienceList>
-        )})}
+                  ))}
+                </div>}
+              </div>
+            </styled.ExperienceList>
+          )
+        })}
       </div>
     )
   }
@@ -145,36 +202,44 @@ class UIMakeUp extends PureComponent {
   render () {
     return (
       <React.Fragment>
+        {this.state.showRain && 
         <Suspense fallback={this.renderLoading()}>
           <RainEffect />
-        </Suspense>
+        </Suspense>}
+        {this.state.showSpace && 
+        <Suspense fallback={this.renderLoading()}>
+          <SpaceEffect />
+        </Suspense>}
         <Header />
         <div className='home-page-background-color'></div>
         <div className='home-page'>
           <div className='home-page-body'>
-            <div className='body-content'>
-              <Suspense fallback={this.renderLoading()}>
-                <Banner />
-              </Suspense>
-              <Suspense fallback={this.renderLoading()}>
-                <Info title='Personal Info' content={this.renderPersonalInfo()} />
-              </Suspense>
-              <Suspense fallback={this.renderLoading()}>
-                <Info title='Experience' content={this.renderExperience(experienceData)} />
-              </Suspense>
-              <Suspense fallback={this.renderLoading()}>
-                <Info title='Education' content={this.renderExperience(educationData)} />
-              </Suspense>
-              {/* <Suspense fallback={this.renderLoading()}>
+            {this.state.showContent &&
+              <div className='body-content'>
+                <Suspense fallback={this.renderLoading()}>
+                  <Banner />
+                </Suspense>
+                <Suspense fallback={this.renderLoading()}>
+                  <Info title='Personal Info' content={this.renderPersonalInfo()} />
+                </Suspense>
+                <Suspense fallback={this.renderLoading()}>
+                  <Info title='Experience' content={this.renderExperience(experienceData)} />
+                </Suspense>
+                <Suspense fallback={this.renderLoading()}>
+                  <Info title='Education' content={this.renderExperience(educationData)} />
+                </Suspense>
+                {/* <Suspense fallback={this.renderLoading()}>
                 <MosaicGround />
               </Suspense> */}
-              <Suspense fallback={this.renderLoading()}>
-                <Info title='' content={(<div><br/><br/><br/></div>)} />
-              </Suspense>
-            </div>
+                <Suspense fallback={this.renderLoading()}>
+                  <Info title='' content={(<div><br /><br /><br /></div>)} />
+                </Suspense>
+              </div>
+            }
+            {this.state.showOcean &&
             <Suspense fallback={this.renderLoading()}>
               <SeaFooter />
-            </Suspense>
+            </Suspense>}
           </div>
         </div>
       </React.Fragment>
@@ -182,4 +247,4 @@ class UIMakeUp extends PureComponent {
   }
 }
 
-export default UIMakeUp
+export default withEventEmitter(UIMakeUp)
