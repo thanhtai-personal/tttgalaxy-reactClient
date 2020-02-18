@@ -9,6 +9,7 @@ import SeaFooter from './footer'
 const Banner = React.lazy(() => import('./banner'));
 const Info = React.lazy(() => import('./info'));
 const RainEffect = React.lazy(() => import('./../common/cssEffects/rain/rain'))
+const MosaicGround = React.lazy(() => import('./../common/cssEffects/mosaicGround/mosaic'))
 
 const experienceData = [
   {
@@ -164,6 +165,9 @@ class UIMakeUp extends PureComponent {
               <Suspense fallback={this.renderLoading()}>
                 <Info title='Education' content={this.renderExperience(educationData)} />
               </Suspense>
+              {/* <Suspense fallback={this.renderLoading()}>
+                <MosaicGround />
+              </Suspense> */}
               <Suspense fallback={this.renderLoading()}>
                 <Info title='' content={(<div><br/><br/><br/></div>)} />
               </Suspense>
