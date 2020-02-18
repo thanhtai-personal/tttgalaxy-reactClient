@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SeaWaveEffect from './../common/cssEffects/seaWave/seaWave'
 import WaveEffect from './../common/cssEffects/waveCloud/wave'
+import OceanEffect from './../common/cssEffects/ocean/ocean'
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 class SeaFooter extends Component {
@@ -34,7 +35,10 @@ class SeaFooter extends Component {
 
   renderWeb () {
     return (
-      <WaveEffect />
+      <React.Fragment>
+        <WaveEffect />
+        <OceanEffect />
+      </React.Fragment>
     )
   }
 

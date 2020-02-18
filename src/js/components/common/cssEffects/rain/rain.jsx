@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash'
 import $ from 'jquery'
 
-import './rain.scss'
+// import './rain.scss'
+import { Rain } from './rainStyled'
 
 class RainEffect extends PureComponent {
 
@@ -48,10 +49,12 @@ class RainEffect extends PureComponent {
   render () {
     const { frontRow = true, backRow = true, single = false, className } = this.props
     return (
-      <div className= {`back-row-toggle splat-toggle ${single ? 'single-toggle' : ''} ${className || ''}`}>
-        {frontRow && <div className='rain front-row'></div>}
-        {backRow && <div className='rain back-row'></div>}
-      </div>
+      <Rain>
+        <div className={`back-row-toggle splat-toggle ${single ? 'single-toggle' : ''} ${className || ''}`}>
+          {frontRow && <div className='rain front-row'></div>}
+          {backRow && <div className='rain back-row'></div>}
+        </div>
+      </Rain>
     )
   }
 }
