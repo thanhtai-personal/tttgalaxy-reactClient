@@ -4,10 +4,11 @@ import $ from 'jquery'
 import _ from 'lodash'
 import './style.scss'
 import Header from './header'
-// import Banner from './banner'
 import SeaFooter from './footer'
+
 const Banner = React.lazy(() => import('./banner'));
 const Info = React.lazy(() => import('./info'));
+const RainEffect = React.lazy(() => import('./../common/cssEffects/rain/rain'))
 
 const experienceData = [
   {
@@ -143,6 +144,9 @@ class UIMakeUp extends PureComponent {
   render () {
     return (
       <React.Fragment>
+        <Suspense fallback={this.renderLoading()}>
+          <RainEffect />
+        </Suspense>
         <Header />
         <div className='home-page-background-color'></div>
         <div className='home-page'>
