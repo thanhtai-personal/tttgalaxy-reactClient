@@ -3,6 +3,16 @@ import "./header.scss";
 import { NavLink } from "react-router-dom"
 import { withEventEmitter } from './../../middleware/index'
 import { EVENT_EMITTER_COMMAND } from './../../constants/enums'
+import styled from 'styled-components'
+
+const Promp = styled.input`
+width: 150px;
+color: lightblue;
+background: darkblue;
+opacity: 0.5;
+border-radius: 5px;
+padding-left: 8px;
+`
 
 class Header extends React.PureComponent {
   constructor (props) {
@@ -50,7 +60,7 @@ class Header extends React.PureComponent {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
-              <input style={{ width: '100px' }} onKeyDown={this.onPrompKeydown} />
+              <Promp style={{ width: '150px' }} onKeyDown={this.onPrompKeydown} placeholder='Type an action' />
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/home">
