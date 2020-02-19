@@ -4,7 +4,7 @@ import './style.scss'
 
 import Slider from './slider'
 import Service from './service'
-// import PortfolioArea from './portfolio'
+import PortfolioArea from './portfolio'
 import AboutMe from './aboutMe'
 import Counter from './counter'
 import $ from 'jquery'
@@ -44,7 +44,7 @@ class Portfolio extends PureComponent {
       <React.Fragment>
         <Slider />
         <Service />
-        {/* <PortfolioArea /> */}
+        <PortfolioArea />
         <AboutMe />
         <Counter />
       </React.Fragment>

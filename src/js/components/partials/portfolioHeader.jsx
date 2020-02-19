@@ -32,7 +32,7 @@ class PortfolioHeader extends React.PureComponent {
                       <ul id='navigation'>
                         <li><a className='active' href='/public/portfolio'>Home</a></li>
                         <li><a href='/about'>About</a></li>
-                        <li><a href='/services'>Services</a></li>
+                        <li><a href='/games'>Services</a></li>
                         <li><a href='/blog'>Blog <i className='ti-angle-down'></i></a>
                           <ul className='submenu'>
                             <li><a href='/blog'>Blog</a></li>
@@ -44,7 +44,7 @@ class PortfolioHeader extends React.PureComponent {
                             <li><a href='/portfolio'>Portfolio</a></li>
                           </ul>
                         </li>
-                        <li><a href='/contact'>Contact</a></li>
+                        <li><a href='/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ'>Contact</a></li>
                       </ul>
                     </nav>
                   </div>
@@ -52,7 +52,7 @@ class PortfolioHeader extends React.PureComponent {
                 <div className='col-xl-3 col-lg-3 d-none d-lg-block'>
                   <div className='Appointment'>
                     <div className='book_btn d-none d-lg-block'>
-                      <a className='btn contact-me'>Contact Me</a>
+                      <a target='_blank' href='/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ' className='btn contact-me'>Contact Me</a>
                     </div>
                   </div>
                 </div>

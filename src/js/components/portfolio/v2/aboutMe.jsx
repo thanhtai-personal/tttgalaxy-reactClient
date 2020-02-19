@@ -4,28 +4,45 @@ import React from 'react'
 const AboutMe = (props) => {
   return (
     <div className='about_me' id='about-me'>
-      <div className='about_large_title d-none d-lg-block'>
-        About
-        </div>
       <div className='container'>
-        <div className='row align-items-center'>
-          <div className='col-xl-6 col-md-6'>
-            <div className='about_e_details'>
-              <h3>About me</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida Risus com odo viverra maecenas.</p>
-              <div className='download_cv'>
-                <a className='boxed-btn3' href='#'>Download CV</a>
+        <div className='row' style={{backgroundColor: 'lightgray'}}>
+          <div className='col-xl-9 col-md-9'>
+            <div className='row align-items-center'>&nbsp;</div>
+            <div className='row align-items-center'>
+              <div className='col-xl-12 col-md-12' style={{ textAlign: 'center' }}>
+                <h3>CONTACT</h3>
               </div>
             </div>
+            <div className='row'>&nbsp;</div>
+            <div className='row align-items-center'>
+              <div className='col-xl-2 col-md-3' style={{ float: 'right' }}>
+                <span>Birthday: </span>
+              </div>
+              <div className='col-xl-8 col-md-10'>
+                <span>05/06/1993</span>
+              </div>
+            </div>
+            <div className='row align-items-center'>
+              <div className='col-xl-2 col-md-3'>
+                <span>Address: </span>
+              </div>
+              <div className='col-xl-8 col-md-10'>
+                <span>643/16 Xo Viet Nghe Tinh, 25Ward, Binh Thanh district, Ho Chi Minh city</span>
+              </div>
+            </div>
+            <div className='row align-items-center'>
+              <div className='col-xl-2 col-md-3'>
+                <span>Phone: </span>
+              </div>
+              <div className='col-xl-8 col-md-10'>
+                <span>0972828264</span>
+              </div>
+            </div>
+            <div className='row align-items-center'>&nbsp;</div>
           </div>
-          <div className='col-xl-6 col-md-6'>
-            <div className='about_img'>
-              <div className='color_pattern d-none d-lg-block'>
-                <img src='template/melan/img/about/color_grid.png' alt='' />
-              </div>
-              <div className='my_Pic'>
-                <img src='template/melan/img/about/about.png' alt='' />
-              </div>
+          <div className='col-xl-3 col-md-3 align-items-center' style={{borderLeft: '2px solid', textAlign: 'center'}}>
+            <div className='download_cv' style={{ marginTop: '60px'}}>
+              <a className='boxed-btn3' href='https://drive.google.com/file/d/1gr_lrqIomuZ4MiKtXYq6Lfinbtnkef1i/view?usp=sharing' target='_blank'>Get my CV</a>
             </div>
           </div>
         </div>

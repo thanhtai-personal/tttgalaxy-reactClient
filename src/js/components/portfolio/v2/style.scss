@@ -2015,6 +2015,16 @@ h3 {
   padding-top: 75px;
 }
 
+.counter_area {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #001D38;
+  margin-bottom: 20px;
+  content: '';
+}
+
 @media (max-width: 767px) {
   /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_counter.scss */
   .counter_area {
@@ -2075,7 +2085,7 @@ h3 {
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_about.scss */
 .about_me {
   padding-top: 75px;
-  padding-bottom: 150px;
+  padding-bottom: 75px;
   position: relative;
 }
 
@@ -3180,13 +3190,12 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_portfolio.scss */
 .portfolio_area {
-  background-image: url(./template/melan/img/banner/portfolio_bg.png);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   position: relative;
-  padding-top: 180px;
-  padding-bottom: 340px;
+  padding-top: 5px;
+  padding-bottom: 15px;
 }
 
 @media (max-width: 767px) {

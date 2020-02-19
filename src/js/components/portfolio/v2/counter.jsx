@@ -3,31 +3,28 @@ import React from 'react'
 
 const Counter = (props) => {
   return (
-    <div className="counter_area">
+    <div className="counter_area" id='projects'>
       <div className="container">
         <div className="row">
+          <div className='col-xl-12 text-center'>
+            <p style={{ fontSize: '36px', fontWeight: '600', color: 'white' }}> PROJECTS </p>
+          </div>
+          <div className='col-xl-12 text-center'>&nbsp;</div>
+        </div>
+        <div className="row">
           <div className="col-xl-4 col-md-4">
-            <div className="single_counter text-center">
-              <h3>
-                <span className="counter" >520 </span><span>+</span>
-              </h3>
-              <p>Total Projects</p>
+            <div className="single_counter text-center" style={{ backgroundColor: 'white' }}>
+
             </div>
           </div>
           <div className="col-xl-4 col-md-4">
-            <div className="single_counter text-center">
-              <h3>
-                <span className="counter">244 </span>
-              </h3>
-              <p>On Going Projects</p>
+            <div className="single_counter text-center" style={{ backgroundColor: 'white' }}>
+
             </div>
           </div>
           <div className="col-xl-4 col-md-4">
-            <div className="single_counter text-center">
-              <h3>
-                <span className="counter" >95 </span> <span>%</span>
-              </h3>
-              <p>Job Success</p>
+            <div className="single_counter text-center" style={{ backgroundColor: 'white' }}>
+
             </div>
           </div>
         </div>
