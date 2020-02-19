@@ -7,32 +7,38 @@ import ActionService from '../../actions'
 
 class PortfolioFooter extends React.PureComponent {
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+
+  }
+
+  scrollToElement (eId) {
+    let elmnt = document.getElementById(eId);
+    elmnt && elmnt.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});
   }
 
   render() {
     // const { props: { setLanguage, language } } = this
     return (
-      <footer className="footer">
-        <div className="footer_top">
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-xl-6 col-md-6">
-                <div className="menu_links">
+      <footer className='footer'>
+        <div className='footer_top'>
+          <div className='container'>
+            <div className='row align-items-center'>
+              <div className='col-xl-6 col-md-6'>
+                <div className='menu_links'>
                   <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Portfolio</a></li>
+                    <li><a onClick={()=>{this.scrollToElement('about-me')}} title='go to about area'>About</a></li>
+                    <li><a onClick={()=>{this.scrollToElement('service')}} title='go to projects area'>Projects</a></li>
+                    <li><a onClick={()=>{this.scrollToElement('portfolio')}} title='go to portfolio area'>Portfolio</a></li>
                   </ul>
                 </div>
               </div>
-              <div className="col-xl-6 col-md-6">
-                <div className="socail_links">
+              <div className='col-xl-6 col-md-6'>
+                <div className='socail_links'>
                   <ul>
-                    <li><a href="#"> <i className="fa fa-facebook"></i> </a></li>
-                    <li><a href="#"> <i className="fa fa-twitter"></i> </a></li>
-                    <li><a href="#"> <i className="fa fa-instagram"></i> </a></li>
-                    <li><a href="#"> <i className="fa fa-google-plus"></i> </a></li>
+                    <li><a href='https://www.facebook.com/tai.tranthanh1604' target='_blank' title='facebook'> <i className='fab fa-facebook'></i> </a></li>
+                    <li><a href='https://www.linkedin.com/in/tran-thanh-tai-539250129/' target='_blank' title='linkedin'> <i className='fab fa-linkedin'></i> </a></li>
+                    <li><a href='https://www.tttgalaxy.co.uk/about' target='_blank' title='other CV'> <i className='fab fa-instagram'></i> </a></li>
+                    <li><a href='https://www.npmjs.com/~demonking' target='_blank' title='npm packages'> <i className='fab fa-npm'></i> </a></li>
                   </ul>
                 </div>
               </div>
