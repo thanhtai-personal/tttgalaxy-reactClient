@@ -97,7 +97,7 @@ const publicRoute = [
     isExact: false
   },
   {
-    path: 'public/portfolio',
+    path: '/public/portfolio',
     component: PortfolioV2,
     isExact: false,
     layout: { header: PortfolioV2Header, footer: PortfolioV2Footer }
