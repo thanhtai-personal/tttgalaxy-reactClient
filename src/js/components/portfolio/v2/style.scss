@@ -6810,6 +6810,13 @@ span.firstcharacter {
   background-color: lightgrey;
 }
 
+.skill-item {
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+}
+
 @keyframes title-animate {
   0% {
     opacity: 0;
