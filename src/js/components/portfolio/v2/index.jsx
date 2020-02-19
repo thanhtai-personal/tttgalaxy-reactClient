@@ -3,10 +3,11 @@ import React, { PureComponent } from "react";
 import './style.scss'
 
 import Slider from './slider'
-import Service from './service'
+import Skill from './service'
 import PortfolioArea from './portfolio'
-import AboutMe from './aboutMe'
-import Counter from './counter'
+import Contact from './aboutMe'
+import Projects from './counter'
+import Hobbies from './hobbies'
 import $ from 'jquery'
 
 
@@ -43,10 +44,11 @@ class Portfolio extends PureComponent {
     return (
       <React.Fragment>
         <Slider />
-        <Service />
+        <Skill />
         <PortfolioArea />
-        <AboutMe />
-        <Counter />
+        <Contact />
+        <Projects />
+        <Hobbies />
       </React.Fragment>
     )
   }

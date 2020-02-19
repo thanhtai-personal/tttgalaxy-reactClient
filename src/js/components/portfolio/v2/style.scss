@@ -2011,8 +2011,8 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_counter.scss */
 .counter_area {
-  padding-bottom: 120px;
-  padding-top: 75px;
+  padding-bottom: 30px;
+  padding-top: 50px;
 }
 
 .counter_area {
@@ -6830,7 +6830,48 @@ span.firstcharacter {
   &:hover {
     a { color: yellow; }
   }
-} 
+}
+
+
+.about-extra-icon ul li {
+  float: left;
+  font-weight: 800;
+  line-height: 750;
+  width: 100px;
+  height: 70px;
+  text-align: center;
+  &:hover {
+    background-color: lightgreen;
+  }
+}
+
+.hobbies_area {
+  margin-top: 150px;
+  margin-bottom: 150px;
+  .container {
+    background-color: lightgray;
+  }
+}
+
+.projects ul li {
+  width: 150px;
+  height: 100px;
+  float: left;
+  text-align: center;
+  align-items: center;
+  vertical-align: center;
+  padding-top: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+    border: solid 2px red;
+    a {
+      color: yellow;
+    }
+  }
+}
 
 @keyframes title-animate {
   0% {

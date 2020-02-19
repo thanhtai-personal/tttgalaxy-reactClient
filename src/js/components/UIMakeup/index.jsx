@@ -191,9 +191,9 @@ class UIMakeUp extends PureComponent {
         </p>
         <p className='account'>
           Accounts: <br />
-          @github: <a target='_blank' href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br />
-          @npm: <a target='_blank' href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br />
-          @linkedIn: <a target='_blank' href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br />
+          @github: <a target='_blank' rel="noopener noreferrer" href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br />
+          @npm: <a target='_blank' rel="noopener noreferrer" href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br />
+          @linkedIn: <a target='_blank' rel="noopener noreferrer" href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br />
         </p>
       </div>
     )
@@ -214,7 +214,7 @@ class UIMakeUp extends PureComponent {
                 {data.references && <div className='organization-ref'>
                   {data.references.map((ref, index) => (
                     <div className='organization' key={`ref-${data.name}-${index}`}>{ref.name}:
-                      <a href={ref.url} target='_blank'> {ref.url}</a>
+                      <a href={ref.url} target='_blank' rel="noopener noreferrer"> {ref.url}</a>
                     </div>
                   ))}
                 </div>}

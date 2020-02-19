@@ -335,9 +335,9 @@ class Blog extends PureComponent {
         </p>
         <p className="account">
           Accounts: <br />
-          @github: <a target='_blank' href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br/>
-          @npm: <a target='_blank' href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br/>
-          @linkedIn: <a target='_blank' href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br/>
+          @github: <a target='_blank' rel="noopener noreferrer" href='https://github.com/thanhtai-personal'>https://github.com/thanhtai-personal</a><br/>
+          @npm: <a target='_blank' rel="noopener noreferrer" href='https://www.npmjs.com/settings/demonking/packages'>https://www.npmjs.com/demonking</a><br/>
+          @linkedIn: <a target='_blank' rel="noopener noreferrer" href='https://www.linkedin.com/in/tran-thanh-tai-539250129/'>https://www.linkedin.com/</a><br/>
         </p>
       </styled.About>
     )
@@ -372,7 +372,7 @@ class Blog extends PureComponent {
             {data.references && <div className="organization-ref">
               {data.references.map((ref) => (
                   <div className="organization">{ref.name}: 
-                  <a href={ref.url} target='_blank'> {ref.url}</a>
+                  <a href={ref.url} target='_blank' rel="noopener noreferrer"> {ref.url}</a>
                   </div>
               ))}
             </div>}
@@ -396,10 +396,10 @@ class Blog extends PureComponent {
       <styled.Experience>
         <div className="organization-name">Projects</div>
         <div className="organization-des">
-          My personal site: <a target='_blank' href='https://tttgalaxy.co.uk'>https://tttgalaxy.co.uk</a>
+          My personal site: <a target='_blank' rel="noopener noreferrer" href='https://tttgalaxy.co.uk'>https://tttgalaxy.co.uk</a>
         </div>
         <div className="organization-des">
-          NPM packages: <a target='_blank' href='https://www.npmjs.com/package/window-tabs-management'>https://www.npmjs.com/package/window-tabs-management</a>
+          NPM packages: <a target='_blank' rel="noopener noreferrer" href='https://www.npmjs.com/package/window-tabs-management'>https://www.npmjs.com/package/window-tabs-management</a>
         </div>
       </styled.Experience>
     )
@@ -517,10 +517,10 @@ class Blog extends PureComponent {
         </div>
         
         <div className="organization-des">
-          <a target='_blank' href='https://www.manutd.com/'>
+          <a target='_blank' rel="noopener noreferrer" href='https://www.manutd.com/'>
             <styled.ImageShow src='./images/manchester_united.png' alt='mu'/>
           </a>
-          <a target='_blank' href='https://tiki.vn/su-viet-12-khuc-trang-ca-tai-ban-bo-sung-ban-do-minh-hoa-p30739432.html'>
+          <a target='_blank' rel="noopener noreferrer" href='https://tiki.vn/su-viet-12-khuc-trang-ca-tai-ban-bo-sung-ban-do-minh-hoa-p30739432.html'>
             <styled.ImageShow src='./images/sv12.jpg' alt='su_viet'/>
           </a>
         </div>
