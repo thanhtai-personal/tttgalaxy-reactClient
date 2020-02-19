@@ -6826,6 +6826,12 @@ span.firstcharacter {
   }
 }
 
+.header-area .main-header-area .main-menu ul li {
+  &:hover {
+    a { color: yellow; }
+  }
+} 
+
 @keyframes title-animate {
   0% {
     opacity: 0;
