@@ -27,8 +27,8 @@ class PortfolioFooter extends React.PureComponent {
                 <div className='menu_links'>
                   <ul>
                     <li><a onClick={()=>{this.scrollToElement('about-me')}} title='go to about area'>About</a></li>
-                    <li><a onClick={()=>{this.scrollToElement('service')}} title='go to projects area'>Projects</a></li>
-                    <li><a onClick={()=>{this.scrollToElement('portfolio')}} title='go to portfolio area'>Portfolio</a></li>
+                    <li><a onClick={()=>{this.scrollToElement('service')}} title='go to projects area'>Skills</a></li>
+                    <li><a onClick={()=>{this.scrollToElement('portfolio')}} title='go to portfolio area'>Projects</a></li>
                   </ul>
                 </div>
               </div>
