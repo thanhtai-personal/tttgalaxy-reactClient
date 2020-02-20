@@ -24,5 +24,11 @@ export const EVENT_EMITTER_COMMAND = {
   showTraveler: 'traveler',
   clearTraveler: 'remove traveler',
   showBuilding: 'building',
-  clearBuilding: 'remove building'
+  clearBuilding: 'remove building',
+  removeAnimate: 'remove animate',
+  excuseAnimate: 'animate',
+  showSnow: 'snow',
+  clearSnow: 'remove snow',
+  showSnowSlow: 'single snow',
+  clearSnowSlow: 'remove single snow'
 }

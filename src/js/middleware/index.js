@@ -14,13 +14,12 @@ import {
 
 const _eventEmitter = eventEmitter()
 
-export const logger = store => next => action => {
-  // debugger
-  // console.log('dispatching', action)
-  // let result = next(action)
-  // console.log('next state', store.getState())
-  // return result
-}
+// export const logger = store => next => action => {
+//   console.log('dispatching', action)
+//   let result = next(action)
+//   console.log('next state', store.getState())
+//   return result
+// }
 
 export const RequireAuth = (ComposedComponent) => {
   class RequireAuthComponent extends React.PureComponent {

@@ -21,7 +21,7 @@ class TravellerEffect extends PureComponent {
 
   render () {
     return (
-      <div className={this.props.className || ''}>
+      <div className={this.props.className || ''} style={{zIndex: 100}}>
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 400" enableBackground="new 0 0 400 400" xmlSpace="preserve">
         <g id="jjperezaguinaga">
         <g id="countryObjects">

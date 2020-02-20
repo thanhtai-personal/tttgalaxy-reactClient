@@ -1,31 +1,175 @@
-import React, { PureComponent } from "react";
-
-import './style.scss'
-
-import Slider from './slider'
-import Skill from './service'
-import PortfolioArea from './portfolio'
-import Contact from './aboutMe'
-import Projects from './counter'
-import Hobbies from './hobbies'
+import React, { PureComponent, Suspense } from "react";
 import $ from 'jquery'
+import './style.scss'
+import { withEventEmitter } from '../../../middleware';
+import { EVENT_EMITTER_COMMAND } from './../../../constants/enums'
+import RainEffect from './../../common/cssEffects/rain/rain'
+import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
+import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
+
+const Slider = React.lazy(() => import('./slider'))
+const Skill = React.lazy(() => import('./service'))
+const PortfolioArea = React.lazy(() => import('./portfolio'))
+const Contact = React.lazy(() => import('./aboutMe'))
+const Projects = React.lazy(() => import('./counter'))
+const Hobbies = React.lazy(() => import('./hobbies'))
+
+
+// const RainEffect = React.lazy(() => import('./../../common/cssEffects/rain/rain'))
+const SpaceEffect = React.lazy(() => import('./../../common/cssEffects/spacing/space'))
+const TravellerEffect = React.lazy(() => import('./../../common/cssEffects/becomeTraveler/traveler'))
+const SeaFooter = React.lazy(() => import('./../../UIMakeup/footer'))
+
+const showDefault = {
+  showSpace: false,
+  showOcean: false,
+  showRain: false,
+  showSnow: false,
+  showTraveler: false,
+  showSnowSlow: false
+}
+
+const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120
 
 
 class Portfolio extends PureComponent {
 
   constructor(props) {
     super(props)
+    this.state = {
+      ...showDefault
+    }
+    this.renderLoading = this.renderLoading.bind(this)
+    this.time = defaultTimeStart
+    this.animateInterval = this.animateInterval.bind(this)
+  }
+
+  animateInterval() {
+    if (this.time === 10) {
+      this.setState({ showRain: true, showTraveler: true })
+    }
+    if (this.time === 30) {
+      this.setState({ showOcean: true })
+    }
+    if (this.time === 40) {
+      this.setState({ showTraveler: false })
+    }
+    if (this.time === 60) {
+      this.setState({ showSnow: true, showSnowSlow: false })
+    }
+    if (this.time === 100) {
+      this.setState({ showSnowSlow: true, showSnow: false })
+    }
+    if (this.time === maxTime) {
+      this.time = defaultTimeStart
+      this.setState({ ...showDefault, showSnowSlow: true })
+    }
+    this.time = this.time + 1
   }
 
   componentDidMount() {
-    $('body').css({background: 'none'})
+    $('body').css({ background: this.state.showRain ? rainBackground : defaultBackground })
+    this.props.eventEmitter.on('promp-action', (message) => {
+      switch (message) {
+        case EVENT_EMITTER_COMMAND.clearOcean:
+          this.setState({ showOcean: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearRain:
+          this.setState({ showRain: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearSpace:
+          this.setState({ showSpace: false })
+          break;
+        case EVENT_EMITTER_COMMAND.clearAll:
+          this.setState({
+            showSpace: false,
+            showOcean: false,
+            showRain: false,
+            showSnow: false,
+            showTraveler: false
+          })
+          break;
+        case EVENT_EMITTER_COMMAND.show:
+          this.setState({ ...showDefault })
+          break;
+        case EVENT_EMITTER_COMMAND.showAll:
+          this.setState({
+            showSpace: true,
+            showOcean: true,
+            showRain: true,
+            showSnow: true,
+            showTraveler: true,
+            background: rainBackground
+          })
+          break;
+        case EVENT_EMITTER_COMMAND.showOcean:
+          this.setState({ showOcean: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showSpace:
+          this.setState({ showSpace: true })
+          break;
+        case EVENT_EMITTER_COMMAND.showRain:
+          this.setState({ showRain: true, background: rainBackground })
+          break;
+        case EVENT_EMITTER_COMMAND.showTraveler:
+          this.setState({ showTraveler: true })
+          break;
+        case EVENT_EMITTER_COMMAND.clearTraveler:
+          this.setState({ showTraveler: false })
+          break;
+        case EVENT_EMITTER_COMMAND.removeAnimate:
+          clearInterval(this.animateIntervalId)
+          this.setState({
+            showSpace: false,
+            showOcean: false,
+            showRain: false,
+            showSnow: false,
+            showTraveler: false
+          })
+          break;
+        case EVENT_EMITTER_COMMAND.excuseAnimate:
+          this.animateIntervalId = setInterval(this.animateInterval, 1000)
+          break;
+        case EVENT_EMITTER_COMMAND.showSnow:
+          this.setState({ showSnow: true })
+          break;
+        case EVENT_EMITTER_COMMAND.clearSnow:
+          this.setState({ showSnow: false })
+          break;
+        case EVENT_EMITTER_COMMAND.showSnowSlow:
+          this.setState({ showSnowSlow: true, showRain: false })
+          break;
+        case EVENT_EMITTER_COMMAND.showSnowSlow:
+          this.setState({ showSnowSlow: false })
+          break;
+      }
+    })
+
+    this.animateIntervalId = setInterval(this.animateInterval, 1000)
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.animateIntervalId)
   }
 
   componentWillMount() {
     // this.props.getPortfolioData(this.props.paramPublicKey)
   }
 
-  render () {
+  renderLoading() {
+    return (
+      <div className='loading'><h2>Loading...</h2></div>
+    )
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.showRain != this.state.showRain) {
+      $('body').css({ background: this.state.showRain ? rainBackground : defaultBackground })
+    }
+  }
+
+  render() {
     const {
       skill,
       basicInfo,
@@ -43,15 +187,44 @@ class Portfolio extends PureComponent {
     } = this.props
     return (
       <React.Fragment>
-        <Slider />
-        <Skill />
-        <PortfolioArea />
-        <Contact />
-        <Projects />
-        <Hobbies />
+        {this.state.showRain &&
+          // <Suspense fallback={this.renderLoading()}>
+          <RainEffect />
+          // </Suspense>
+        }
+        {this.state.showSnow && <SnowFallEffect />}
+        {this.state.showSnowSlow && <SnowFallSlowEffect />}
+        {this.state.showSpace &&
+          <Suspense fallback={this.renderLoading()}>
+            <SpaceEffect />
+          </Suspense>}
+        <Suspense fallback={this.renderLoading()}><Slider /></Suspense>
+        <Suspense fallback={this.renderLoading()}><Skill /></Suspense>
+        {this.state.showTraveler &&
+          <div className='row'>
+            <div className='col-xl-6 col-md-6'>
+              <Suspense fallback={this.renderLoading()}>
+                <div style={{ width: '100%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '10%', opacity: '0.5' }}><TravellerEffect /></div>
+              </Suspense>
+            </div>
+            <div className='col-xl-6 col-md-6'>
+              <Suspense fallback={this.renderLoading()}>
+                <div style={{ width: '100%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '10%', opacity: '0.5' }}><TravellerEffect /></div>
+              </Suspense>
+            </div>
+          </div>
+        }
+        <Suspense fallback={this.renderLoading()}><PortfolioArea /> </Suspense>
+        <Suspense fallback={this.renderLoading()}><Contact /> </Suspense>
+        <Suspense fallback={this.renderLoading()}><Projects /> </Suspense>
+        <Suspense fallback={this.renderLoading()}><Hobbies /> </Suspense>
+        {this.state.showOcean &&
+          <Suspense fallback={this.renderLoading()}>
+            <SeaFooter />
+          </Suspense>}
       </React.Fragment>
     )
   }
 }
 
-export default Portfolio
+export default withEventEmitter(Portfolio)

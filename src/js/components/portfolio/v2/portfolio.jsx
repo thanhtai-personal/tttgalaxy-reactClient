@@ -93,7 +93,7 @@ const experiences = [
     title: 'Ho Chi Minh City University of Science',
     createdAt: '02/09/2011',
     content: 'Specialized in software engineering',
-    icon: <i class="fas fa-school"></i>,
+    icon: <i className="fas fa-school"></i>,
     cardHeaderStyle: {
       backgroundColor: 'lightgreen'
     }
