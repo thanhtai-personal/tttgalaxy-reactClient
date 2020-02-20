@@ -30,7 +30,7 @@ const Hobbies = (props) => {
                     <p><i className='fa fa-headphones'></i><br /><span>Music</span></p>
                   </li>
                   <li>
-                    <p><i className='fa fa-female'></i><br /><span>Girl (no [s])</span></p>
+                    <p><i className='fa fa-female'></i><br /><span>Girls and Girl</span></p>
                   </li>
                   <li>
                     <p><i className='fas fa-money-bill-alt'></i><br /><span>Money</span></p>
