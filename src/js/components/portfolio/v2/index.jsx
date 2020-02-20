@@ -23,10 +23,10 @@ const SeaFooter = React.lazy(() => import('./../../UIMakeup/footer'))
 const showDefault = {
   showSpace: false,
   showOcean: false,
-  showRain: false,
+  showRain: true,
   showSnow: false,
   showTraveler: false,
-  showSnowSlow: false
+  showSnowSlow: true
 }
 
 const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120
@@ -48,9 +48,9 @@ class Portfolio extends PureComponent {
     if (this.time === 10) {
       this.setState({ showRain: true, showTraveler: true })
     }
-    if (this.time === 30) {
-      this.setState({ showOcean: true })
-    }
+    // if (this.time === 30) {
+    //   this.setState({ showOcean: true })
+    // }
     if (this.time === 40) {
       this.setState({ showTraveler: false })
     }
@@ -99,7 +99,7 @@ class Portfolio extends PureComponent {
             showRain: true,
             showSnow: true,
             showTraveler: true,
-            background: rainBackground
+            showSnowSlow: true
           })
           break;
         case EVENT_EMITTER_COMMAND.showOcean:
@@ -144,9 +144,6 @@ class Portfolio extends PureComponent {
           break;
       }
     })
-
-    this.animateIntervalId = setInterval(this.animateInterval, 1000)
-
   }
 
   componentWillUnmount() {
