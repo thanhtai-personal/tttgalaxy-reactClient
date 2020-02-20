@@ -25,13 +25,12 @@ class SnowFallEffect extends PureComponent {
   renderSnow() {
     let snows = []
     for (let i = 0; i < snowImageCount; i++) {
-      snows.push(<snowflake><img src={snowImage} />️</snowflake>)
+      snows.push(<snowflake key={`snow-flake-${i}`}><img src={snowImage} />️</snowflake>)
     }
     return snows
   }
 
   render() {
-    const { layer1 = true, layer2 = false, layer3 = false } = this.props
     return (
       <div className={this.props.className || ''}>
         <snowfall>

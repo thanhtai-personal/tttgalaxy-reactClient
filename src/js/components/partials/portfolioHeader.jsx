@@ -19,12 +19,35 @@ padding-left: 8px;
 margin-left: 35px;
 `
 
+const SelectionCommand = styled.ul`
+  opacity: 0.7;
+  background-color: white;
+  display: none;
+  width: 150px;
+  padding-left: 8px;
+  margin-left: 35px;
+  position: absolute;
+  li {
+    cursor: pointer;
+    padding: 5px;
+    &:hover {
+      background-color: yellow;
+    }
+  }
+  &.open {
+    display: block;
+  }
+`
+
 
 class PortfolioHeader extends React.PureComponent {
 
   constructor (props) {
     super(props)
     this.onPrompKeydown = this.onPrompKeydown.bind(this)
+    this.state = {
+      openCommandList: false
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +73,25 @@ class PortfolioHeader extends React.PureComponent {
               <div className='row align-items-center'>
                 <div className='col-xl-3 col-lg-2'>
                   <div className='logo'>
-                    <Promp onKeyDown={this.onPrompKeydown} placeholder='Type an action' />  
+                    <Promp onKeyDown={this.onPrompKeydown} placeholder='Type an action' id='command-input'
+                      onBlur={() => {
+                        this.setState({ openCommandList: false })
+                      }}
+                      onFocus={() => {
+                        this.setState({ openCommandList: true })
+                      }}
+                    />
+                    <SelectionCommand className={this.state.openCommandList ? 'open' : ''}>
+                      {Object.keys(EVENT_EMITTER_COMMAND).map((key, index) => (
+                        <li value={key} key={`command-${index}`} 
+                            onMouseDown={(e) => {
+                              let ip = document.getElementById('command-input')
+                              if(ip) ip.value = EVENT_EMITTER_COMMAND[key]
+                              this.props.eventEmitter.emit('promp-action', EVENT_EMITTER_COMMAND[key])
+                            }}
+                        >{EVENT_EMITTER_COMMAND[key]}</li>
+                      ))}
+                    </SelectionCommand>
                   </div>
                 </div>
                 <div className='col-xl-6 col-lg-7'>
