@@ -120,7 +120,7 @@ class PortfolioHeader extends React.PureComponent {
                 <div className='col-xl-3 col-lg-3 d-none d-lg-block'>
                   <div className='Appointment'>
                     <div className='book_btn d-none d-lg-block'>
-                      <a target='_blank' href='/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ' className='btn contact-me'>Contact Me</a>
+                      <a target='_blank' rel="noopener noreferrer" href='/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ' className='btn contact-me'>Contact Me</a>
                     </div>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { EVENT_EMITTER_COMMAND } from './../../../constants/enums'
 import RainEffect from './../../common/cssEffects/rain/rain'
 import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
 import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
+import LoadingPage from './../../common/loadingPage'
 
 const Slider = React.lazy(() => import('./slider'))
 const Skill = React.lazy(() => import('./service'))
@@ -23,7 +24,7 @@ const SeaFooter = React.lazy(() => import('./../../UIMakeup/footer'))
 const showDefault = {
   showSpace: false,
   showOcean: false,
-  showRain: true,
+  showRain: false,
   showSnow: false,
   showTraveler: false,
   showSnowSlow: true
@@ -86,6 +87,7 @@ class Portfolio extends PureComponent {
             showOcean: false,
             showRain: false,
             showSnow: false,
+            showSnowSlow: false,
             showTraveler: false
           })
           break;
@@ -156,7 +158,7 @@ class Portfolio extends PureComponent {
 
   renderLoading() {
     return (
-      <div className='loading'><h2>Loading...</h2></div>
+      <LoadingPage width='100%' height='100%' position='relative' />
     )
   }
 
