@@ -4,100 +4,104 @@ import { withEventEmitter } from '../../../middleware'
 import _ from 'lodash'
 import './music.scss'
 import { PlayerStyled } from './playerStyled'
-import slca from './sounds/wah-wah-wah.mp3'
-const SoundDefault = { name: 'Sai lầm của anh', artist: 'Bell', path: './sounds/sai-lam-cua-anh.mp3' }
 
-export const PlayerManager = (listAudioUrl) => {
-  let currentData = SoundDefault, index = 0, maxIndex = listAudioUrl.length - 1
-  const next = () => {
-    if (++index > maxIndex) {
-      index = 0
-    }
-    currentData = listAudioUrl[index] || SoundDefault
-    return currentData
+import AudioPlayer from './../../utils/audioPlayer'
+import sailamcuaanh from './sounds/sai-lam-cua-anh.mp3'
+import chiviquayeuem from './sounds/Nhac-chuong-Chi-vi-qua-yeu-em-Lac-Vu-www_nhacchuongvui_com.mp3'
+import chungtakhonggiongnhau from './sounds/Nhac-chuong-Chung-ta-khong-giong-nhau-www_nhacchuongvui_com.mp3'
+import dethuongbaby from './sounds/Nhac-chuong-de-thuong-baby-www_nhacchuongvui_com.mp3'
+import dungnhuthoiquen from './sounds/Nhac-chuong-Dung-nhu-thoi-quen-doan-JayKii-www_nhacchuongvui_com.mp3'
+import duyentroilay from './sounds/Nhac-chuong-Duyen-troi-lay-2-Chung-Thanh-Duy-www_nhacchuongvui_com.mp3'
+import ido from './sounds/Nhac-chuong-I-Do-911-www_nhacchuongvui_com.mp3'
+import zuneazunea from './sounds/Nhac-chuong-Zunea-zunea-www_nhacchuongvui_com.mp3'
+
+const defaultMusicList = [
+  {
+    name: 'I do',
+    artist: 'nhacchuongvui.com',
+    src: ido
+  },
+  {
+    name: 'Sai lầm của anh',
+    artist: 'nhacchuongvui.com',
+    src: sailamcuaanh
+  },
+  {
+    name: 'Chi vì quá yêu',
+    artist: 'nhacchuongvui.com',
+    src: chiviquayeuem
+  },
+  {
+    name: 'nhạc chuông dể thương',
+    artist: 'nhacchuongvui.com',
+    src: dethuongbaby
+  },
+  {
+    name: 'Đừng như thói quen',
+    artist: 'nhacchuongvui.com',
+    src: dungnhuthoiquen
+  },
+  {
+    name: 'Duyên trời lấy',
+    artist: 'nhacchuongvui.com',
+    src: duyentroilay
+  },
+  {
+    name: 'Zunea Zunea',
+    artist: 'nhacchuongvui.com',
+    src: zuneazunea
+  },
+  {
+    name: 'Chúng ta không giống nhau',
+    artist: 'nhacchuongvui.com',
+    src: chungtakhonggiongnhau
   }
-  const prev = () => {
-    if (--index < 0) {
-      index = maxIndex
-    }
-    currentData = listAudioUrl[index] || SoundDefault
-    return currentData
-  }
-  return {
-    prev, next, data: currentData
-  }
-}
+]
+
+const Player = AudioPlayer({ src: defaultMusicList, isVideo: false })
 
 const MusicComponent = (props = {}) => {
-  const soundDefault = props.listAudioUrl && props.listAudioUrl[0] 
-    ? props.listAudioUrl[0] 
-    : SoundDefault
-  let Player = null
-  const PlayerManagerInstant = PlayerManager(props.listAudioUrl)
 
-  const [audioPlayer, setAudioPlayer] = useState(soundDefault)
-  const play = () => {
+  const [mData, setMData] = useState(defaultMusicList[0])
+
+  Player.setAutoChangeMusicCallBack((data) => {
+    setMData(data)
+  })
+
+  const play = (data = {}, isForcePlay = false) => {
     let controlPanelObj = document.getElementById('control-panel'),
       infoBarObj = document.getElementById('info'),
       playCondition = false
     Array.from(controlPanelObj.classList).find(function (element) {
-      playCondition = element !== 'active' 
-      return playCondition ? controlPanelObj.classList.add('active') : controlPanelObj.classList.remove('active')
+      playCondition = element !== 'active'
+      return playCondition || (isForcePlay && !playCondition) ? controlPanelObj.classList.add('active') : controlPanelObj.classList.remove('active')
     })
     Array.from(infoBarObj.classList).find(function (element) {
-      return playCondition ? infoBarObj.classList.add('active') : infoBarObj.classList.remove('active')
+      playCondition = element !== 'active'
+      return playCondition || (isForcePlay && !playCondition) ? infoBarObj.classList.add('active') : infoBarObj.classList.remove('active')
     })
-    if (playCondition) {
-      if (!Player) {
-        // Player = new Audio(audioPlayer.path)
-        Player = new Audio(slca)
-        Player.load()
-      }
-      if (Player && typeof Player.play === 'function') {
-        Player.play()
-      }
+    if (playCondition || isForcePlay) {
+      Player.run('play')
     } else { //pause
-      if (Player && typeof Player.pause === 'function') {
-        Player.pause()
-      }
+      Player.run('pause')
     }
   }
 
   const prev = () => {
-    // setAudioPlayer(() => {
-    //   let returnData = PlayerManagerInstant.prev()
-    //   if (!Player) {
-    //     // Player = new Audio(audioPlayer.path)
-    //     Player = new Audio(slca)
-    //   }
-    //   Player.pause()
-    //   Player.currentTime = 0
-    //   // Player.load(returnData.path)
-    //   Player.play()
-    //   return returnData
-    // })
+    Player.prev()
+    setMData(Player.getCurrentSound())
   }
 
   const next = () => {
-    // setAudioPlayer(() => {
-    //   let returnData = PlayerManagerInstant.next()
-    //   if (!Player) {
-    //     // Player = new Audio(audioPlayer.path)
-    //     Player = new Audio(slca)
-    //   }
-    //   Player.pause()
-    //   Player.currentTime = 0
-    //   Player.load(returnData.path)
-    //   Player.play()
-    //   return returnData
-    // })
+    Player.next()
+    setMData(Player.getCurrentSound())
   }
 
   return (
     <PlayerStyled className={props.className || ''}>
       <div id='info' className='info'>
-        <span className='artist'>{audioPlayer && audioPlayer.artist || ''}</span>
-        <span className='name'>{audioPlayer && audioPlayer.name || ''}</span>
+        <span className='artist'>{mData && mData.artist ? mData.artist : ''}</span>
+        <span className='name'>{mData && mData.name ? mData.name : ''}</span>
         {props.isProgressBar && <div className='progress-bar'>
           <div className='bar'></div>
         </div>}

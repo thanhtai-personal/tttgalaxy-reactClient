@@ -32,9 +32,14 @@ const AudioPlayer = (props) => {
     connectionUrl: props.src || '',
     error: {},
     isVideo: props.isVideo,
-    isList: false
+    isList: false,
   },
-  player = {}
+  player = {},
+  autoChangeMusicCallBack = null
+
+  const setAutoChangeMusicCallBack = (callback) => {
+    autoChangeMusicCallBack = callback
+  }
 
   returnData.addSound = (data) => {
     const addData = (_data, isList) => {
@@ -43,7 +48,8 @@ const AudioPlayer = (props) => {
           returnData.isList = true
           returnData.soundListPlayer.push({
             key: `sound-1`,
-            src: typeof returnData.src === 'string' ? returnData.src : ''
+            src: typeof returnData.src === 'string' ? returnData.src : '',
+            ...returnData
           })
         }
       }
@@ -127,7 +133,8 @@ const AudioPlayer = (props) => {
       src: typeof s === 'string' ? s : s.src,
       name: typeof s === 'string' ? 'unknow' : s.name,
       isVideo: props.isVideo,
-      isPlaying: index === 0 ? true : false
+      isPlaying: index === 0 ? true : false,
+      ...s
     }))
     returnData.isList = true
     returnData.currentSound = 0
@@ -166,7 +173,10 @@ const AudioPlayer = (props) => {
   })
   playCurrentSound(false)
   if (returnData.isList) {
-    player.addEventListener('ended', returnData.next)
+    player.addEventListener('ended', () => {
+      returnData.next()
+      typeof autoChangeMusicCallBack === 'function' && autoChangeMusicCallBack(returnData.getCurrentSoundData())
+    })
   }
   returnData.renderedElement = player
   
@@ -176,7 +186,8 @@ const AudioPlayer = (props) => {
     getData: getPlayerData,
     setData: setPlayerData,
     getCurrentSound: getCurrentSoundData,
-    run: runPlayer
+    run: runPlayer,
+    setAutoChangeMusicCallBack: setAutoChangeMusicCallBack
   }
 }
 
