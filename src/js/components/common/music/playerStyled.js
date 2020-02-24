@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const backgroundColor = '#fff'
 
-export const Player = styled.div`
+export const PlayerStyled = styled.div`
   position: absolute;
   top: 520px;
   left: calc(100vw - 400px);

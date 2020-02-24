@@ -31,10 +31,10 @@ export const EVENT_EMITTER_COMMAND = {
   clearSnow: 'remove snow',
   showSnowSlow: 'single snow',
   clearSnowSlow: 'remove single snow',
-  musicOn: 'music on',
-  musicOff: 'music off',
-  musicNext: 'next',
-  musicPrev: 'prev',
-  musicPause: 'pause',
-  musicPlay: 'play'
+  // musicOn: 'music on',
+  // musicOff: 'music off',
+  // musicNext: 'next',
+  // musicPrev: 'prev',
+  // musicPause: 'pause',
+  // musicPlay: 'play'
 }

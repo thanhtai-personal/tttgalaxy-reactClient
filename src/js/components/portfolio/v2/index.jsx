@@ -7,7 +7,7 @@ import RainEffect from './../../common/cssEffects/rain/rain'
 import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
 import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
 import LoadingPage from './../../common/loadingPage'
-import Music from './../../common/music/music'
+import { Music } from './../../common/music/music'
 
 const Slider = React.lazy(() => import('./slider'))
 const Skill = React.lazy(() => import('./service'))
@@ -234,7 +234,7 @@ class Portfolio extends PureComponent {
           <Suspense fallback={this.renderLoading()}>
             <SeaFooter />
           </Suspense>}
-        {/* <Music listAudioUrl={listAudio}/> */}
+        <Music listAudioUrl={listAudio}/>
       </React.Fragment>
     )
   }

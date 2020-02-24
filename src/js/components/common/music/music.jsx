@@ -1,36 +1,34 @@
 import React, { useState, Suspense, useEffect, useLayoutEffect } from 'react'
-import AudioPlayer from './../../utils/audioPlayer'
 import { withEventEmitter } from '../../../middleware'
-import { EVENT_EMITTER_COMMAND } from '../../../constants/enums'
+// import { EVENT_EMITTER_COMMAND } from '../../../constants/enums'
 import _ from 'lodash'
 import './music.scss'
-import { Player } from './playerStyled'
-import { debug } from 'webpack'
-
+import { PlayerStyled } from './playerStyled'
+import slca from './sounds/wah-wah-wah.mp3'
 const SoundDefault = { name: 'Sai lầm của anh', artist: 'Bell', path: './sounds/sai-lam-cua-anh.mp3' }
 
-const PlayerManager = (listAudioUrl) => {
+export const PlayerManager = (listAudioUrl) => {
   let currentData = SoundDefault, index = 0, maxIndex = listAudioUrl.length - 1
   const next = () => {
-    if (index++ > maxIndex) {
+    if (++index > maxIndex) {
       index = 0
     }
     currentData = listAudioUrl[index] || SoundDefault
     return currentData
   }
   const prev = () => {
-    if (index-- < 0) {
+    if (--index < 0) {
       index = maxIndex
     }
     currentData = listAudioUrl[index] || SoundDefault
     return currentData
   }
   return {
-    prev, next
+    prev, next, data: currentData
   }
 }
 
-const Music = (props = {}) => {
+const MusicComponent = (props = {}) => {
   const soundDefault = props.listAudioUrl && props.listAudioUrl[0] 
     ? props.listAudioUrl[0] 
     : SoundDefault
@@ -50,25 +48,53 @@ const Music = (props = {}) => {
       return playCondition ? infoBarObj.classList.add('active') : infoBarObj.classList.remove('active')
     })
     if (playCondition) {
-      Player && Player.play()
+      if (!Player) {
+        // Player = new Audio(audioPlayer.path)
+        Player = new Audio(slca)
+        Player.load()
+      }
+      if (Player && typeof Player.play === 'function') {
+        Player.play()
+      }
     } else { //pause
-      Player && Player.pause()
+      if (Player && typeof Player.pause === 'function') {
+        Player.pause()
+      }
     }
   }
 
   const prev = () => {
-    setAudioPlayer(PlayerManagerInstant.prev())
+    // setAudioPlayer(() => {
+    //   let returnData = PlayerManagerInstant.prev()
+    //   if (!Player) {
+    //     // Player = new Audio(audioPlayer.path)
+    //     Player = new Audio(slca)
+    //   }
+    //   Player.pause()
+    //   Player.currentTime = 0
+    //   // Player.load(returnData.path)
+    //   Player.play()
+    //   return returnData
+    // })
   }
 
   const next = () => {
-    setAudioPlayer(PlayerManagerInstant.next())
+    // setAudioPlayer(() => {
+    //   let returnData = PlayerManagerInstant.next()
+    //   if (!Player) {
+    //     // Player = new Audio(audioPlayer.path)
+    //     Player = new Audio(slca)
+    //   }
+    //   Player.pause()
+    //   Player.currentTime = 0
+    //   Player.load(returnData.path)
+    //   Player.play()
+    //   return returnData
+    // })
   }
 
-  useEffect(() => {
-    Player = document.getElementById('hidden-audio-element')
-  })
   return (
-    <Player className={props.className || ''}>
+    <PlayerStyled className={props.className || ''}>
       <div id='info' className='info'>
         <span className='artist'>{audioPlayer && audioPlayer.artist || ''}</span>
         <span className='name'>{audioPlayer && audioPlayer.name || ''}</span>
@@ -84,12 +110,11 @@ const Music = (props = {}) => {
           <div className='next' onClick={next}></div>
         </div>
       </div>
-      {/* <audio style={{ display: 'none'}} id='hidden-audio-element' src={audioPlayer && audioPlayer.path}></audio> */}
-    </Player>
+    </PlayerStyled>
   )
 }
 
-export default withEventEmitter(Music)
+export const Music = withEventEmitter(MusicComponent)
 
 
 // props.eventEmitter.on('promp-action', (message) => {
