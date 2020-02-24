@@ -1,7 +1,7 @@
-import React, { PureComponent, Suspense } from "react";
+import React, { PureComponent, Suspense } from "react"
 import $ from 'jquery'
 import './style.scss'
-import { withEventEmitter } from '../../../middleware';
+import { withEventEmitter } from '../../../middleware'
 import { EVENT_EMITTER_COMMAND } from './../../../constants/enums'
 import RainEffect from './../../common/cssEffects/rain/rain'
 import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
@@ -34,7 +34,16 @@ const showDefault = {
 const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120
 
 const listAudio = [
-  '/sounds/sai-lam-cua-anh.mp3'
+  {
+    name: 'Sai lam cua anh',
+    artist: 'nhacchuongvui.com',
+    path: './sounds/sai-lam-cua-anh.mp3'
+  },
+  {
+    name: '/wah wah wah',
+    artist: 'nhacchuongvui.com',
+    path: './sounds/wah-wah-wah.mp3'
+  },
 ]
 
 class Portfolio extends PureComponent {
@@ -78,13 +87,13 @@ class Portfolio extends PureComponent {
       switch (message) {
         case EVENT_EMITTER_COMMAND.clearOcean:
           this.setState({ showOcean: false })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.clearRain:
           this.setState({ showRain: false })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.clearSpace:
           this.setState({ showSpace: false })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.clearAll:
           this.setState({
             showSpace: false,
@@ -94,10 +103,10 @@ class Portfolio extends PureComponent {
             showSnowSlow: false,
             showTraveler: false
           })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.show:
           this.setState({ ...showDefault })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showAll:
           this.setState({
             showSpace: true,
@@ -107,22 +116,22 @@ class Portfolio extends PureComponent {
             showTraveler: true,
             showSnowSlow: true
           })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showOcean:
           this.setState({ showOcean: true })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showSpace:
           this.setState({ showSpace: true })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showRain:
           this.setState({ showRain: true, background: rainBackground })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showTraveler:
           this.setState({ showTraveler: true })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.clearTraveler:
           this.setState({ showTraveler: false })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.removeAnimate:
           clearInterval(this.animateIntervalId)
           this.setState({
@@ -132,22 +141,22 @@ class Portfolio extends PureComponent {
             showSnow: false,
             showTraveler: false
           })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.excuseAnimate:
           this.animateIntervalId = setInterval(this.animateInterval, 1000)
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showSnow:
           this.setState({ showSnow: true })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.clearSnow:
           this.setState({ showSnow: false })
-          break;
+          break
         case EVENT_EMITTER_COMMAND.showSnowSlow:
           this.setState({ showSnowSlow: true, showRain: false })
-          break;
-        case EVENT_EMITTER_COMMAND.showSnowSlow:
+          break
+        case EVENT_EMITTER_COMMAND.clearSnowSlow:
           this.setState({ showSnowSlow: false })
-          break;
+          break
       }
     })
   }
@@ -167,7 +176,7 @@ class Portfolio extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.showRain != this.state.showRain) {
+    if (prevState.showRain !== this.state.showRain) {
       $('body').css({ background: this.state.showRain ? rainBackground : defaultBackground })
     }
   }
@@ -225,7 +234,7 @@ class Portfolio extends PureComponent {
           <Suspense fallback={this.renderLoading()}>
             <SeaFooter />
           </Suspense>}
-        <Music listAudioUrl={listAudio}/>
+        {/* <Music listAudioUrl={listAudio}/> */}
       </React.Fragment>
     )
   }
