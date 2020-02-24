@@ -30,5 +30,11 @@ export const EVENT_EMITTER_COMMAND = {
   showSnow: 'snow',
   clearSnow: 'remove snow',
   showSnowSlow: 'single snow',
-  clearSnowSlow: 'remove single snow'
+  clearSnowSlow: 'remove single snow',
+  musicOn: 'music on',
+  musicOff: 'music off',
+  musicNext: 'next',
+  musicPrev: 'prev',
+  musicPause: 'pause',
+  musicPlay: 'play'
 }

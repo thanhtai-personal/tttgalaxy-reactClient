@@ -6,6 +6,7 @@ import { EVENT_EMITTER_COMMAND } from './../../../constants/enums'
 import RainEffect from './../../common/cssEffects/rain/rain'
 import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
 import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
+import Music from './../../common/music/music'
 
 const Slider = React.lazy(() => import('./slider'))
 const Skill = React.lazy(() => import('./service'))
@@ -31,6 +32,9 @@ const showDefault = {
 
 const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120
 
+const listAudio = [
+  '/sounds/sai-lam-cua-anh.mp3'
+]
 
 class Portfolio extends PureComponent {
 
@@ -219,6 +223,7 @@ class Portfolio extends PureComponent {
           <Suspense fallback={this.renderLoading()}>
             <SeaFooter />
           </Suspense>}
+        <Music listAudioUrl={listAudio}/>
       </React.Fragment>
     )
   }
