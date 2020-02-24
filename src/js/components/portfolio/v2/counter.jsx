@@ -93,11 +93,7 @@ const Counter = (props) => {
             <ul>
               {projects.map((proj, index) => (
                 <li title={proj.url} key={`project-${index}`} onMouseOver={() => { setProjectData(proj) }}>
-<<<<<<< HEAD
                   <a href={proj.url || '#'} target='_blank' rel="noopener noreferrer">
-=======
-                  <a href={proj.url || '#'} target='_blank' rel='noopener noreferrer'>
->>>>>>> d6e9243a37263d55b95e7a72bbf014db81779a83
                     {proj.name}<br/>
                     <i className={proj.type.indexOf('game') !== -1 ? 'fas fa-gamepad' : 'fad fa-browser'}></i>
                   </a>
