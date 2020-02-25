@@ -16,6 +16,7 @@ const Contact = React.lazy(() => import('./aboutMe'))
 const Projects = React.lazy(() => import('./counter'))
 const Hobbies = React.lazy(() => import('./hobbies'))
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 // const RainEffect = React.lazy(() => import('./../../common/cssEffects/rain/rain'))
 const SpaceEffect = React.lazy(() => import('./../../common/cssEffects/spacing/space'))
@@ -28,7 +29,7 @@ const showDefault = {
   showRain: false,
   showSnow: false,
   showTraveler: false,
-  showSnowSlow: true
+  showSnowSlow: !isMobile
 }
 
 const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120

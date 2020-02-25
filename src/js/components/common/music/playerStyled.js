@@ -4,8 +4,14 @@ const backgroundColor = '#fff'
 
 export const PlayerStyled = styled.div`
   position: absolute;
-  top: 520px;
+	top: 520px;
   left: calc(100vw - 400px);
+	@media (max-width: 775px) {
+		top: 420px;
+	}
+	@media (max-width: 460px) {
+		left: calc(100vw - 300px);
+	}
 	.info {
 		position: absolute;
 		height: 60px;
