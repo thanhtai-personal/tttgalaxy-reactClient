@@ -6,56 +6,188 @@ import './music.scss'
 import { PlayerStyled } from './playerStyled'
 
 import AudioPlayer from './../../utils/audioPlayer'
-import sailamcuaanh from './sounds/sai-lam-cua-anh.mp3'
-import chiviquayeuem from './sounds/Nhac-chuong-Chi-vi-qua-yeu-em-Lac-Vu-www_nhacchuongvui_com.mp3'
-import chungtakhonggiongnhau from './sounds/Nhac-chuong-Chung-ta-khong-giong-nhau-www_nhacchuongvui_com.mp3'
-import dethuongbaby from './sounds/Nhac-chuong-de-thuong-baby-www_nhacchuongvui_com.mp3'
-import dungnhuthoiquen from './sounds/Nhac-chuong-Dung-nhu-thoi-quen-doan-JayKii-www_nhacchuongvui_com.mp3'
-import duyentroilay from './sounds/Nhac-chuong-Duyen-troi-lay-2-Chung-Thanh-Duy-www_nhacchuongvui_com.mp3'
-import ido from './sounds/Nhac-chuong-I-Do-911-www_nhacchuongvui_com.mp3'
-import zuneazunea from './sounds/Nhac-chuong-Zunea-zunea-www_nhacchuongvui_com.mp3'
+import saiLamCuanAnh from './sounds/sai-lam-cua-anh.mp3'
+import chiViQuaYen from './sounds/Nhac-chuong-Chi-vi-qua-yeu-em-Lac-Vu-www_nhacchuongvui_com.mp3'
+import dungNhuThoiQuen from './sounds/Nhac-chuong-Dung-nhu-thoi-quen-doan-JayKii-www_nhacchuongvui_com.mp3'
+import duyenTroiLay from './sounds/Nhac-chuong-Duyen-troi-lay-2-Chung-Thanh-Duy-www_nhacchuongvui_com.mp3'
+import trongTriNhoCuaAnh from './sounds/trong-tri-nho-cua-anh.mp3'
+import noiMinhDungChan from './sounds/noi_minh_dung_chan.mp3'
+import honCaYeu from './sounds/honcayeu.mp3'
+import tkme from './sounds/tu-khi-mat-em.mp3'
+import emluonotrongtamtrianh from './sounds/em-luon-o-trong-tam-tri-anh.mp3'
+import nguoitacothuongminhdau from './sounds/nguoitacothuongminhdau.mp3'
+import tamsutuoi30 from './sounds/tamsutuoi30.mp3'
+import triki from './sounds/triki.mp3'
+import muonmanglatuluc from './sounds/muonmanglatuluc.mp3'
+import ngoisaoleloi from './sounds/ngoisaoleloi.mp3'
+import bacphan from './sounds/bacphan.mp3'
+import tungyeu from './sounds/tungyeu.mp3'
+import yeumotnguoicole from './sounds/yeumotnguoicole.mp3'
+import toidaquenthatroi from './sounds/toidaquenthatroi.mp3'
+import ngamhoaleroi from './sounds/ngamhoaleroi.mp3'
+import thattinh from './sounds/thattinh.mp3'
+import neungayay from './sounds/neungayay.mp3'
+import nguoiay from './sounds/nguoiay.mp3'
+import hoacovangnoiay from './sounds/hoacovangnoiay.mp3'
+import voivayeunhauvoivaroi from './sounds/voivayeunhauvoivaroi.mp3'
+import yeu from './sounds/yeu.mp3'
+import sautatca from './sounds/sautatca.mp3'
+import doidaytoi from './sounds/doidaytoi.mp3'
+import emthenao from './sounds/emthenao.mp3'
+import maimailabaoxa from './sounds/maimailabaoxa.mp3'
+import khovenucuoi from './sounds/khovenucuoi.mp3'
 
 const defaultMusicList = [
   {
-    name: 'I do',
-    artist: 'nhacchuongvui.com',
-    src: ido
+    name: 'Trong trí nhớ của anh',
+    artist: 'NTTrung Quân',
+    src: trongTriNhoCuaAnh
   },
   {
-    name: 'Sai lầm của anh',
-    artist: 'nhacchuongvui.com',
-    src: sailamcuaanh
+    name: 'Yêu',
+    artist: 'Khắc Việt',
+    src: yeu
+  },
+  {
+    name: 'Tôi đã quên thật rồi',
+    artist: 'Issac',
+    src: toidaquenthatroi
+  },
+  {
+    name: 'Khó vẽ nụ cười',
+    artist: '___',
+    src: khovenucuoi
+  },
+  {
+    name: 'Vội vã yêu nhau vội vã rời',
+    artist: 'LBH',
+    src: voivayeunhauvoivaroi
+  },
+  {
+    name: 'Sau tất cả',
+    artist: '___',
+    src: sautatca
+  },
+  {
+    name: 'Em thế nào',
+    artist: '___',
+    src: emthenao
+  },
+  {
+    name: 'Ngắm hoa lệ rơi',
+    artist: 'Châu Khải Phong',
+    src: ngamhoaleroi
+  },
+  {
+    name: 'Muộn màng là từ lúc',
+    artist: 'Mỹ Tâm',
+    src: muonmanglatuluc
+  },
+  {
+    name: 'Yêu một người có lẽ',
+    artist: 'v2',
+    src: yeumotnguoicole
+  },
+  {
+    name: 'Đời dạy tôi',
+    artist: 'mp3.zing.vn',
+    src: doidaytoi
+  },
+  {
+    name: 'Thất tình',
+    artist: 'Trịnh Đình Quang',
+    src: thattinh
+  },
+  {
+    name: 'Tâm sự tuổi 30',
+    artist: 'Trịnh Thăng Bình',
+    src: tamsutuoi30
+  },
+  {
+    name: 'Nếu ngày ấy',
+    artist: '____',
+    src: neungayay
+  },
+  {
+    name: 'Người ấy',
+    artist: 'Trịnh Thăng Bình',
+    src: nguoiay
+  },
+  {
+    name: 'Mãi mãi là bao xa',
+    artist: 'LBH',
+    src: maimailabaoxa
+  },
+  {
+    name: 'Em luôn ở trong tâm trí anh',
+    artist: 'The men',
+    src: emluonotrongtamtrianh
+  },
+  {
+    name: 'Người ta có thương mình đâu',
+    artist: 'The men',
+    src: nguoitacothuongminhdau
+  },
+  {
+    name: 'Bạc phận',
+    artist: '&&&',
+    src: bacphan
+  },
+  {
+    name: 'Từng yêu',
+    artist: '&&&',
+    src: tungyeu
+  },
+  {
+    name: 'Ngôi sao lẽ loi',
+    artist: 'PDT',
+    src: ngoisaoleloi
+  },
+  {
+    name: 'Hơn cả yêu',
+    artist: 'Đức Phúc',
+    src: honCaYeu
+  },
+  {
+    name: 'Nơi mình dừng chân',
+    artist: 'My Tâm',
+    src: noiMinhDungChan
+  },
+  {
+    name: 'Tri kỹ',
+    artist: 'PMạnh Quỳnh',
+    src: triki
   },
   {
     name: 'Chi vì quá yêu',
     artist: 'nhacchuongvui.com',
-    src: chiviquayeuem
+    src: chiViQuaYen
   },
   {
-    name: 'nhạc chuông dể thương',
+    name: 'Từ khi mất em',
+    artist: 'The men',
+    src: tkme
+  },
+  {
+    name: 'Sai lầm của anh',
     artist: 'nhacchuongvui.com',
-    src: dethuongbaby
+    src: saiLamCuanAnh
   },
   {
     name: 'Đừng như thói quen',
     artist: 'nhacchuongvui.com',
-    src: dungnhuthoiquen
+    src: dungNhuThoiQuen
   },
   {
     name: 'Duyên trời lấy',
     artist: 'nhacchuongvui.com',
-    src: duyentroilay
+    src: duyenTroiLay
   },
   {
-    name: 'Zunea Zunea',
-    artist: 'nhacchuongvui.com',
-    src: zuneazunea
+    name: 'Hoa có vàng nơi ấy',
+    artist: '___',
+    src: hoacovangnoiay
   },
-  {
-    name: 'Chúng ta không giống nhau',
-    artist: 'nhacchuongvui.com',
-    src: chungtakhonggiongnhau
-  }
 ]
 
 const Player = AudioPlayer({ src: defaultMusicList, isVideo: false })
