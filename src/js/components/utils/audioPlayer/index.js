@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import path from 'path'
 
 const errorMessage = {
   connectionUrl: 'null connection url'
@@ -105,9 +106,11 @@ const AudioPlayer = (props) => {
       }
     }
   }
-
-  const playCurrentSound = (isPlay, customSound) => {
+  const playCurrentSound = async (isPlay, customSound) => {
     let _sound = customSound || returnData.soundListPlayer.find((s) => s.key === `sound-${returnData.currentSound + 1}`)
+    if (_sound.dynamicImport) {
+      _sound.src = await require('./../../../../data/sounds/Nhac-chuong-Tay-Du-Ky-www_nhacchuongvui_com.mp3')
+    }
     if (_sound.isVideo) {
       player = document.createElement("video")
       player.setAttribute("src", _sound.src)
@@ -173,7 +176,7 @@ const AudioPlayer = (props) => {
   })
   playCurrentSound(false)
   if (returnData.isList) {
-    player.addEventListener('ended', () => {
+    player && typeof player.addEventListener === 'function' && player.addEventListener('ended', () => {
       returnData.next()
       typeof autoChangeMusicCallBack === 'function' && autoChangeMusicCallBack(returnData.getCurrentSoundData())
     })

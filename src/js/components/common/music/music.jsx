@@ -2,59 +2,61 @@ import React, { useState, Suspense, useEffect, useLayoutEffect } from 'react'
 import { withEventEmitter } from '../../../middleware'
 // import { EVENT_EMITTER_COMMAND } from '../../../constants/enums'
 import _ from 'lodash'
+import path from 'path'
 import './music.scss'
 import { PlayerStyled } from './playerStyled'
 
 import AudioPlayer from './../../utils/audioPlayer'
-import sailamcuaanh from './sounds/sai-lam-cua-anh.mp3'
-import chiviquayeuem from './sounds/Nhac-chuong-Chi-vi-qua-yeu-em-Lac-Vu-www_nhacchuongvui_com.mp3'
-import chungtakhonggiongnhau from './sounds/Nhac-chuong-Chung-ta-khong-giong-nhau-www_nhacchuongvui_com.mp3'
-import dethuongbaby from './sounds/Nhac-chuong-de-thuong-baby-www_nhacchuongvui_com.mp3'
-import dungnhuthoiquen from './sounds/Nhac-chuong-Dung-nhu-thoi-quen-doan-JayKii-www_nhacchuongvui_com.mp3'
-import duyentroilay from './sounds/Nhac-chuong-Duyen-troi-lay-2-Chung-Thanh-Duy-www_nhacchuongvui_com.mp3'
-import ido from './sounds/Nhac-chuong-I-Do-911-www_nhacchuongvui_com.mp3'
-import zuneazunea from './sounds/Nhac-chuong-Zunea-zunea-www_nhacchuongvui_com.mp3'
+
 
 const defaultMusicList = [
   {
     name: 'I do',
     artist: 'nhacchuongvui.com',
-    src: ido
+    path: '/sounds/Nhac-chuong-I-Do-911-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'Sai lầm của anh',
     artist: 'nhacchuongvui.com',
-    src: sailamcuaanh
+    path: '/sounds/sai-lam-cua-anh.mp3',
+    dynamicImport: true
   },
   {
     name: 'Chi vì quá yêu',
     artist: 'nhacchuongvui.com',
-    src: chiviquayeuem
+    path: '/sounds/Nhac-chuong-Chi-vi-qua-yeu-em-Lac-Vu-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'nhạc chuông dể thương',
     artist: 'nhacchuongvui.com',
-    src: dethuongbaby
+    path: '/sounds/Nhac-chuong-de-thuong-baby-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'Đừng như thói quen',
     artist: 'nhacchuongvui.com',
-    src: dungnhuthoiquen
+    path: '/sounds/Nhac-chuong-Dung-nhu-thoi-quen-doan-JayKii-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'Duyên trời lấy',
     artist: 'nhacchuongvui.com',
-    src: duyentroilay
+    path: '/sounds/Nhac-chuong-Duyen-troi-lay-2-Chung-Thanh-Duy-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'Zunea Zunea',
     artist: 'nhacchuongvui.com',
-    src: zuneazunea
+    path: '/sounds/Nhac-chuong-Zunea-zunea-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   },
   {
     name: 'Chúng ta không giống nhau',
     artist: 'nhacchuongvui.com',
-    src: chungtakhonggiongnhau
+    path: '/sounds/Nhac-chuong-Chung-ta-khong-giong-nhau-www_nhacchuongvui_com.mp3',
+    dynamicImport: true
   }
 ]
 
