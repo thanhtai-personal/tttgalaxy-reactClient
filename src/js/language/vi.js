@@ -25,7 +25,9 @@ export default {
     game: 'Trò chơi',
     novel: 'Tiểu thuyết',
     language: 'Ngôn ngữ',
-    blogEditor: 'Viết Blog'
+    blogEditor: 'Viết Blog',
+    portfolioPage: 'CV',
+    shop: 'Tạp hóa trực tuyến'
   },
   blog: {
 

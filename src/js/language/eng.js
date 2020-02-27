@@ -1,5 +1,3 @@
-import blogCreator from "../components/blogCreator";
-
 export default {
   login: {
     welcomeToTTTGalaxy: 'Welcome to TTT Galaxy!',
@@ -27,7 +25,9 @@ export default {
     game: 'Game',
     novel: 'Novel',
     language: 'language',
-    blogEditor: 'Blog writer'
+    blogEditor: 'Blog writer',
+    portfolioPage: 'Portfolio',
+    shop: 'Online shop'
   },
   blog: {
 
