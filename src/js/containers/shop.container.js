@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Shop from './../../components/shopping/item.list.jsx'
+import ShopComponent from './../components/shopping'
 
 
 class Shop extends Component {
   render() {
-    const { listItem } = this.props
     return (
-      <ItemList
-        data={listItem}
-      />
+      <ShopComponent />
     )
   }
 }

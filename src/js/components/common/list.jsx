@@ -12,7 +12,7 @@ class ListProductFactory extends PureComponent {
   }
 
   renderItemList () {
-    const { props: { dataList, maxItemInRow, onClickItem } } = this
+    const { props: { dataList = [], maxItemInRow, onClickItem } } = this
     let itemInRow = []
     let ItemListElement = []
     const countItem = dataList.length

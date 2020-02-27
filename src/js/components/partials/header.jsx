@@ -14,7 +14,7 @@ class Header extends React.PureComponent {
   }
 
   render() {
-    const { props: { setLanguage, language } } = this
+    const { props: { setLanguage = () => {}, language = {} } } = this
     return (
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark ttt-custom-header" id="header-7319">
         <div className="navbar-brand logo">
@@ -55,10 +55,9 @@ class Header extends React.PureComponent {
 }
 
 
-function mapStateToProps({ common: { language } }) {
+function mapStateToProps({  }) {
   return {
-    language: language.header
   };
 }
 
-export default connect(mapStateToProps, { logout: ActionService.logout })(Header)
+export default connect(mapStateToProps, {  })(Header)

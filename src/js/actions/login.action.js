@@ -5,7 +5,6 @@ import {
   UPDATE_DATA_INPUT_LOGIN,
   USER_LOGIN,
   RESET_ALL_STATE,
-  UPDATE_REDIRECT_DATA,
   GET_AUTH_DATA
 } from "../constants/action-types";
 
@@ -31,10 +30,4 @@ export const logout = () => {
 
 export const getAuthData = () => {
   return { type: GET_AUTH_DATA, payload: {} }
-}
-
-export const resetRedirectData = () => {
-  store.dispatch({
-    type: UPDATE_REDIRECT_DATA, payload: { isRedirect: false, from: '#', to: '#' }
-  })
 }

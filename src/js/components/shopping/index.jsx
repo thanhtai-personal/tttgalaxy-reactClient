@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 // import _ from 'lodash'
 
-import List from './../common/list'
+import List from '../common/list'
 
 import './list.scss'
 

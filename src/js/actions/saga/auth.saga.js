@@ -10,7 +10,6 @@ import {
   SUBMIT_SIGNUP,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  UPDATE_REDIRECT_DATA,
   GET_AUTH_DATA,
   VERIFY_TOKEN_FAILED
 } from '../../constants/action-types'
@@ -27,7 +26,6 @@ function* login() {
     // !_.isNil(dataResponse.data.token) && apiInstant.setToken(dataResponse.data.token)
     yield put({ type: LOGIN_SUCCESS, payload: { loginLoading: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse.data } });
-    yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/home', isRedirect: true }});
   } catch(error) {
     yield put({ type: LOGIN_FAILED, payload: { error: error } });
   }      
@@ -62,7 +60,6 @@ function* signup() {
     .then(response => response )
     yield put({ type: REGISTER_SUCCESS, payload: { loadingSubmit: false } });
     yield put({ type: UPDATE_USER_DATA, payload: { userData: dataResponse } });
-    yield put({ type: UPDATE_REDIRECT_DATA, payload: { from: window.location.pathname , to: '/login', isRedirect: true }});
   } catch(error) {
     yield put({ type: REGISTER_FAILED, payload: { error: error, loadingSubmit: false } });
   }      

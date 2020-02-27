@@ -1,4 +1,5 @@
 import {
+  RESET_ALL_STATE
 } from "../constants/action-types";
 
 const initialState = {
