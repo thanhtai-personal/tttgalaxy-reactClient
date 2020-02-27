@@ -72,10 +72,9 @@ export const RequireAuth = (ComposedComponent) => {
 export const UserLayout = (Layout, ComposedComponent) => {
   class UseHeaderComponent extends React.PureComponent {
     render() {
-      const { setLanguage } = this.props
       return (
         < React.Fragment >
-          {Layout.header && <Layout.header setLanguage={setLanguage}  />}
+          {Layout.header && <Layout.header  />}
           <ComposedComponent {...this.props} />
           {Layout.footer && <Layout.footer />}
         </React.Fragment >

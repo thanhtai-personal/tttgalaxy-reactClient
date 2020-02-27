@@ -8,46 +8,19 @@ class PortfolioContainer extends Component {
 
   render () {
     const {
-      skill, basicInfo, experiences, education,
-      profileImageUrl, updatePortfolioData, updatePortfolioDataWithObjectKey,
-      submitDataUpdatePortfolio, getPortfolioData,
-      publicProfile,
-      publicKey,
-      isLoading
     } = this.props
     return (
-      <PortfolioV2
-        profileImageUrl={profileImageUrl}
-        skill={skill}
-        basicInfo={basicInfo}
-        experiences={experiences}
-        education={education}
-        updateContentData={updatePortfolioData}
-        updatePortfolioDataWithObjectKey={updatePortfolioDataWithObjectKey}
-        validateDataUpdate={actionService.validateDataUpdate}
-        submitDataUpdate={submitDataUpdatePortfolio}
-        getPortfolioData={getPortfolioData}
-        publicProfile={publicProfile}
-        paramPublicKey={this.props.match && this.props.match.params ? this.props.match.params.publicKey : null}
-        publicKey={publicKey}
-        isLoading={isLoading}
-      />
+      <PortfolioV2 />
     )
   }
 }
 
-function mapStateToProps ({ portfolio: { skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey, isLoading } }) {
+function mapStateToProps ({ }) {
   return {
-    skill, basicInfo, experiences, education, profileImageUrl, publicProfile, publicKey, isLoading
   };
 }
 
 export default connect(
   mapStateToProps,
-  {
-    updatePortfolioData: actionService.updatePortfolioData,
-    updatePortfolioDataWithObjectKey: actionService.updatePortfolioDataWithObjectKey,
-    submitDataUpdatePortfolio: actionService.submitDataUpdatePortfolio,
-    getPortfolioData: actionService.getPortfolioData
-  }
+  {}
 )(PortfolioContainer);

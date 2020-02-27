@@ -1,8 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 
-import '../portfolio/v2/template/melan/css/style.css'
+import './style.scss'
 
 import ActionService from '../../actions'
 
@@ -57,10 +56,5 @@ class PortfolioFooter extends React.PureComponent {
 }
 
 
-function mapStateToProps({ common: { language } }) {
-  return {
-    language: language.header
-  };
-}
 
-export default connect(mapStateToProps, { logout: ActionService.logout })(PortfolioFooter)
+export default PortfolioFooter

@@ -1335,19 +1335,19 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
 .slider_bg_1 {
-  background-image: url(./../../data/img/banner.png);
+  background-image: url(./../data/img/banner.png);
 }
 
 /* line 4, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
 .slider_bg_2 {
-  background-image: url(./../../data/img/banner.png);
+  background-image: url(./../data/img/banner.png);
 }
 
 /* line 8, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
 .slider_area .single_slider {
   position: relative;
   z-index: 0;
-  height: 600px;
+  height: 900px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -1363,9 +1363,9 @@ h3 {
 /* line 21, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
 .slider_area .single_slider .social_links {
   position: absolute;
-  right: 10px;
+  right: 100px;
   z-index: 999;
-  top: 85%;
+  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -1450,15 +1450,12 @@ h3 {
 
 /* line 74, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
 .slider_area .single_slider::before {
-  border-radius: 50%;
-  background-size: 500px auto;
   position: absolute;
   bottom: 0;
   left: 0;
-  background-image: url(./../../data/img/grid.jpg);
-  background: cover;
-  width: 500px;
-  height: 500px;
+  // background-image: url(./../data/img/man.png);
+  width: 724px;
+  height: 767px;
   content: '';
 }
 
@@ -1487,7 +1484,7 @@ h3 {
   position: absolute;
   top: 0;
   right: 0;
-  background-image: url(./../../data/img/cirlcle.png);
+  background-image: url(./../data/img/cirlcle.png);
   width: 531px;
   height: 504px;
   content: '';
@@ -1564,7 +1561,7 @@ h3 {
 .slider_area .single_slider .slider_text h3 {
   color: #FFF;
   font-family: "Muli", sans-serif;
-  font-size: 60px;
+  font-size: 80px;
   text-transform: capitalize;
   font-weight: 700;
   line-height: 82px;
@@ -1629,15 +1626,6 @@ h3 {
   color: #FFFFFF;
   position: relative;
   z-index: 1;
-  &.slogan {
-    font-style: italic;
-    font-size: 1rem;
-    line-height: 1rem;
-    background-color: gray;
-    &:before {
-      width: 0;
-    }
-  }
 }
 
 /* line 186, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_slider.scss */
@@ -1938,7 +1926,7 @@ h3 {
 
 /* line 168, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_features.scss */
 .productivity_area {
-  background-image: url(./../../data/img/product.png);
+  background-image: url(./../data/img/product.png);
   background-size: cover;
   background-position: center center;
   padding: 164px 0;
@@ -2010,18 +1998,8 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_counter.scss */
 .counter_area {
-  padding-bottom: 30px;
-  padding-top: 50px;
-}
-
-.counter_area {
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #001D38;
-  margin-bottom: 20px;
-  content: '';
+  padding-bottom: 120px;
+  padding-top: 75px;
 }
 
 @media (max-width: 767px) {
@@ -2084,7 +2062,7 @@ h3 {
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_about.scss */
 .about_me {
   padding-top: 75px;
-  padding-bottom: 75px;
+  padding-bottom: 150px;
   position: relative;
 }
 
@@ -2418,14 +2396,12 @@ h3 {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 60px;
-  position: relative;
 }
 
 /* line 6, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_footer.scss */
 .footer .footer_top {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   background: #001D38;
 }
 
@@ -2548,22 +2524,22 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_bradcam.scss */
 .bradcam_bg_1 {
-  background-image: url(./../../data/img/bradcam.png);
+  background-image: url(./../data/img/bradcam.png);
 }
 
 /* line 4, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_bradcam.scss */
 .breadcam_bg_2 {
-  background-image: url(./../../data/img/bradcam.png);
+  background-image: url(./../data/img/bradcam.png);
 }
 
 /* line 7, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_bradcam.scss */
 .breadcam_bg_3 {
-  background-image: url(./../../data/img/bradcam.png);
+  background-image: url(./../data/img/bradcam.png);
 }
 
 /* line 10, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_bradcam.scss */
 .breadcam_bg_4 {
-  background-image: url(./../../data/img/bradcam.png);
+  background-image: url(./../data/img/bradcam.png);
 }
 
 /* line 13, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_bradcam.scss */
@@ -2896,7 +2872,7 @@ h3 {
 /* line 2, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_tesmonial.scss */
 .testimonial_area {
   padding: 130px 0;
-  background-image: url(./../../data/img/banner2.png);
+  background-image: url(./../data/img/banner2.png);
   position: relative;
   z-index: 0;
   background-size: cover;
@@ -3034,8 +3010,8 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_service.scss */
 .service_area {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 @media (max-width: 767px) {
@@ -3189,12 +3165,13 @@ h3 {
 
 /* line 1, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_portfolio.scss */
 .portfolio_area {
+  background-image: url(./../data/img/portfolio_bg.png);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   position: relative;
-  padding-top: 5px;
-  padding-bottom: 15px;
+  padding-top: 180px;
+  padding-bottom: 340px;
 }
 
 @media (max-width: 767px) {
@@ -4740,7 +4717,7 @@ h6 {
 
 /* line 798, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .primary-checkbox input:checked + label {
-  background: url(./../../data/img/primary-check.png) no-repeat center center/cover;
+  background: url(./../data/img/primary-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -4782,7 +4759,7 @@ h6 {
 
 /* line 835, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .confirm-checkbox input:checked + label {
-  background: url(./../../data/img/success-check.png) no-repeat center center/cover;
+  background: url(./../data/img/success-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -4830,7 +4807,7 @@ h6 {
 
 /* line 876, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .disabled-checkbox input:checked + label {
-  background: url(./../../data/img/disabled-check.png) no-repeat center center/cover;
+  background: url(./../data/img/disabled-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -4872,7 +4849,7 @@ h6 {
 
 /* line 913, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .primary-radio input:checked + label {
-  background: url(./../../data/img/primary-radio.png) no-repeat center center/cover;
+  background: url(./../data/img/primary-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -4914,7 +4891,7 @@ h6 {
 
 /* line 950, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .confirm-radio input:checked + label {
-  background: url(./../../data/img/success-radio.png) no-repeat center center/cover;
+  background: url(./../data/img/success-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -4962,7 +4939,7 @@ h6 {
 
 /* line 991, ../../Arafath/CL/CL October/218 PORTFOLIO/HTML/scss/_elements.scss */
 .disabled-radio input:checked + label {
-  background: url(./../../data/img/disabled-radio.png) no-repeat center center/cover;
+  background: url(./../data/img/disabled-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -6781,100 +6758,3 @@ h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
-
-.title-animation {
-  animation: title-animate 2s linear forwards;
-}
-
-.btn.contact-me {
-  cursor: pointer;
-  &:hover {
-    color: yellow !important;
-  }
-}
-
-span.firstcharacter {
-  color: #2c3d4f;
-  float: left;
-  font-family: Georgia;
-  font-size: 50px;
-  line-height: 50px;
-  padding-top: 0px;
-  padding-right: 8px;
-  padding-left: 3px;
-}
-
-.service_area p.short-des {
-  background-color: lightgrey;
-}
-
-.skill-item {
-  cursor: pointer;
-  &:hover {
-    color: red;
-  }
-}
-
-.header-area .main-header-area .main-menu ul li {
-  &:hover {
-    a { color: yellow; }
-  }
-}
-
-
-.about-extra-icon ul li {
-  float: left;
-  font-weight: 800;
-  line-height: 750;
-  width: 100px;
-  height: 70px;
-  text-align: center;
-  &:hover {
-    background-color: lightgreen;
-  }
-}
-
-.hobbies_area {
-  margin-top: 150px;
-  margin-bottom: 150px;
-  .container {
-    background-color: lightgray;
-  }
-}
-
-.projects ul li {
-  width: 150px;
-  height: 100px;
-  float: left;
-  text-align: center;
-  align-items: center;
-  vertical-align: center;
-  padding-top: 30px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: lightgreen;
-    border: solid 2px red;
-    a {
-      color: yellow;
-    }
-  }
-}
-
-@keyframes title-animate {
-  0% {
-    opacity: 0;
-    filter: blur(10px);
-    transform: rotateX(90deg);
-  }
-  50% {
-    letter-spacing: 15px;
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    letter-spacing: 8px;
-    transform: rotateX(0deg);
-  }
-}

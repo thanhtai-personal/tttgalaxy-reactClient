@@ -1,10 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
-import '../portfolio/v2/template/melan/css/style.css'
-
-import ActionService from '../../actions'
-
+import './style.scss'
 import { withEventEmitter } from './../../middleware'
 import { EVENT_EMITTER_COMMAND } from './../../constants/enums'
 import styled from 'styled-components'
@@ -27,6 +22,8 @@ const SelectionCommand = styled.ul`
   padding-left: 8px;
   margin-left: 35px;
   position: absolute;
+  height: 300px;
+  overflow: scroll;
   li {
     cursor: pointer;
     padding: 5px;
@@ -136,11 +133,4 @@ class PortfolioHeader extends React.PureComponent {
   }
 }
 
-
-function mapStateToProps({ common: { language } }) {
-  return {
-    language: language.header
-  };
-}
-
-export default connect(mapStateToProps, { logout: ActionService.logout })(withEventEmitter(PortfolioHeader))
+export default withEventEmitter(PortfolioHeader)

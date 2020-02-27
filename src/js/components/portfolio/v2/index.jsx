@@ -17,9 +17,6 @@ const Projects = React.lazy(() => import('./counter'))
 const Hobbies = React.lazy(() => import('./hobbies'))
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
-// const RainEffect = React.lazy(() => import('./../../common/cssEffects/rain/rain'))
-const SpaceEffect = React.lazy(() => import('./../../common/cssEffects/spacing/space'))
 const TravellerEffect = React.lazy(() => import('./../../common/cssEffects/becomeTraveler/traveler'))
 const SeaFooter = React.lazy(() => import('./../../UIMakeup/footer'))
 
@@ -183,46 +180,20 @@ class Portfolio extends PureComponent {
   }
 
   render() {
-    const {
-      skill,
-      basicInfo,
-      experiences,
-      education,
-      profileImageUrl,
-      updateContentData,
-      updatePortfolioDataWithObjectKey,
-      submitDataUpdate,
-      validateDataUpdate,
-      publicProfile,
-      paramPublicKey,
-      publicKey,
-      isLoading
-    } = this.props
     return (
       <React.Fragment>
         {this.state.showRain &&
-          // <Suspense fallback={this.renderLoading()}>
           <RainEffect />
-          // </Suspense>
         }
         {this.state.showSnow && <SnowFallEffect />}
         {this.state.showSnowSlow && <SnowFallSlowEffect />}
-        {this.state.showSpace &&
-          <Suspense fallback={this.renderLoading()}>
-            <SpaceEffect />
-          </Suspense>}
         <Suspense fallback={this.renderLoading()}><Slider /></Suspense>
         <Suspense fallback={this.renderLoading()}><Skill /></Suspense>
         {this.state.showTraveler &&
           <div className='row'>
-            <div className='col-xl-6 col-md-6'>
+            <div className='col-xl-12 col-md-12'>
               <Suspense fallback={this.renderLoading()}>
-                <div style={{ width: '100%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '10%', opacity: '0.5' }}><TravellerEffect /></div>
-              </Suspense>
-            </div>
-            <div className='col-xl-6 col-md-6'>
-              <Suspense fallback={this.renderLoading()}>
-                <div style={{ width: '100%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '10%', opacity: '0.5' }}><TravellerEffect /></div>
+                <div style={{ width: '50%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '30%', opacity: '0.5' }}><TravellerEffect /></div>
               </Suspense>
             </div>
           </div>
