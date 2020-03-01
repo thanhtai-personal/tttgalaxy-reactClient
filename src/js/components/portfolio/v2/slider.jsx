@@ -13,7 +13,7 @@ const Slider = (props) => {
                                 Trần Thanh Tài
                             </h3>
                             <span>Web developer</span><br />
-                            <span className='slogan'>"create a meaning life"</span>
+                            <span className='slogan'>"Add goal, remove wait in your dictionary"</span>
                         </div>
                     </div>
                 </div>
