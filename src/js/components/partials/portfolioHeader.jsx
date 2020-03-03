@@ -109,7 +109,7 @@ class PortfolioHeader extends React.PureComponent {
                             <li><a href='/portfolio'>Portfolio</a></li>
                           </ul>
                         </li>
-                        <li><a href='/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ'>Contact</a></li>
+                        <li><a href='https://tttgalaxy.co.uk/portfolio/public/eyJhbGciOiJIUzI1NiJ9.dGhhbmh0YWkudHR0Z2FsYXh5QGdtYWlsLmNvbQ.6HXR4tCT6aI6aWseNfMAr3CUbVVYeGmsRL4JMC6wzPQ'>Contact</a></li>
                       </ul>
                     </nav>
                   </div>
