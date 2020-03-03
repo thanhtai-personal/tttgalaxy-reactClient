@@ -7,19 +7,19 @@ import { PlayerStyled } from './playerStyled'
 import AudioPlayer from './../../utils/audioPlayer'
 
 import background1 from './../../data/sounds/khacviet-yeu.mp3'
-import background2 from './../../data/sounds/Hondacodon.mp3'
+import background2 from './../../data/sounds/doimat.mp3'
 import background3 from './../../data/sounds/ToiMuonYeuMotNguoi-KhoiMy.mp3'
 
 const defaultMusicList = [
   {
+    name: 'Đôi mắt',
+    artist: 'beat',
+    src: background2
+  },
+  {
     name: 'Yêu',
     artist: 'beat',
     src: background1
-  },
-  {
-    name: 'Hòn đá cô đơn',
-    artist: 'beat',
-    src: background2
   },
   {
     name: 'Tôi muốn yêu một người',

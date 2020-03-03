@@ -8,6 +8,7 @@ import SnowFallEffect from './../../common/cssEffects/snowFall/snowFall'
 import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
 import LoadingPage from './../../common/loadingPage'
 import { Music } from './../../common/music/music'
+// import YoutubePanel from './../../common/youtube'
 
 const Slider = React.lazy(() => import('./slider'))
 const Skill = React.lazy(() => import('./service'))
@@ -15,9 +16,9 @@ const PortfolioArea = React.lazy(() => import('./portfolio'))
 const Contact = React.lazy(() => import('./aboutMe'))
 const Projects = React.lazy(() => import('./counter'))
 const Hobbies = React.lazy(() => import('./hobbies'))
+const YoutubeSlider = React.lazy(() => import('./youtube'))
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-const TravellerEffect = React.lazy(() => import('./../../common/cssEffects/becomeTraveler/traveler'))
 const SeaFooter = React.lazy(() => import('./../../UIMakeup/footer'))
 
 const showDefault = {
@@ -30,19 +31,6 @@ const showDefault = {
 }
 
 const rainBackground = 'gray', defaultBackground = 'none', defaultTimeStart = 0, maxTime = 120
-
-const listAudio = [
-  {
-    name: 'Sai lam cua anh',
-    artist: 'nhacchuongvui.com',
-    path: './sounds/sai-lam-cua-anh.mp3'
-  },
-  {
-    name: '/wah wah wah',
-    artist: 'nhacchuongvui.com',
-    path: './sounds/wah-wah-wah.mp3'
-  },
-]
 
 class Portfolio extends PureComponent {
 
@@ -189,24 +177,22 @@ class Portfolio extends PureComponent {
         {this.state.showSnowSlow && <SnowFallSlowEffect />}
         <Suspense fallback={this.renderLoading()}><Slider /></Suspense>
         <Suspense fallback={this.renderLoading()}><Skill /></Suspense>
-        {this.state.showTraveler &&
-          <div className='row'>
-            <div className='col-xl-12 col-md-12'>
-              <Suspense fallback={this.renderLoading()}>
-                <div style={{ width: '50%', zIndex: 100, alignItems: 'center', textAlign: 'center', paddingLeft: '30%', opacity: '0.5' }}><TravellerEffect /></div>
-              </Suspense>
-            </div>
-          </div>
-        }
         <Suspense fallback={this.renderLoading()}><PortfolioArea /> </Suspense>
         <Suspense fallback={this.renderLoading()}><Contact /> </Suspense>
         <Suspense fallback={this.renderLoading()}><Projects /> </Suspense>
         <Suspense fallback={this.renderLoading()}><Hobbies /> </Suspense>
+        <div className='row'>
+            <div className='col-xl-12 col-md-12'>
+              <Suspense fallback={this.renderLoading()}>
+                <YoutubeSlider />
+              </Suspense>
+            </div>
+          </div>
         {this.state.showOcean &&
           <Suspense fallback={this.renderLoading()}>
             <SeaFooter />
           </Suspense>}
-        <Music listAudioUrl={listAudio}/>
+        <Music listAudioUrl={[]}/>
       </React.Fragment>
     )
   }
