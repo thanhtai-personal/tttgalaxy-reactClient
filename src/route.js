@@ -27,7 +27,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={UserLayout({ header: PortfolioV2Header, footer: PortfolioV2Footer }, PortfolioV2)} />
+      <Route path="/" exact component={UserLayout({ header: Header }, Home)} />
       {renderPublicRoute()}
       <Route component={() => { return (<div>not found</div>) }} />
     </Switch>
