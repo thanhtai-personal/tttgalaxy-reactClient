@@ -9,6 +9,7 @@ import SnowFallSlowEffect from './../../common/cssEffects/snowFallSlow/snowFall'
 import LoadingPage from './../../common/loadingPage'
 import { Music } from './../../common/music/music'
 // import YoutubePanel from './../../common/youtube'
+import FacebookMessenger  from './../../common/facebook/messenger'
 
 const Slider = React.lazy(() => import('./slider'))
 const Skill = React.lazy(() => import('./service'))
@@ -193,6 +194,7 @@ class Portfolio extends PureComponent {
             <SeaFooter />
           </Suspense>}
         <Music listAudioUrl={[]}/>
+        {/* <FacebookMessenger /> */}
       </React.Fragment>
     )
   }

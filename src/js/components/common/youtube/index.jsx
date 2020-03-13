@@ -15,7 +15,7 @@ const YoutubePanel = (props) => {
   return (
     <Youtube className={`container ${props.className || ''}`}>
       <iframe width='100%' height='100%' src={videoSrc}
-        frameborder={frameborder} allow={allow} allowfullscreen={allowfullscreen}></iframe>
+        frameBorder={frameborder} allow={allow} allowFullScreen={allowfullscreen}></iframe>
     </Youtube>)
 }
 
