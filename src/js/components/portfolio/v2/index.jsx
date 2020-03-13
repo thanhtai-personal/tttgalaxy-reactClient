@@ -194,7 +194,7 @@ class Portfolio extends PureComponent {
             <SeaFooter />
           </Suspense>}
         <Music listAudioUrl={[]}/>
-        {/* <FacebookMessenger /> */}
+        <FacebookMessenger />
       </React.Fragment>
     )
   }
