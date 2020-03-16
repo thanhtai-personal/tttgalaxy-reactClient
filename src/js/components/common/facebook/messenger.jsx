@@ -5,7 +5,7 @@ const FacebookMessenger = () => {
 
   useEffect(() => {
     window.fbAsyncInit = function () {
-      FB.init({
+      window.FB.init({
         xfbml: true,
         version: 'v6.0'
       })
