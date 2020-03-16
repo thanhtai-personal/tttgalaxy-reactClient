@@ -15,7 +15,7 @@ button {
   padding: 10px 10px 10px 0;
   opacity: 1 !important;
   :hover {
-    color: white !important;
+    color: aliceblue !important;
     cursor: pointer;
   }
   span {
@@ -23,4 +23,20 @@ button {
     font-size: calc(.27548vw + 12.71074px);
   }
 }
+`
+
+export const LoginPageStyled = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: lightgray;
+  .login-wrapper {
+    display: table;
+    margin: 15vh auto;
+    padding: 25vh;
+    border-radius: 15%;
+    box-shadow: 10px 10px gray;
+    background-color: aliceblue;
+    opacity: 0.7;
+  }
 `
