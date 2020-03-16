@@ -6,6 +6,7 @@ import { RequireAuth, UserLayout, Localization } from './js/middleware'
 import PortfolioV2Header from './js/components/partials/portfolioHeader'
 import PortfolioV2Footer from './js/components/partials/portfolioFooter'
 import PortfolioV2 from './js/containers/portfolioV2'
+import LoginContainer from './js/containers/login'
 
 const publicRoute = [
   {
@@ -14,6 +15,11 @@ const publicRoute = [
     isExact: false,
     layout: { header: PortfolioV2Header, footer: PortfolioV2Footer }
   },
+  {
+    path: '/login',
+    component: LoginContainer,
+    isExact: false
+  }
 ]
 
 
