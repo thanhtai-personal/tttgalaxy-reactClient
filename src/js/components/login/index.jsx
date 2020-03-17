@@ -83,7 +83,7 @@ class Login extends PureComponent {
         <LoginButtonStyled>
           <Suspense fallback={() => <LoadingPage />}>
             <GoogleLoginButton
-              buttonText='LOGIN WITH GOOGLE'
+              buttonText={language.loginWithGoogle}//'LOGIN WITH GOOGLE'
             />
           </Suspense>
         </LoginButtonStyled>
