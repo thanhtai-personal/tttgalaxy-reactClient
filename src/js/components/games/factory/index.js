@@ -1,38 +1,38 @@
-import gameIdentityData from './types'
-import { GameId } from './../enum'
-import _ from 'lodash'
+// import gameIdentityData from './types'
+// import { GameId } from './../enum'
+// import _ from 'lodash'
 
-const GameFactory = (gameId) => {
+// const GameFactory = (gameId) => {
 
-  let gameData = gameIdentityData.find((gm) => gm.id === gameId)
-  if (_.isNil(gameData)) {
-    gameData = gameIdentityData.find((gm) => gm.id === GameId.helloWorld)
-  }
+//   let gameData = gameIdentityData.find((gm) => gm.id === gameId)
+//   if (_.isNil(gameData)) {
+//     gameData = gameIdentityData.find((gm) => gm.id === GameId.helloWorld)
+//   }
 
-  const getGameConfig = () => {
-    return gameData.gameConfig 
-  }
+//   const getGameConfig = () => {
+//     return gameData.gameConfig 
+//   }
 
-  const getStartScene = () => {
-    return gameData.startScene
-  }
+//   const getStartScene = () => {
+//     return gameData.startScene
+//   }
 
-  const getScenes = () => {
-    return gameData.scenes
-  }
+//   const getScenes = () => {
+//     return gameData.scenes
+//   }
 
-  const getScenesData = () => {
-    return {}
-  }
+//   const getScenesData = () => {
+//     return {}
+//   }
   
 
 
-  return {
-    getGameConfig: getGameConfig,
-    getScenes: getScenes,
-    getScenesData: getScenesData,
-    getStartScene: getStartScene,
-  }
-}
+//   return {
+//     getGameConfig: getGameConfig,
+//     getScenes: getScenes,
+//     getScenesData: getScenesData,
+//     getStartScene: getStartScene,
+//   }
+// }
 
-export default GameFactory
+// export default GameFactory

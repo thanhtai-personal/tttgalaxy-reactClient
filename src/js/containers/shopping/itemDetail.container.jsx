@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
 
 
-class ItemDetailContainer extends Component {
-  render() {
-    return (
-      <div></div>
-    )
-  }
-}
+// class ItemDetailContainer extends Component {
+//   render() {
+//     return (
+//       <div></div>
+//     )
+//   }
+// }
 
-function mapStateToProps (state) {
-  return {
-  };
-}
+// function mapStateToProps (state) {
+//   return {
+//   };
+// }
 
-export default connect(
-  mapStateToProps,
-  {  }
-)(ItemDetailContainer);
+// export default connect(
+//   mapStateToProps,
+//   {  }
+// )(ItemDetailContainer);

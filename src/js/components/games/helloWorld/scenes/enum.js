@@ -1,4 +1,4 @@
-export const SceneKey = {
-  helloScene: 'helloScene',
-  testScene: 'testScene'
-}
+// export const SceneKey = {
+//   helloScene: 'helloScene',
+//   testScene: 'testScene'
+// }

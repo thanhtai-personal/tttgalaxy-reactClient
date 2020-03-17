@@ -1,13 +1,13 @@
-import helloCanvas from './helloCanvas'
-import { gameName } from './../../enum'
+// import helloCanvas from './helloCanvas'
+// import { gameName } from './../../enum'
 
-let listGames = {}
-listGames[gameName.helloCanvas] = helloCanvas
+// let listGames = {}
+// listGames[gameName.helloCanvas] = helloCanvas
 
-const start = (canvas, context, gameImportedName) => {
-  listGames[gameImportedName] ? listGames[gameImportedName].start(canvas, context) : helloCanvas.start(canvas, context)
-}
+// const start = (canvas, context, gameImportedName) => {
+//   listGames[gameImportedName] ? listGames[gameImportedName].start(canvas, context) : helloCanvas.start(canvas, context)
+// }
 
-export default {
-  start
-}
+// export default {
+//   start
+// }

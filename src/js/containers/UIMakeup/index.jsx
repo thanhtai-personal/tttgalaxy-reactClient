@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
 
-import UIMakeup from '../../components/UIMakeup'
+// import UIMakeup from '../../components/UIMakeup'
 
-class UIMakeupContainer extends Component {
-  render () {
-    // const {
-    // } = this.props
-    return (
-      <UIMakeup
-      />
-    )
-  }
-}
+// class UIMakeupContainer extends Component {
+//   render () {
+//     // const {
+//     // } = this.props
+//     return (
+//       <UIMakeup
+//       />
+//     )
+//   }
+// }
 
-function mapStateToProps (state) {
-  return {
-  };
-}
+// function mapStateToProps (state) {
+//   return {
+//   };
+// }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(UIMakeupContainer);
+// export default connect(
+//   mapStateToProps,
+//   {}
+// )(UIMakeupContainer);

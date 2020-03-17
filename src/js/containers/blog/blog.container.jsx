@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
 
-// import Blog from '../../components/blog/blog'
-import Blog from '../../components/blog_v2'
-// import Blog from '../../components/blog_v3'
+// // import Blog from '../../components/blog/blog'
+// import Blog from '../../components/blog_v2'
+// // import Blog from '../../components/blog_v3'
 
 
-class BlogContainer extends Component {
-  render() {
-    return (<Blog />)
-  }
-}
+// class BlogContainer extends Component {
+//   render() {
+//     return (<Blog />)
+//   }
+// }
 
-function mapStateToProps ({listGame: { } }) {
-  return {
-  };
-}
+// function mapStateToProps ({listGame: { } }) {
+//   return {
+//   };
+// }
 
-export default connect(
-  mapStateToProps,
-  {  }
-)(BlogContainer);
+// export default connect(
+//   mapStateToProps,
+//   {  }
+// )(BlogContainer);

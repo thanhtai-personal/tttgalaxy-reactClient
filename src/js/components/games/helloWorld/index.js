@@ -1,11 +1,11 @@
-import helloWorldData from './data.json'
-import helloWorldScenes from './scenes'
+// import helloWorldData from './data.json'
+// import helloWorldScenes from './scenes'
 
-const helloWorld = {
-  gameData: helloWorldData.data,
-  gameConfig: helloWorldData.config,
-  scenes: helloWorldScenes,
-  startScene: helloWorldData.startScene
-}
+// const helloWorld = {
+//   gameData: helloWorldData.data,
+//   gameConfig: helloWorldData.config,
+//   scenes: helloWorldScenes,
+//   startScene: helloWorldData.startScene
+// }
 
-export default helloWorld
+// export default helloWorld

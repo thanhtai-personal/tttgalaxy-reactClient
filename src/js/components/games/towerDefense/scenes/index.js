@@ -1,7 +1,7 @@
-import loadingScene from './loadingScene'
+// import loadingScene from './loadingScene'
 
-const scenes = [
-  loadingScene
-]
+// const scenes = [
+//   loadingScene
+// ]
 
-export default scenes
+// export default scenes

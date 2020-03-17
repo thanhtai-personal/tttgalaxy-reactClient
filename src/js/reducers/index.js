@@ -5,26 +5,26 @@
 import { combineReducers } from 'redux'
 
 import home from './home.reducer'
-import listItem from './item.list.reducer'
-import listGame from './games.reducer'
+// import listItem from './item.list.reducer'
+// import listGame from './games.reducer'
 import login from './login.reducer'
-import signup from './signup.reducer'
+// import signup from './signup.reducer'
 import auth from './auth.reducer'
-import portfolio from './portfolio.reducer'
+// import portfolio from './portfolio.reducer'
 import common from './common.reducer'
-import novals from './novals.reducer'
-import blogCreator from './blogCreator.reducer'
+// import novals from './novals.reducer'
+// import blogCreator from './blogCreator.reducer'
 
 
 export default combineReducers({
   home,
-  listItem,
-  listGame,
+  // listItem,
+  // listGame,
   login,
-  signup,
+  // signup,
   auth,
-  portfolio,
+  // portfolio,
   common,
-  novals,
-  blogCreator
+  // novals,
+  // blogCreator
 })

@@ -1,28 +1,28 @@
-import React, { PureComponent } from "react";
-import PhaserGame from './game'
-import CanvasGame from './canvasGame/index'
-import { gameType } from './enum'
+// import React, { PureComponent } from "react";
+// import PhaserGame from './game'
+// import CanvasGame from './canvasGame/index'
+// import { gameType } from './enum'
 
-export class PhaserGameComponent extends PureComponent {
+// export class PhaserGameComponent extends PureComponent {
   
-  constructor(props) {
-    super(props)
-  }
+//   constructor(props) {
+//     super(props)
+//   }
 
-  componentDidMount() {
-  }
+//   componentDidMount() {
+//   }
 
 
-  render() {
-    switch (this.props.data.gameType) {
-      case gameType.PHASER:
-        return <PhaserGame {...this.props} />
-      case gameType.CANVAS:
-        return <CanvasGame {...this.props} />
-      default:
-        return <PhaserGame {...this.props} />
-    }
-  }
-}
+//   render() {
+//     switch (this.props.data.gameType) {
+//       case gameType.PHASER:
+//         return <PhaserGame {...this.props} />
+//       case gameType.CANVAS:
+//         return <CanvasGame {...this.props} />
+//       default:
+//         return <PhaserGame {...this.props} />
+//     }
+//   }
+// }
 
-export default PhaserGameComponent
+// export default PhaserGameComponent

@@ -1,5 +1,5 @@
 import { 
-  UPDATE_USER_DATA,
+  // UPDATE_USER_DATA,
   RESET_ALL_STATE,
   GET_AUTH_DATA,
   VERIFY_TOKEN_FAILED
@@ -11,7 +11,7 @@ const initialState = {
 
 function authReducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_USER_DATA: 
+    // case UPDATE_USER_DATA: 
     case GET_AUTH_DATA:
         return {...state, ...action.payload}
     case VERIFY_TOKEN_FAILED:
