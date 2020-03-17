@@ -76,7 +76,8 @@
     "build": "set buildmode=production && node  --max-old-space-size=7168 scripts/build.js ",
     "test": "node scripts/test.js",
     "client": "node scripts/start.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "https": "set HTTPS=true&& npm start"
   },
   "eslintConfig": {
     "extends": "react-app"

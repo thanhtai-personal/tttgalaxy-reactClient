@@ -1,7 +1,10 @@
-import React, { PureComponent } from "react";
-
+import React, { Suspense, PureComponent } from "react";
+import LoadingPage from './../common/loadingPage'
+import { LoginButtonStyled } from './styled'
 import './login.scss'
 
+const FacebookLoginButton = React.lazy(() => import('./../common/facebook/login'))
+const GoogleLoginButton = React.lazy(() => import('./../common/google/login'))
 
 class Login extends PureComponent {
   constructor (props) {
@@ -70,6 +73,20 @@ class Login extends PureComponent {
         <small id="register-help" className="form-text text-muted center">
           <a href={`${this.location.origin}/register`}>{language.ifNotRegisterHere}</a>
         </small>
+        <LoginButtonStyled>
+          <Suspense fallback={() => <LoadingPage />}>
+            <FacebookLoginButton
+              icon='fa-facebook'
+            />
+          </Suspense>
+        </LoginButtonStyled>
+        <LoginButtonStyled>
+          <Suspense fallback={() => <LoadingPage />}>
+            <GoogleLoginButton
+              buttonText='LOGIN WITH GOOGLE'
+            />
+          </Suspense>
+        </LoginButtonStyled>
       </form>
     )
   }
