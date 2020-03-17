@@ -4,12 +4,19 @@ import { createBrowserHistory } from 'history';
 import { RequireAuth, UseLayout, Localization } from './middleware'
 
 import Home from './App'
+import News from './containers/news.container'
 
 const publicRoute = [
   {
     path: '/home',
     component: Home,
     isExact: true,
+    //layout: { header: Header, footer: Footer }
+  },
+  {
+    path: '/news',
+    component: News,
+    isExact: false,
     //layout: { header: Header, footer: Footer }
   }
 ]
@@ -33,7 +40,7 @@ const history = createBrowserHistory()
 const Routes = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" exact component={UseLayout({}, Home)} />
+      <Route path="/" exact component={UseLayout({}, News)} />
       {renderPublicRoute()}
       {renderPrivateRoute()}
       <Route component={() => { return (<div>not found</div>) }} />
